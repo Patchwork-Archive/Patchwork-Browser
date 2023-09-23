@@ -9,6 +9,7 @@ import ChannelPage from './pages/ChannelPage';
 import StatusPage from './pages/StatusPage';
 import RadioPage from './pages/RadioPage';
 import Footer from './components/Footer';
+import NotFoundPage from './pages/NotFoundPage';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/channel/:channelID" element={<ChannelPage />} />
       <Route path="/status" element={<StatusPage />} />
       <Route path="/radio" element={<RadioPage />} />
+      <Route path="*" element={<NotFoundPage />} /> 
   </Routes>
   <Footer />
   </BrowserRouter>
