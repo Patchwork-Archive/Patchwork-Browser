@@ -1,7 +1,7 @@
 import VideoGrid from "../components/VideoGrid";
 import Divider from "../components/Divider";
 import { Helmet } from "react-helmet";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function LandingPage() {
   const [storageUsed, setStorageUsed] = useState(0);
@@ -14,13 +14,6 @@ function LandingPage() {
     setNumberOfVideos(data.number_of_files);
   })
   .catch(error => console.error(error));
-
-  useEffect(() => {
-    const helmetElements = document.querySelectorAll('[data-react-helmet]')
-    helmetElements.forEach(el => {
-      el.removeAttribute('data-react-helmet')
-    })
-  }, []);
 
   return (
     <>

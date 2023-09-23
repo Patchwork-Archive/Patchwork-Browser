@@ -2,19 +2,11 @@ import { useLocation } from "react-router-dom";
 import SearchResults from "../components/SearchResults";
 import PageSwitcher from "../components/PageSwitcher";
 import { Helmet } from "react-helmet";
-import { useEffect } from "react";
 
 function SearchResultPage() {
   const { search } = useLocation();
   const query = new URLSearchParams(search).get("q");
   const page = new URLSearchParams(search).get("page") || 1;
-
-  useEffect(() => {
-    const helmetElements = document.querySelectorAll('[data-react-helmet]')
-    helmetElements.forEach(el => {
-      el.removeAttribute('data-react-helmet')
-    })
-  }, []);
 
   return (
     <>

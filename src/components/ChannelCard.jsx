@@ -11,6 +11,7 @@ const ChannelCard = ({ apiUrl }) => {
             .then((data) => setChannelData(data.channel_name));
     }, [apiUrl]);
 
+    console.log(apiUrl);
 
     return (
         <div className="flex justify-center rounded mt-8">

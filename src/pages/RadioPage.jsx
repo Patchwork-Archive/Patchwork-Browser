@@ -1,16 +1,7 @@
 import RadioPlayer from "../components/RadioPlayer";
 import { Helmet } from "react-helmet";
-import { useEffect } from "react";
 
 function RadioPage() {
-
-  useEffect(() => {
-    const helmetElements = document.querySelectorAll("[data-react-helmet]");
-    helmetElements.forEach((el) => {
-      el.removeAttribute("data-react-helmet");
-    });
-  }, []);
-
   return (
     <>
       <Helmet>
@@ -26,10 +17,7 @@ function RadioPage() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${window.location.origin}`} />
         <meta property="og:title" content="Patchwork Archive" />
-        <meta
-          property="og:image"
-          content={`${window.location.origin}/favicon.png`}
-        />
+        <meta property="og:image" content={`${window.location.origin}/favicon.png`} />
         <meta
           property="og:description"
           content="Preserving rhythm, one video at a time"

@@ -44,13 +44,6 @@ function StatusPage() {
       });
   };
 
-  useEffect(() => {
-    const helmetElements = document.querySelectorAll('[data-react-helmet]')
-    helmetElements.forEach(el => {
-      el.removeAttribute('data-react-helmet')
-    })
-  }, []);
-
   return (
     <>
       <Helmet>
