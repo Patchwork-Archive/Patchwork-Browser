@@ -15,15 +15,15 @@ function RadioPage() {
           content="Preserving rhythm, one video at a time"
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="/" />
+        <meta property="og:url" content={`${window.location.origin}`} />
         <meta property="og:title" content="Patchwork Archive" />
-        <meta property="og:image" content="/favicon.png" />
+        <meta property="og:image" content={`${window.location.origin}/favicon.png`} />
         <meta
           property="og:description"
           content="Preserving rhythm, one video at a time"
         />
         <meta property="twitter:card" content="summary" />
-        <meta property="twitter:url" content="/" />
+        <meta property="twitter:url" content={`${window.location.origin}`} />
         <meta
           property="twitter:title"
           content="Patchwork Archive - The VTuber Music Archives"

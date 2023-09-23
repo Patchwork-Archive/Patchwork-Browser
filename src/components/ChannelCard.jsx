@@ -19,12 +19,12 @@ const ChannelCard = ({ apiUrl }) => {
                 <meta name="title" content={`${channelData} - Patchwork Archive`} />
                 <meta name="description" content="Preserving rhythm, one video at a time" />
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content={`/channel/${channelData}`}/>
+                <meta property="og:url" content={`${window.location.origin}/channel/${channelData}`}/>
                 <meta property="og:title" content={`${channelData} - Patchwork Archive`} />
-                <meta property="og:image" content="/favicon.png" />
+                <meta property="og:image" content={`${window.location.origin}/favicon.png`} />
                 <meta property="og:description" content="Preserving rhythm, one video at a time" />
                 <meta property="twitter:card" content="summary" />
-                <meta property="twitter:url" content={`/channel/${channelData}`} />
+                <meta property="twitter:url" content={`${window.location.origin}/channel/${channelData}`} />
                 <meta property="twitter:title" content={`${channelData} - Patchwork Archive`} />
                 <meta property="twitter:description" content="Preserving rhythm, one video at a time" />
                 <meta property="twitter:creator" content="@pinapelz" />

@@ -22,7 +22,6 @@ const VideoPage = () => {
         <meta property="og:type" content="video.other" />
         <meta property="og:video:type" content="text/html" />
         <meta property="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="{{domain}}/watch?v={{video_id}}" />
       </Helmet>
       <div className="flex flex-col md:flex-row flex-wrap">
         <div className="w-full mt-2 md:w-2/3 p-4">

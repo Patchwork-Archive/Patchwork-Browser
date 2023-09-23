@@ -32,15 +32,16 @@ const VideoPlayer = ({ videoId = "" }) => {
               <title>{videoData.title} - Patchwork Archive</title>
               <meta name="title" content={`${videoData.title}`} />
               <meta name="description" content={`${videoData.channel}`} />
-              <meta property="og:url" content={`/watch?v=${videoId}`} />
+              <meta property="og:url" content={`${window.location.origin}/watch?v=${videoId}`} />
               <meta property="og:title" content={`${videoData.title}`} />
               <meta property="og:description" content={`${videoData.channel}`} />
               <meta property="og:image" content={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`} />
               <meta property="og:video:url" content={`${videoCDNUrl}`} />
-              <meta property="twitter:url" content={`/watch?v=${videoId}`} />
+              <meta property="twitter:url" content={`${window.location.origin}/watch?v=${videoId}`} />
               <meta property="twitter:title" content={`${videoData.title}`} />
               <meta property="twitter:description" content={`${videoData.channel}`} />
               <meta property="twitter:image" content={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`} />
+              <link rel="canonical" href={`${window.location.origin}/watch?v=${videoId}`} />
             </Helmet>
             <video
               className="w-full rounded-lg shadow-md"
