@@ -1,8 +1,20 @@
 import VideoGrid from "../components/VideoGrid";
 import Divider from "../components/Divider";
 import { Helmet } from "react-helmet";
+import { useState } from "react";
 
 function LandingPage() {
+  const [storageUsed, setStorageUsed] = useState(0);
+  const [numberOfVideos, setNumberOfVideos] = useState(0);
+
+  fetch('https://archive.pinapelz.moe/api/storage/status')
+  .then(response => response.json())
+  .then(data => {
+    setStorageUsed(data.storage_size);
+    setNumberOfVideos(data.number_of_files);
+  })
+  .catch(error => console.error(error));
+
   return (
     <>
       <Helmet>
@@ -44,7 +56,7 @@ function LandingPage() {
             Welcome to the VTuber Music Archives
           </h2>
           <p className="text-xl text-gray-400">
-            We have 0 videos archived taking up 10GB of storage space.
+            We have {numberOfVideos} videos archived taking up {storageUsed}GB of storage space.
           </p>
         </div>
         <VideoGrid
