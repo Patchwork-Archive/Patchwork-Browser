@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import VideoPlayer from "../components/VideoPlayer";
 import ColumnVideoGrid from "../components/ColumnVideoGrid";
-import { Helmet } from "react-helmet-async";
 
 const VideoPage = () => {
   const [videoId, setVideoId] = useState("");
@@ -14,15 +13,6 @@ const VideoPage = () => {
 
   return (
     <>
-      <Helmet>
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Patchwork Archive" />
-        <meta property="og:video:height" content="720" />
-        <meta property="og:video:width" content="1280" />
-        <meta property="og:type" content="video.other" />
-        <meta property="og:video:type" content="text/html" />
-        <meta property="twitter:card" content="summary_large_image" />
-      </Helmet>
       <div className="flex flex-col md:flex-row flex-wrap">
         <div className="w-full mt-2 md:w-2/3 p-4">
           <VideoPlayer videoId={videoId} />

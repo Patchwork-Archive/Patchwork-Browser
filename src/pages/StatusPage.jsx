@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ServerStatusCard from "../components/ServerStatusCard";
 import WorkerGrid from "../components/WorkerGrid";
-import { Helmet } from "react-helmet-async";
+import HeadTags from "../components/HeadTags";
 
 function StatusPage() {
   const [timeLeft, setTimeLeft] = useState(15);
@@ -46,36 +46,12 @@ function StatusPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Patchwork Archive</title>
-        <meta
-          name="title"
-          content="Patchwork Archive - The VTuber Music Archives"
+      <HeadTags 
+        title="Patchwork Archive - Status" 
+        description="Preserving Cultured Rhythm For the Future"
+        image="https://patchwork.moekyun.me/favicon.png"
+        url="/status"
         />
-        <meta
-          name="description"
-          content="Preserving rhythm, one video at a time"
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${window.location.origin}`} />
-        <meta property="og:title" content="Patchwork Archive" />
-        <meta property="og:image" content={`${window.location.origin}/favicon.png`} />
-        <meta
-          property="og:description"
-          content="Preserving rhythm, one video at a time"
-        />
-        <meta property="twitter:card" content="summary" />
-        <meta property="twitter:url" content={`${window.location.origin}`} />
-        <meta
-          property="twitter:title"
-          content="Patchwork Archive - The VTuber Music Archives"
-        />
-        <meta
-          property="twitter:description"
-          content="Preserving rhythm, one video at a time"
-        />
-        <meta property="twitter:creator" content="@pinapelz" />
-      </Helmet>
       <ServerStatusCard apiUrl="https://archive.pinapelz.moe/api/status" />
       <h1 className="text-white text-3xl justify-center flex font-bold">
         Workers

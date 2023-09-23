@@ -1,7 +1,8 @@
 import VideoGrid from "../components/VideoGrid";
 import Divider from "../components/Divider";
-import { Helmet } from "react-helmet-async";
+
 import { useState } from "react";
+import HeadTags from "../components/HeadTags";
 
 function LandingPage() {
   const [storageUsed, setStorageUsed] = useState(0);
@@ -17,39 +18,12 @@ function LandingPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Patchwork Archive</title>
-        <meta
-          name="title"
-          content="Patchwork Archive - The VTuber Music Archives"
+        <HeadTags 
+        title="Patchwork Archive" 
+        description="Preserving Cultured Rhythm For the Future"
+        image="https://patchwork.moekyun.me/favicon.png"
+        url=""
         />
-        <meta
-          name="description"
-          content="Preserving rhythm, one video at a time"
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`${window.location.origin}`} />
-        <meta property="og:title" content="Patchwork Archive" />
-        <meta
-          property="og:image"
-          content={`${window.location.origin}/favicon.png`}
-        />
-        <meta
-          property="og:description"
-          content="Preserving rhythm, one video at a time"
-        />
-        <meta property="twitter:card" content="summary" />
-        <meta property="twitter:url" content={`${window.location.origin}`} />
-        <meta
-          property="twitter:title"
-          content="Patchwork Archive - The VTuber Music Archives"
-        />
-        <meta
-          property="twitter:description"
-          content="Preserving rhythm, one video at a time"
-        />
-        <meta property="twitter:creator" content="@pinapelz" />
-      </Helmet>
       <main className="max-w-screen-xl mx-auto px-4 mt-8">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold mb-4 mt-16 text-white">

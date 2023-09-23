@@ -14,6 +14,7 @@ const VideoGrid = ({ apiUrl = "", titleText = "" }) => {
   }, [apiUrl]);
 
   return (
+    <>
     <div className="p-4">
       <h2 className="text-2xl text-white mb-3 font-bold">{titleText}</h2>
       <div className="flex flex-wrap -m-2">
@@ -49,6 +50,7 @@ const VideoGrid = ({ apiUrl = "", titleText = "" }) => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

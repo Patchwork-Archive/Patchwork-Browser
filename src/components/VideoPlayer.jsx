@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import HeadTags from "../components/HeadTags";
 
 const VideoPlayer = ({ videoId = "" }) => {
   const videoCDNUrl = `https://cdn.pinapelz.com/VTuber%20Covers%20Archive/${videoId}.webm`;
@@ -11,8 +11,8 @@ const VideoPlayer = ({ videoId = "" }) => {
   useEffect(() => {
     fetch(
       "https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/metadata/" +
-      videoId +
-      ".info.json"
+        videoId +
+        ".info.json"
     )
       .then((response) => response.json())
       .then((data) => setVideoData(data))
@@ -28,42 +28,12 @@ const VideoPlayer = ({ videoId = "" }) => {
       <div className="flex flex-col items-center p-4 md:p-6 rounded-lg">
         {videoData ? (
           <div className="w-full">
-            <Helmet>
-              <title>{videoData.title} - Patchwork Archive</title>
-              <meta name="title" content={`${videoData.title}`} />
-              <meta name="description" content={`${videoData.channel}`} />
-              <meta
-                property="og:url"
-                content={`${window.location.origin}/watch?v=${videoId}`}
-              />
-              <meta property="og:title" content={`${videoData.title}`} />
-              <meta
-                property="og:description"
-                content={`${videoData.channel}`}
-              />
-              <meta
-                property="og:image"
-                content={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
-              />
-              <meta property="og:video:url" content={`${videoCDNUrl}`} />
-              <meta
-                property="twitter:url"
-                content={`${window.location.origin}/watch?v=${videoId}`}
-              />
-              <meta property="twitter:title" content={`${videoData.title}`} />
-              <meta
-                property="twitter:description"
-                content={`${videoData.channel}`}
-              />
-              <meta
-                property="twitter:image"
-                content={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
-              />
-              <link
-                rel="canonical"
-                href={`${window.location.origin}/watch?v=${videoId}`}
-              />
-            </Helmet>
+            <HeadTags
+              title={videoData.title}
+              description={videoData.channel}
+              image={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
+              url={`/watch?v=${videoId}`}
+            />
             <div
               className="video-container w-full relative"
               style={{ paddingBottom: "56.25%" }}
