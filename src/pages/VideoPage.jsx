@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import VideoPlayer from "../components/VideoPlayer";
 import ColumnVideoGrid from "../components/ColumnVideoGrid";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const VideoPage = () => {
   const [videoId, setVideoId] = useState("");

@@ -1,6 +1,6 @@
 import VideoGrid from "../components/VideoGrid";
 import Divider from "../components/Divider";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 
 function LandingPage() {

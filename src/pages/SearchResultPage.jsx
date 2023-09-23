@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import SearchResults from "../components/SearchResults";
 import PageSwitcher from "../components/PageSwitcher";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function SearchResultPage() {
   const { search } = useLocation();

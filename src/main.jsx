@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom/client'
-import './styles/index.css'
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import VideoPage from './pages/VideoPage';
@@ -10,9 +9,12 @@ import StatusPage from './pages/StatusPage';
 import RadioPage from './pages/RadioPage';
 import Footer from './components/Footer';
 import NotFoundPage from './pages/NotFoundPage';
+import { HelmetProvider } from 'react-helmet-async';
+import './styles/index.css'
 
+const helmetContext = {};
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <>
+  <HelmetProvider context={helmetContext}>
   <BrowserRouter>
   <Navbar />
   <Routes>
@@ -26,5 +28,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </Routes>
   <Footer />
   </BrowserRouter>
-  </>
+  </HelmetProvider>
 );

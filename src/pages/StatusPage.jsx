@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ServerStatusCard from "../components/ServerStatusCard";
 import WorkerGrid from "../components/WorkerGrid";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function StatusPage() {
   const [timeLeft, setTimeLeft] = useState(15);

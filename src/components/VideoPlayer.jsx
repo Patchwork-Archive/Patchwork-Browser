@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const VideoPlayer = ({ videoId = "" }) => {
   const videoCDNUrl = `https://cdn.pinapelz.com/VTuber%20Covers%20Archive/${videoId}.webm`;

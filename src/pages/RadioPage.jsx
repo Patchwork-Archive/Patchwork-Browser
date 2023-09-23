@@ -1,5 +1,5 @@
 import RadioPlayer from "../components/RadioPlayer";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 function RadioPage() {
   return (
