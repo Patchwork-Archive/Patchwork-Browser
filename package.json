@@ -20,7 +20,7 @@
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^1.3.0",
     "react-router-dom": "^6.16.0",
-    "react-srv3": "file:../react-srv3"
+    "react-srv3": "github:Patchwork-Archive/react-srv3"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
