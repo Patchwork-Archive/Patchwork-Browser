@@ -3,24 +3,48 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import HeadTags from "../components/HeadTags";
 
-const VideoPlayer = ({ videoId = "" }) => {
-  const videoCDNUrl = `https://cdn.pinapelz.com/VTuber%20Covers%20Archive/${videoId}.webm`;
-  const [videoData, setVideoData] = useState();
+const VideoPlayer = ({ videoId }) => {
+  const videoCDNUrl = `https://cdn.pinapelz.com/VTuber%20Covers%20Archive/${
+    videoId ?? ""
+  }.webm`;
+  const [videoData, setVideoData] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
-    fetch(
-      "https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/metadata/" +
-        videoId +
-        ".info.json"
-    )
-      .then((response) => response.json())
-      .then((data) => setVideoData(data))
-      .catch((error) => console.error(error));
+    if (videoId) {
+      fetch("https://archive.pinapelz.moe/api/database/video_data/" + videoId)
+        .then((response) => response.json())
+        .then((data) => setVideoData(data))
+        .catch((error) => console.error(error));
+    }
   }, [videoId]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
+  };
+
+  const formatDate = (rawDate) => {
+    try {
+      const parsedDate = new Date(
+        `${rawDate.slice(0, 4)}-${rawDate.slice(4, 6)}-${rawDate.slice(6, 8)}`
+      );
+      const dateString = parsedDate.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+      if (dateString === "Invalid Date") {
+        return rawDate;
+      } else {
+        return parsedDate.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        });
+      }
+    } catch (error) {
+      return rawDate;
+    }
   };
 
   return (
@@ -54,26 +78,16 @@ const VideoPlayer = ({ videoId = "" }) => {
               </p>
             </Link>
             <p className="text-white text-lg mt-2">
-              Published on:{" "}
-              {new Date(
-                `${videoData.upload_date.slice(
-                  0,
-                  4
-                )}-${videoData.upload_date.slice(
-                  4,
-                  6
-                )}-${videoData.upload_date.slice(6, 8)}`
-              ).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })}
+              Published on: {formatDate(videoData.upload_date)}
             </p>
+            {videoData._type ? null : (
+              <p className="text-gray-500 text-base mt-2">This video is missing an info.json. The data you see is from the fallback database</p>
+            )}
             <h2 className="text-white font-bold mt-4 text-lg">Description</h2>
             <div className="text-white mt-2">
               {isExpanded ? (
                 <React.Fragment>
-                  {videoData.description.split("\n").map((line, index) => (
+                  {videoData.description.split(/\n|\\n/).map((line, index) => (
                     <React.Fragment key={index}>
                       {line}
                       <br />
@@ -89,7 +103,7 @@ const VideoPlayer = ({ videoId = "" }) => {
               ) : (
                 <React.Fragment>
                   {videoData.description
-                    .split("\n")
+                    .split(/\n|\\n/)
                     .slice(0, 4)
                     .map((line, index) => (
                       <React.Fragment key={index}>
@@ -97,7 +111,7 @@ const VideoPlayer = ({ videoId = "" }) => {
                         <br />
                       </React.Fragment>
                     ))}
-                  {videoData.description.split("\n").length > 4 && (
+                  {videoData.description.split(/\n|\\n/).length > 4 && (
                     <button
                       onClick={toggleExpand}
                       className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-3"
