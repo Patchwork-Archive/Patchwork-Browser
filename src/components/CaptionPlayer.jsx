@@ -16,6 +16,7 @@ const CaptionPlayer = ({ videoId }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [captionsText, setCaptionsText] = useState("");
   const [selectedSubtitle, setSelectedSubtitle] = useState("");
+  const [showCaptions, setShowCaptions] = useState(true); // new state
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -27,17 +28,26 @@ const CaptionPlayer = ({ videoId }) => {
     }
   }, [videoId]);
 
-
   useEffect(() => {
+    console.log("Selected subtitle changed to " + selectedSubtitle);
     if (selectedSubtitle) {
-      fetch(`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/captions/${videoId}/${videoId}.${selectedSubtitle}.srv3`)
+      fetch(
+        `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/captions/${videoId}/${videoId}.${selectedSubtitle}.srv3`
+      )
         .then((res) => res.text())
-        .then(setCaptionsText);
+        .then((text) => {
+          console.log("Changing captions to " + selectedSubtitle);
+          setCaptionsText(text);
+        });
     }
   }, [selectedSubtitle, videoId]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
+  };
+
+  const toggleCaptions = () => {
+    setShowCaptions(!showCaptions);
   };
 
   const formatDate = (rawDate) => {
@@ -75,18 +85,27 @@ const CaptionPlayer = ({ videoId }) => {
               image={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
               url={`/watch?v=${videoId}`}
             />
-<div className="video-container w-full relative">
-<div className="video-wrapper w-full h-[calc(9/16*100vw)] md:h-[calc(9/16*60vw)]" style={{ position: 'relative' }}>
-    <video
-      ref={videoRef}
-      className="absolute top-0 left-0 w-full h-full object-contain"
-      src={videoCDNUrl}
-      poster={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
-      onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
-    />
-    <CaptionsRenderer className="absolute" srv3={captionsText} currentTime={currentTime} />
-  </div>
-</div>
+            <div className="video-container w-full relative">
+              <div
+                className="video-wrapper w-full h-[calc(9/16*100vw)] md:h-[calc(9/16*60vw)]"
+                style={{ position: "relative" }}
+              >
+                <video
+                  ref={videoRef}
+                  className="absolute top-0 left-0 w-full h-full object-contain"
+                  src={videoCDNUrl}
+                  poster={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
+                  onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
+                />
+                {showCaptions && (
+                  <CaptionsRenderer
+                    className="absolute"
+                    srv3={captionsText}
+                    currentTime={currentTime}
+                  />
+                )}
+              </div>
+            </div>
 
             <div className="video-controls w-full">
               <VideoControls className="relative" videoRef={videoRef} />
@@ -99,9 +118,6 @@ const CaptionPlayer = ({ videoId }) => {
                 {videoData.channel}
               </p>
             </Link>
-            <p className="text-white text-lg mt-2">
-              Published on: {formatDate(videoData.upload_date)}
-            </p>
             {videoData._type ? null : (
               <p className="text-gray-500 text-base mt-2">
                 This video is missing an info.json. The data you see is from the
@@ -109,11 +125,22 @@ const CaptionPlayer = ({ videoId }) => {
               </p>
             )}
             {videoData.subtitles && (
-              <SubtitleDropdown
-                subtitles={videoData.subtitles}
-                onSelect={(subtitle) => setSelectedSubtitle(subtitle)}
-              />
+              <div className="flex items-center mt-2">
+                <SubtitleDropdown
+                  subtitles={videoData.subtitles}
+                  onSelect={(subtitle) => setSelectedSubtitle(subtitle)}
+                />
+                <button
+                  className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                  onClick={toggleCaptions}
+                >
+                  {showCaptions ? "Hide Captions" : "Show Captions"}
+                </button>
+              </div>
             )}
+            <p className="text-white text-lg mt-2">
+              Published on: {formatDate(videoData.upload_date)}
+            </p>
             <h2 className="text-white font-bold mt-4 text-lg">Description</h2>
             <div className="text-white mt-2">
               {isExpanded ? (
