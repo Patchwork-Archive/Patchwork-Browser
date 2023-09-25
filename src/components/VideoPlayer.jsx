@@ -123,7 +123,7 @@ const VideoPlayer = ({ videoId }) => {
                 )}
               </div>
             </div>
-            <div className="video-controls w-full">
+            <div className="video-controls w-full mt-1">
             <VideoControls videoRef={videoRef} isPlaying={isPlaying} onPlayStateChange={handlePlayStateChange} />
             </div>
             <h1 className="text-xl md:text-2xl font-bold mt-4 text-white">

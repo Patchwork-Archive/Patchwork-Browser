@@ -11,7 +11,6 @@ import Footer from "./components/Footer";
 import NotFoundPage from "./pages/NotFoundPage";
 import { HelmetProvider } from "react-helmet-async";
 import "./styles/index.css";
-import CaptionVideoPage from "./pages/CaptionVideoPage";
 
 const helmetContext = {};
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -21,7 +20,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/watch" element={<VideoPage />} />
-        <Route path="/captions" element={<CaptionVideoPage />} />
         <Route path="/results" element={<SearchResultPage />} />
         <Route path="/channel/:channelID" element={<ChannelPage />} />
         <Route path="/status" element={<StatusPage />} />
