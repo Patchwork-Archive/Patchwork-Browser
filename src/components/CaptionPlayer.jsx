@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import HeadTags from "./HeadTags";
-import { CaptionsRenderer } from 'react-srv3';
+import { CaptionsRenderer } from "react-srv3";
 import VideoControls from "./VideoControls";
+import SubtitleDropdown from "./SubtitleDropdown";
 
 const CaptionPlayer = ({ videoId }) => {
   const videoCDNUrl = `https://cdn.pinapelz.com/VTuber%20Covers%20Archive/${
@@ -14,6 +15,7 @@ const CaptionPlayer = ({ videoId }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [captionsText, setCaptionsText] = useState("");
+  const [selectedSubtitle, setSelectedSubtitle] = useState("");
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -25,16 +27,18 @@ const CaptionPlayer = ({ videoId }) => {
     }
   }, [videoId]);
 
+
   useEffect(() => {
-    fetch("https://content.archive.ragtag.moe/gd:1JyggqHXMSkUrSxfjGBGhipFW-noE0EcQ/zHD5MCUezVo/zHD5MCUezVo.en.srv3")
-      .then((res) => res.text())
-      .then(setCaptionsText);
-  }, []);
+    if (selectedSubtitle) {
+      fetch(`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/captions/${videoId}/${videoId}.${selectedSubtitle}.srv3`)
+        .then((res) => res.text())
+        .then(setCaptionsText);
+    }
+  }, [selectedSubtitle, videoId]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
-
 
   const formatDate = (rawDate) => {
     try {
@@ -71,21 +75,23 @@ const CaptionPlayer = ({ videoId }) => {
               image={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
               url={`/watch?v=${videoId}`}
             />
-            <div
-              className="video-container w-full"
-              style={{ position: 'relative', width: 1196, height: 673 }}
-            >
-              <video
-                ref={videoRef} 
-                className="absolute w-full h-full"
-                src={videoCDNUrl}
-                poster={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
-                onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
-              />
-            <CaptionsRenderer srv3={captionsText} currentTime={currentTime} />
-            <VideoControls videoRef={videoRef} />
+<div className="video-container w-full relative">
+<div className="video-wrapper w-full h-[calc(9/16*100vw)] md:h-[calc(9/16*60vw)]" style={{ position: 'relative' }}>
+    <video
+      ref={videoRef}
+      className="absolute top-0 left-0 w-full h-full object-contain"
+      src={videoCDNUrl}
+      poster={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
+      onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
+    />
+    <CaptionsRenderer className="absolute" srv3={captionsText} currentTime={currentTime} />
+  </div>
+</div>
+
+            <div className="video-controls w-full">
+              <VideoControls className="relative" videoRef={videoRef} />
             </div>
-            <h1 className="text-xl md:text-2xl font-bold mt-16 text-white">
+            <h1 className="text-xl md:text-2xl font-bold mt-4 text-white">
               {videoData.title}
             </h1>
             <Link to={`/channel/${videoData.channel_id}`}>
@@ -101,6 +107,12 @@ const CaptionPlayer = ({ videoId }) => {
                 This video is missing an info.json. The data you see is from the
                 fallback database
               </p>
+            )}
+            {videoData.subtitles && (
+              <SubtitleDropdown
+                subtitles={videoData.subtitles}
+                onSelect={(subtitle) => setSelectedSubtitle(subtitle)}
+              />
             )}
             <h2 className="text-white font-bold mt-4 text-lg">Description</h2>
             <div className="text-white mt-2">
