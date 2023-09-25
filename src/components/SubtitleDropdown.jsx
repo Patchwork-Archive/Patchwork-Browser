@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const SubtitleDropdown = ({ subtitles, onSelect }) => {
-  const defaultSubtitle = Object.keys(subtitles)[0]; // Default to the first available subtitle
+  let defaultSubtitle = "None";
   const [selectedSubtitle, setSelectedSubtitle] = useState(defaultSubtitle);
 
   useEffect(() => {
@@ -10,16 +10,13 @@ const SubtitleDropdown = ({ subtitles, onSelect }) => {
   }, [onSelect, defaultSubtitle]);
 
   const handleChange = (event) => {
-    const selectedValue = event.target.value;
-    setSelectedSubtitle(selectedValue);
-    onSelect(selectedValue);
+    setSelectedSubtitle(event.target.value);
+    onSelect(event.target.value);
   };
 
   if (!subtitles || Object.keys(subtitles).length === 0) {
     return null;
   }
-
-  console.log(subtitles);
 
   return (
     <>
@@ -29,12 +26,10 @@ const SubtitleDropdown = ({ subtitles, onSelect }) => {
         value={selectedSubtitle}
         onChange={handleChange}
     >
-        <option value="" disabled>
-            Select a subtitle
-        </option>
+        <option value="None">None</option>
         {Object.keys(subtitles).map((key) => (
             key !== "live_chat" && (
-                <option key={key} value={subtitles[key]}>
+                <option key={key} value={key}>
                     {key}
                 </option>
             )
