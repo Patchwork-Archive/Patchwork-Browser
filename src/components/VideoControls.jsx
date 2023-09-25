@@ -11,40 +11,40 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
 
   useEffect(() => {
     const updateProgress = () => {
-      if (videoRef.current) {
-        const newProgress = (videoRef.current.currentTime / videoRef.current.duration) * 100;
-        setProgress(newProgress);
-      }
+      const newProgress = (videoRef.current?.currentTime / videoRef.current?.duration) * 100;
+      setProgress(newProgress || 0);
     };
 
-    videoRef.current.addEventListener("timeupdate", updateProgress);
-    return () => videoRef.current.removeEventListener("timeupdate", updateProgress);
+    videoRef.current?.addEventListener("timeupdate", updateProgress);
+    return () => videoRef.current?.removeEventListener("timeupdate", updateProgress);
   }, [videoRef]);
 
   const handlePlayPause = () => {
-    if (videoRef.current.paused) {
-      videoRef.current.play();
+    if (videoRef.current?.paused) {
+      videoRef.current?.play();
     } else {
-      videoRef.current.pause();
+      videoRef.current?.pause();
     }
-    onPlayStateChange(!videoRef.current.paused);
+    onPlayStateChange(!videoRef.current?.paused);
   };
 
   const handleProgressChange = (e) => {
-    const newTime = (e.target.value / 100) * videoRef.current.duration;
+    const newTime = (e.target.value / 100) * videoRef.current?.duration;
     videoRef.current.currentTime = newTime;
     setProgress(e.target.value);
   };
 
   const handleVolumeChange = (e) => {
     const vol = e.target.value;
-    videoRef.current.volume = vol;
+    if (videoRef.current) {
+      videoRef.current.volume = vol;
+    }
     setVolume(vol);
   };
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
-      videoRef.current.requestFullscreen();
+      videoRef.current?.requestFullscreen();
       setIsFullscreen(true);
     } else {
       document.exitFullscreen();
