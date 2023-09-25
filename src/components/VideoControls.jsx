@@ -15,8 +15,9 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
       setProgress(newProgress || 0);
     };
 
-    videoRef.current?.addEventListener("timeupdate", updateProgress);
-    return () => videoRef.current?.removeEventListener("timeupdate", updateProgress);
+    const currentVideoRef = videoRef.current;
+    currentVideoRef?.addEventListener("timeupdate", updateProgress);
+    return () => currentVideoRef?.removeEventListener("timeupdate", updateProgress);
   }, [videoRef]);
 
   const handlePlayPause = () => {
