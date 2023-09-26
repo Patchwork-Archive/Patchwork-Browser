@@ -9,7 +9,10 @@ const SubtitleDropdown = ({ subtitles, onSelect }) => {
       break;
     }
   }
-  const [selectedSubtitle, setSelectedSubtitle] = useState(defaultSubtitle);
+
+  const [selectedSubtitle, setSelectedSubtitle] = useState(
+    () => defaultSubtitle
+  );
 
   useEffect(() => {
     onSelect(defaultSubtitle);
@@ -44,6 +47,8 @@ const SubtitleDropdown = ({ subtitles, onSelect }) => {
     </>
   );
 };
+
+SubtitleDropdown.displayName = "SubtitleDropdown";
 
 SubtitleDropdown.propTypes = {
   subtitles: PropTypes.object,

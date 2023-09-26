@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import HeadTags from "./HeadTags";
@@ -21,8 +21,12 @@ const VideoPlayer = ({ videoId }) => {
   const videoRef = useRef(null);
 
   const handlePlayStateChange = (playing) => {
-      setIsPlaying(playing);
-  }
+    setIsPlaying(playing);
+  };
+
+  const handleSubtitleSelect = useCallback((subtitle) => {
+    setSelectedSubtitle(subtitle);
+  }, []);
 
   useEffect(() => {
     if (videoId) {
@@ -32,6 +36,10 @@ const VideoPlayer = ({ videoId }) => {
         .catch((error) => console.error(error));
     }
   }, [videoId]);
+
+  useEffect(() => {
+    console.log("VideoPlayer re-rendered");
+  });
 
   useEffect(() => {
     console.log("Selected subtitle changed to " + selectedSubtitle);
@@ -124,7 +132,11 @@ const VideoPlayer = ({ videoId }) => {
               </div>
             </div>
             <div className="video-controls w-full mt-1">
-            <VideoControls videoRef={videoRef} isPlaying={isPlaying} onPlayStateChange={handlePlayStateChange} />
+              <VideoControls
+                videoRef={videoRef}
+                isPlaying={isPlaying}
+                onPlayStateChange={handlePlayStateChange}
+              />
             </div>
             <h1 className="text-xl md:text-2xl font-bold mt-4 text-white">
               {videoData.title}
@@ -144,7 +156,7 @@ const VideoPlayer = ({ videoId }) => {
               <div className="flex items-center mt-2">
                 <SubtitleDropdown
                   subtitles={videoData.subtitles}
-                  onSelect={(subtitle) => setSelectedSubtitle(subtitle)}
+                  onSelect={handleSubtitleSelect}
                 />
                 <button
                   className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
