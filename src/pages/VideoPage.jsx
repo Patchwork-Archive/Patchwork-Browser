@@ -14,7 +14,7 @@ const VideoPage = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row flex-wrap">
-        <div className="w-full mt-2 md:w-2/3 p-4">
+      <div className="w-full mt-2 md:w-2/3 p-4 flex-shrink-0">
           <VideoPlayer videoId={videoId} />
         </div>
         <div className="w-full md:w-1/3">

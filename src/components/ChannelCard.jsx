@@ -11,8 +11,6 @@ const ChannelCard = ({ apiUrl, channelID }) => {
             .then((data) => setChannelData(data.channel_name));
     }, [apiUrl]);
 
-    console.log(apiUrl);
-
     return (
         <div className="flex justify-center rounded mt-8">
             <div className="bg-accent p-4 rounded">
