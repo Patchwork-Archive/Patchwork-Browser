@@ -9,6 +9,7 @@ import StatusPage from "./pages/StatusPage";
 import RadioPage from "./pages/RadioPage";
 import Footer from "./components/Footer";
 import NotFoundPage from "./pages/NotFoundPage";
+import AboutPage from "./pages/AboutPage";
 import { HelmetProvider } from "react-helmet-async";
 import "./styles/index.css";
 
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/channel/:channelID" element={<ChannelPage />} />
         <Route path="/status" element={<StatusPage />} />
         <Route path="/radio" element={<RadioPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
