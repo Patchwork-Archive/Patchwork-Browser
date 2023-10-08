@@ -14,6 +14,7 @@ function Navbar() {
                         <Link to="/" className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0">Home</Link>
                         <Link to="/status" className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0">Status</Link>
                         <Link to="/radio" className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0">Radio</Link>
+                        <Link to="/about" className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0">About</Link>
                     </nav>
                     <form action="/results" method="GET" className="flex-1 mx-2 md:mx-8 my-2 md:my-0">
                         <input type="text" name="q" placeholder="Search" className="w-full py-2 px-4 bg-gray-800 rounded text-white"></input>
