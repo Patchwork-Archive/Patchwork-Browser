@@ -141,11 +141,17 @@ const VideoPlayer = ({ videoId }) => {
             <h1 className="text-xl md:text-2xl font-bold mt-4 text-white">
               {videoData.title}
             </h1>
-            <Link to={`/channel/${videoData.channel_id}`}>
-              <p className="hover:underline text-white mt-2 text-lg font-semibold">
-                {videoData.channel}
-              </p>
-            </Link>
+            <span className="hover:underline text-white">
+              <Link
+                to={`/channel/${videoData.channel_id}`}
+                style={{ display: "inline-block" }}
+              >
+                <p className="mt-2 text-lg font-semibold">
+                  {videoData.channel}
+                </p>
+              </Link>
+            </span>
+
             {videoData._type ? null : (
               <p className="text-gray-500 text-base mt-2">
                 This video is missing an info.json. The data you see is from the
