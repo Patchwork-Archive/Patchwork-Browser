@@ -44,7 +44,7 @@ function LandingPage() {
       <main className="max-w-screen-xl mx-auto px-4 mt-8">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold mb-4 mt-16 text-white">
-            Welcome
+            Welcome to the VTuber Music Archives
           </h2>
           <p className="text-xl text-gray-400">
             We have {numberOfVideos} videos archived taking up {storageUsed}GB of storage space.
