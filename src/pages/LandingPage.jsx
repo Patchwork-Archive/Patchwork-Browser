@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import HeadTags from "../components/HeadTags";
 import Announcement from "../components/Announcement";
 import VideoGrid from "../components/VideoGrid";
+import Divider from "../components/Divider";
 
 function LandingPage() {
   const [storageUsed, setStorageUsed] = useState(0);
@@ -57,6 +58,11 @@ function LandingPage() {
         <VideoGrid
           apiUrl="https://archive.pinapelz.moe/api/discover_videos"
           titleText="Discover"
+        />
+        <Divider className="my-4" />
+        <VideoGrid
+          apiUrl="https://archive.pinapelz.moe/api/recently_archived"
+          titleText="Recently Archived"
         />
       </main>
     </>
