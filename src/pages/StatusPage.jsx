@@ -6,19 +6,26 @@ import HeadTags from "../components/HeadTags";
 function StatusPage() {
   const [timeLeft, setTimeLeft] = useState(15);
   const [workers, setWorkers] = useState([]);
+  const [refreshCounter, setRefreshCounter] = useState(0); 
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       refreshData();
+      setRefreshCounter(prevCounter => prevCounter + 1); 
     }, 15000);
 
-    const timerId = setInterval(() => {
-      setTimeLeft((timeLeft) => timeLeft - 1);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [workers]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
     }, 1000);
 
     return () => {
       clearInterval(intervalId);
-      clearInterval(timerId);
     };
   }, []);
 
@@ -57,7 +64,7 @@ function StatusPage() {
         Workers
       </h1>
       <div className="justify-center flex">
-        <WorkerGrid workers={workers} />
+        <WorkerGrid key={refreshCounter} workers={workers} /> {}
       </div>
       <p className="text-white mt-2 justify-center flex">
         Time left until refresh: {timeLeft} seconds
