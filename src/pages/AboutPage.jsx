@@ -17,13 +17,15 @@ function AboutPage() {
             preservation of culture.
             <br />
             <br />
-            Original songs and covers are archived. Short form content that
-            doesn&rsquo;t promote an existing music cover <br />
-            or original song is archived. Streams, clips, etc. are not archived.
+            Original songs and covers are archived. Short form content is archived on a case by 
+            <br/> case basis (usually it&apos;ll be archived if its a unique cover or song not available elsewhere)
+            <br/>
+            <b>All archived content was available publicly on YouTube at the time
+            of processing.</b>
             <br />
+            <br/>
+            The idea for Patchwork is greatly inspired by <a  className="underline hover:underline-offset-4" href="https://archive.ragtag.moe/" rel="noreferrer" target="_blank">Ragtag Archive</a>. Thank you for your hard work!!
             <br />
-            All archived content was available publicly on YouTube at the time
-            of processing.
           </p>
           <br />
           <p className="font-bold">
