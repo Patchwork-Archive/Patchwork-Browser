@@ -78,6 +78,12 @@ function AboutPage() {
         </button>
         <section className="mb-2 mt-4 text-xl text-white">
           <p className="leading-relaxed">
+            Due to the nature of how some content was previously archived, playback may be <br/>
+            broken on non-Chromium based browsers.
+            <br/>
+            <br/>
+          </p>
+          <p className="leading-relaxed">
             Any legal inquiries can be directed to{" "}
             <a
               className="underline hover:underline-offset-4"
