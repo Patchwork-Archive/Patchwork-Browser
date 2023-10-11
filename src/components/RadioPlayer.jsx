@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 function RadioPlayer() {
     const [video, setVideo] = useState(null);
     const [isPlaying, setIsPlaying] = useState(true);
-    const [volume, setVolume] = useState(0.5);
+    const [volume, setVolume] = useState(() => {
+        const storedVolume = localStorage.getItem("volume");
+        return storedVolume ? parseFloat(storedVolume) : 0.5;
+    });
     const [progress, setProgress] = useState(0);
     const [videoCount, setVideoCount] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +53,14 @@ function RadioPlayer() {
         if (videoRef.current) {
             videoRef.current.volume = volume;
         }
+        localStorage.setItem("volume", volume);
     }, [volume]);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.volume = volume;
+        }
+    }, []);
 
     const handlePlayPauseClick = () => {
         if (videoRef.current) {

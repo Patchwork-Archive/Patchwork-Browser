@@ -68,6 +68,7 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
           value={progress}
           onChange={handleProgressChange}
           className="w-full cursor-pointer slider-thumb bg-red-500"
+          title=""
         />
       </div>
 
@@ -85,6 +86,7 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
               min="0" max="1" 
               step="0.01" 
               className="w-full cursor-pointer slider-thumb mb-4"
+              title=""
             />
           </div>
         )}
