@@ -8,10 +8,23 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const formatTime = (seconds) => {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+    if(hrs == 0){
+      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+    // Not that I expect to have any music videos over 1 hour, but just in case
+    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   useEffect(() => {
     const updateProgress = () => {
       const newProgress = (videoRef.current?.currentTime / videoRef.current?.duration) * 100;
+      setCurrentTime(videoRef.current?.currentTime || 0);
       setProgress(newProgress || 0);
     };
 
@@ -61,7 +74,9 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
       >
         <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} className="text-white" size="lg" />
       </button>
-
+      <div className="text-white ml-3">
+          {formatTime(currentTime)} / {formatTime(videoRef.current?.duration || 0)}
+        </div>
       <div className="relative flex-grow mx-4 flex items-center">
         <input 
           type="range"
