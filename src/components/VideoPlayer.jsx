@@ -11,6 +11,8 @@ const VideoPlayer = ({ videoId }) => {
     videoId ?? ""
   }.webm`;
 
+
+
   const [videoData, setVideoData] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -18,6 +20,8 @@ const VideoPlayer = ({ videoId }) => {
   const [selectedSubtitle, setSelectedSubtitle] = useState("");
   const [showCaptions, setShowCaptions] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [currentBufferingMessage, setCurrentBufferingMessage] = useState("");
   const videoRef = useRef(null);
 
   const handlePlayStateChange = (playing) => {
@@ -38,18 +42,27 @@ const VideoPlayer = ({ videoId }) => {
   }, [videoId]);
 
   useEffect(() => {
-    console.log("VideoPlayer re-rendered");
-  });
+    const bufferingMessages = [
+      "Buffering...",
+      "Let me cook...",
+      "Guru Guru...",
+      "Digging through the archives...",
+      "Searching for the secrets of the universe...",
+    ];
+    if (isBuffering) {
+      const randomMessage =
+        bufferingMessages[Math.floor(Math.random() * bufferingMessages.length)];
+      setCurrentBufferingMessage(randomMessage);
+    }
+  }, [isBuffering]);
 
   useEffect(() => {
-    console.log("Selected subtitle changed to " + selectedSubtitle);
     if (selectedSubtitle) {
       fetch(
         `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/captions/${videoId}/${videoId}.${selectedSubtitle}.srv3`
       )
         .then((res) => res.text())
         .then((text) => {
-          console.log("Changing captions to " + selectedSubtitle);
           setCaptionsText(text);
         });
     }
@@ -121,7 +134,18 @@ const VideoPlayer = ({ videoId }) => {
                   poster={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
                   onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
                   onClick={handleVideoClick}
+                  onWaiting={() => setIsBuffering(true)}
+                  onPlaying={() => setIsBuffering(false)}
                 />
+                {isBuffering && (
+                  <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-black bg-opacity-50 p-3 rounded-full shadow-xl flex items-center space-x-3">
+                    <div className="w-5 h-5 border-t-2 border-white rounded-full animate-spin"></div>
+                    <span className="text-white font-medium">
+                      {currentBufferingMessage}
+                    </span>
+                  </div>
+                )}
+
                 {showCaptions && (
                   <CaptionsRenderer
                     className="absolute"
@@ -151,7 +175,6 @@ const VideoPlayer = ({ videoId }) => {
                 </p>
               </Link>
             </span>
-
             {videoData._type ? null : (
               <p className="text-gray-500 text-base mt-2">
                 This video is missing an info.json. The data you see is from the
