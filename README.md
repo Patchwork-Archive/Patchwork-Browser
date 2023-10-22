@@ -15,3 +15,8 @@ npm run dev
 Data will automatically be pulled from Patchwork's API `https://archive.pinapelz.moe/api`
 
 Note that this repository does not contain any archival tools or code for the backend
+
+![Patchwork Archive Videpage](https://github.com/Patchwork-Archive/Patchwork-Browser/assets/21994085/30b2cabf-07b4-4331-8ebf-709520d42baa)
+
+
+![Patchwork Archive Discovery Panel](https://github.com/Patchwork-Archive/Patchwork-Browser/assets/21994085/e8e4b312-754e-4baa-9aff-6ec328516573)
