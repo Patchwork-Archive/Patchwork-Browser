@@ -9,6 +9,9 @@ export default {
       colors:{
         'background': '#1c1c1c',
         'accent': '#2A4B71',
+      },
+      animation: {
+        spin: 'spin 10s linear infinite'
       }
     },
   },
