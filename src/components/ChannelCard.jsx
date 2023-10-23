@@ -8,7 +8,7 @@ const ChannelCard = ({ apiUrl, channelID }) => {
     useEffect(() => {
         fetch(apiUrl)
             .then((response) => response.json())
-            .then((data) => setChannelData(data.channel_name));
+            .then((data) => setChannelData(data.channel_name || data.uploader));
     }, [apiUrl]);
 
     return (

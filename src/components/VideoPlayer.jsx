@@ -197,11 +197,11 @@ const VideoPlayer = ({ videoId }) => {
             </h1>
             <span className="hover:underline text-white">
               <Link
-                to={`/channel/${videoData.channel_id}`}
+                to={`/channel/${videoData.channel_id || videoData.uploader_id}`}
                 style={{ display: "inline-block" }}
               >
                 <p className="mt-2 text-lg font-semibold">
-                  {videoData.channel}
+                  {videoData.channel || videoData.uploader}
                 </p>
               </Link>
             </span>
