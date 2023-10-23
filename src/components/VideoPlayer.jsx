@@ -11,8 +11,6 @@ const VideoPlayer = ({ videoId }) => {
     videoId ?? ""
   }.webm`;
 
-
-
   const [videoData, setVideoData] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -30,6 +28,31 @@ const VideoPlayer = ({ videoId }) => {
 
   const handleSubtitleSelect = useCallback((subtitle) => {
     setSelectedSubtitle(subtitle);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (videoRef.current) {
+        switch (event.key) {
+          case "ArrowRight":
+            videoRef.current.currentTime += 5;
+            break;
+          case "ArrowLeft":
+            videoRef.current.currentTime -= 5;
+            break;
+          case " ":
+            event.preventDefault();
+            handleVideoClick();
+            break;
+          default:
+            break;
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   useEffect(() => {
@@ -137,6 +160,13 @@ const VideoPlayer = ({ videoId }) => {
                   onWaiting={() => setIsBuffering(true)}
                   onPlaying={() => setIsBuffering(false)}
                 />
+                {!isPlaying && (
+                  <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black bg-opacity-50">
+                    <p className="text-2xl text-white mb-4">Playback paused</p>
+                    {/* <img src="" alt="Animated GIF" width={200} />  TODO  find cool gif here*/}
+                  </div>
+                )}
+
                 {isBuffering && (
                   <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-black bg-opacity-50 p-3 rounded-full shadow-xl flex items-center space-x-3">
                     <div className="w-5 h-5 border-t-2 border-white rounded-full animate-spin"></div>
