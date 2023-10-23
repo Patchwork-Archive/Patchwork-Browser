@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function RadioPlayer() {
     const [video, setVideo] = useState(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(true);
     const [volume, setVolume] = useState(() => {
         const storedVolume = localStorage.getItem("volume");
         return storedVolume ? parseFloat(storedVolume) : 0.5;
