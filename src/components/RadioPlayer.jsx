@@ -107,23 +107,23 @@ function RadioPlayer() {
     };
 
     return (
-        <div className="flex h-screen items-center justify-center bg-slate-900">
+        <div className="flex h-screen items-center justify-center">
             {isLoading ? (
                 <div className="text-white text-2xl">Loading...</div>
             ) : (
                 video && (
                     <div className="flex flex-col items-center space-y-6">
-                        <div className={`w-96 h-96 bg-center bg-cover rounded-full mb-8 ${isPlaying ? 'animate-spin' : ''}`} 
+                        <div className={`w-64 sm:w-96 h-64 sm:h-96 bg-center bg-cover rounded-full mb-8 ${isPlaying ? 'animate-spin' : ''}`} 
                             style={{ backgroundImage: `url(https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${video.video_id}.jpg)` }}>
                         </div>
 
                         {/* Song Info */}
-                        <Link to={`/watch?v=${video.video_id}`} className="text-white text-xl hover:underline">
+                        <Link to={`/watch?v=${video.video_id}`} className="text-sm sm:text-xl text-white hover:underline">
                             {video.title}
                         </Link>
 
                         {/* Player Controls */}
-                        <div className="flex space-x-4">
+                        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 space-x-0 sm:space-x-4">
                             <button onClick={handlePlayPauseClick} className="text-white py-1 px-4 rounded bg-gray-800 hover:bg-gray-700">
                                 {isPlaying ? "Pause" : "Play"}
                             </button>
@@ -131,7 +131,7 @@ function RadioPlayer() {
                         </div>
 
                         {/* Volume Control */}
-                        <div className="flex items-center space-x-4">
+                        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 space-x-0 sm:space-x-4">
                             <label htmlFor="volume-slider" className="text-white">Volume:</label>
                             <input
                                 id="volume-slider"
@@ -143,13 +143,13 @@ function RadioPlayer() {
                                 onChange={handleVolumeChange}
                                 className="w-32"
                             />
-                        </div>
+                            </div>
 
-                        {/* Progress Bar */}
-                        <div className="flex items-center space-x-4 w-64">
-                            <label htmlFor="progress-bar" className="text-white">Progress:</label>
-                            <progress id="progress-bar" value={progress} max="100" className="w-full"/>
-                        </div>
+                                                    {/* Progress Bar */}
+                            <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 space-x-0 sm:space-x-4 w-full sm:w-64">
+                                <label htmlFor="progress-bar" className="text-white">Progress:</label>
+                                <progress id="progress-bar" value={progress} max="100" className="w-full"/>
+                            </div>
 
                         <div className="text-white text-md">
                             Finished listening to {videoCount} songs
