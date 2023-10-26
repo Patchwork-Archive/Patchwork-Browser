@@ -41,8 +41,10 @@ const VideoPlayer = ({ videoId }) => {
             videoRef.current.currentTime -= 5;
             break;
           case " ":
-            event.preventDefault();
-            handleVideoClick();
+            if (event.target.tagName.toLowerCase() !== 'input') {
+              event.preventDefault();
+              handleVideoClick();
+            }
             break;
           default:
             break;
