@@ -107,31 +107,46 @@ function RadioPlayer() {
     };
 
     return (
-        <div className="flex h-screen items-center justify-center">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-[#1C1C1C] text-white">
             {isLoading ? (
-                <div className="text-white text-2xl">Loading...</div>
+                <div className="text-2xl">Loading...</div>
             ) : (
                 video && (
-                    <div className="flex flex-col items-center space-y-6">
-                        <div className={`w-64 sm:w-96 h-64 sm:h-96 bg-center bg-cover rounded-full mb-8 ${isPlaying ? 'animate-spin' : ''}`} 
-                            style={{ backgroundImage: `url(https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${video.video_id}.jpg)` }}>
+                    <>
+                        <div className="relative w-64 h-64">
+                            <img
+                                alt="Video Thumbnail"
+                                className={`rounded-full object-cover ${isPlaying ? 'animate-spin' : ''}`}
+                                src={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${video.video_id}.jpg`}
+                                height="256"
+                                width="256"
+                                style={{ aspectRatio: "256/256", objectFit: "cover" }}
+                            />
                         </div>
-
-                        {/* Song Info */}
-                        <Link to={`/watch?v=${video.video_id}`} className="text-sm sm:text-xl text-white hover:underline">
-                            {video.title}
-                        </Link>
-
-                        {/* Player Controls */}
-                        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 space-x-0 sm:space-x-4">
+                        <div className="mt-8 text-center">
+                            <Link to={`/watch?v=${video.video_id}`} className="text-2xl font-bold hover:underline">
+                                {video.title}
+                            </Link>
+                            <br/>
+                            <br/>
+                            <Link to={`/channel/${video.channel_id}`} className="text-2xl font-bold hover:underline">
+                                {video.channel_name}
+                            </Link>
+                        </div>
+                        <div className="mt-10 w-full max-w-lg mx-auto">
+                            <div className="relative w-full h-2 bg-white rounded-full">
+                                <div className="absolute top-0 left-0 h-2 bg-[#2A4B71] rounded-full" style={{ width: `${progress}%` }} />
+                            </div>
+                        </div>
+                        <div className="mt-6 flex items-center justify-center gap-4">
                             <button onClick={handlePlayPauseClick} className="text-white py-1 px-4 rounded bg-gray-800 hover:bg-gray-700">
                                 {isPlaying ? "Pause" : "Play"}
                             </button>
-                            <button onClick={handleSkipClick} className="text-white py-1 px-4 rounded bg-gray-800 hover:bg-gray-700">Skip</button>
+                            <button onClick={handleSkipClick} className="text-white py-1 px-4 rounded bg-gray-800 hover:bg-gray-700">
+                                Skip
+                            </button>
                         </div>
-
-                        {/* Volume Control */}
-                        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 space-x-0 sm:space-x-4">
+                        <div className="mt-6 flex items-center gap-4">
                             <label htmlFor="volume-slider" className="text-white">Volume:</label>
                             <input
                                 id="volume-slider"
@@ -143,23 +158,14 @@ function RadioPlayer() {
                                 onChange={handleVolumeChange}
                                 className="w-32"
                             />
-                            </div>
-
-                                                    {/* Progress Bar */}
-                            <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 space-x-0 sm:space-x-4 w-full sm:w-64">
-                                <label htmlFor="progress-bar" className="text-white">Progress:</label>
-                                <progress id="progress-bar" value={progress} max="100" className="w-full"/>
-                            </div>
-
-                        <div className="text-white text-md">
+                        </div>
+                        <div className="mt-6 text-md">
                             Finished listening to {videoCount} songs
                         </div>
-
-                        {/* Audio section */}
                         <audio key={video.video_id} ref={videoRef} autoPlay onEnded={handleSkipClick}>
                             <source src={`https://cdn.pinapelz.com/VTuber%20Covers%20Archive/${video.video_id}.webm`} type="audio/webm" />
                         </audio>
-                    </div>
+                    </>
                 )
             )}
         </div>
