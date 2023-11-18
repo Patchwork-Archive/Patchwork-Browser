@@ -5,6 +5,8 @@ import HeadTags from "./HeadTags";
 import { CaptionsRenderer } from "react-srv3";
 import VideoControls from "./VideoControls";
 import SubtitleDropdown from "./SubtitleDropdown";
+import Linkify from "react-linkify";
+
 
 const VideoPlayer = ({ videoId }) => {
   const videoCDNUrl = `https://cdn.pinapelz.com/VTuber%20Covers%20Archive/${
@@ -135,6 +137,20 @@ const VideoPlayer = ({ videoId }) => {
     }
   };
 
+  const downloadVideo = () => {
+    const a = document.createElement("a");
+    a.href = videoCDNUrl;
+    a.download = videoId + ".webm";
+    a.click();
+  }
+
+  const handleWatchOnYouTube = () => {
+    const a = document.createElement("a");
+    a.href = `https://www.youtube.com/watch?v=${videoId}`;
+    a.target = "_blank";
+    a.click();
+  }
+
   return (
     <>
       <div className="flex flex-col items-center p-4 md:p-6 rounded-lg">
@@ -225,6 +241,18 @@ const VideoPlayer = ({ videoId }) => {
                 >
                   {showCaptions ? "Hide Captions" : "Show Captions"}
                 </button>
+                <button
+                  className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                  onClick={downloadVideo}
+                >
+                  Download Video
+                </button>
+                <button
+                  className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                  onClick={handleWatchOnYouTube}
+                >
+                  Watch on YouTube
+                </button>
               </div>
             )}
             <p className="text-white text-lg mt-2">
@@ -233,6 +261,7 @@ const VideoPlayer = ({ videoId }) => {
             <h2 className="text-white font-bold mt-4 text-lg">Description</h2>
             <div className="text-white mt-2">
               {isExpanded ? (
+                <Linkify>
                 <React.Fragment>
                   {videoData.description.split(/\n|\\n/).map((line, index) => (
                     <React.Fragment key={index}>
@@ -247,7 +276,9 @@ const VideoPlayer = ({ videoId }) => {
                     Collapse
                   </button>
                 </React.Fragment>
+                </Linkify>
               ) : (
+                <Linkify>
                 <React.Fragment>
                   {videoData.description
                     .split(/\n|\\n/)
@@ -267,6 +298,7 @@ const VideoPlayer = ({ videoId }) => {
                     </button>
                   )}
                 </React.Fragment>
+                </Linkify>
               )}
             </div>
           </div>
