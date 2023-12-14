@@ -10,7 +10,7 @@ function LandingPage() {
   const [announcementMessage, setAnnouncementMessage] = useState("");
 
   useEffect(() => {
-    fetch("https://archive.pinapelz.moe/api/storage/status")
+    fetch("https://patchwork-backend.vercel.app/api/storage/status")
       .then((response) => response.json())
       .then((data) => {
         setStorageUsed(data.storage_size);
@@ -52,16 +52,16 @@ function LandingPage() {
           </p>
         </div>
         <VideoGrid
-          apiUrl="https://archive.pinapelz.moe/api/daily_featured_videos"
+          apiUrl="https://patchwork-backend.vercel.app/api/daily_featured_videos"
           titleText="Daily Featured"
         />
         <VideoGrid
-          apiUrl="https://archive.pinapelz.moe/api/discover_videos"
+          apiUrl="https://patchwork-backend.vercel.app/api/discover_videos"
           titleText="Discover"
         />
         <Divider className="my-4" />
         <VideoGrid
-          apiUrl="https://archive.pinapelz.moe/api/recently_archived"
+          apiUrl="https://patchwork-backend.vercel.app/api/recently_archived"
           titleText="Recently Archived"
         />
       </main>

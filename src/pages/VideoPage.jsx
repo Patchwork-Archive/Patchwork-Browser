@@ -19,7 +19,7 @@ const VideoPage = () => {
         </div>
         <div className="w-full md:w-1/3">
           <ColumnVideoGrid
-            apiUrl="https://archive.pinapelz.moe/api/discover_videos"
+            apiUrl="https://patchwork-backend.vercel.app/api/discover_videos"
             titleText="Discover"
           />
         </div>

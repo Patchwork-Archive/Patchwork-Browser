@@ -4,7 +4,7 @@ const WorkerGrid = () => {
     const [workers, setWorkers] = useState([]);
 
     useEffect(() => {
-        fetch('https://archive.pinapelz.moe/api/status')
+        fetch('https://patchwork-backend.vercel.app/api/status')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

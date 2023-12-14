@@ -12,9 +12,9 @@ function ChannelPage() {
     const { channelID } = useParams();
     return (
         <>
-        <ChannelCard apiUrl={`https://archive.pinapelz.moe/api/channel_name?channel_id=${channelID}`} channelID={`${channelID}`} />
+        <ChannelCard apiUrl={`https://patchwork-backend.vercel.app/api/channel_name?channel_id=${channelID}`} channelID={`${channelID}`} />
         <div className="max-w-screen-xl mx-auto px-4 mt-8">
-        <VideoGrid apiUrl={`https://archive.pinapelz.moe/api/channel/${channelID}?page=${page}`} />
+        <VideoGrid apiUrl={`https://patchwork-backend.vercel.app/api/channel/${channelID}?page=${page}`} />
         </div>
         <PageSwitcher/>
             

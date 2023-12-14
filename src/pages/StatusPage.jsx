@@ -36,7 +36,7 @@ function StatusPage() {
   }, [timeLeft]);
 
   const refreshData = () => {
-    fetch("https://archive.pinapelz.moe/api/status")
+    fetch("https://patchwork-backend.vercel.app/api/status")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -59,7 +59,7 @@ function StatusPage() {
         image="https://patchwork.moekyun.me/favicon.png"
         url="/status"
         />
-      <ServerStatusCard apiUrl="https://archive.pinapelz.moe/api/status" />
+      <ServerStatusCard apiUrl="https://patchwork-backend.vercel.app/api/status" />
       <h1 className="text-white text-3xl justify-center flex font-bold">
         Workers
       </h1>
