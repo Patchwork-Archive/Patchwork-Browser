@@ -25,11 +25,12 @@ const VideoGrid = ({ apiUrl = "", titleText = "" }) => {
           >
             <div className="rounded overflow-hidden h-full">
               <a href={"/watch?v=" + video.video_id}>
-                <img
-                  src={thumbnailDomain + "/" + video.video_id + ".jpg"}
-                  alt={video.title}
-                  className="w-full object-cover rounded-t-lg transition-brightness duration-300 hover:brightness-90"
-                />
+              <img
+                src={thumbnailDomain + "/" + video.video_id + ".jpg"}
+                alt={video.title}
+                className="w-full object-cover rounded-t-lg transition-brightness duration-300 hover:brightness-90"
+                onError={(e) => { e.target.onerror = null; e.target.src="placeholder.jpg"}}
+              />
               </a>
               <div className="p-3">
                 <div className="title-container">
