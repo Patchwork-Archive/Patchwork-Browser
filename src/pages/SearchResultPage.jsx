@@ -15,7 +15,7 @@ function SearchResultPage() {
       </h2>
       <SearchResults
         pageNumber={page}
-        apiUrl={`https://archive.pinapelz.moe/api/search/results?q=${query}&page=${page}`}
+        apiUrl={`https://patchwork-backend.vercel.app/api/search/results?q=${query}&page=${page}`}
       />
       <PageSwitcher />
     </>

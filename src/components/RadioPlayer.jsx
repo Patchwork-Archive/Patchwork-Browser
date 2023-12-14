@@ -18,7 +18,7 @@ function RadioPlayer() {
             setIsLoading(true);
             try {
                 const response = await fetch(
-                    "https://archive.pinapelz.moe/api/random_video"
+                    "https://patchwork-backend.vercel.app/api/random_video"
                 );
                 const data = await response.json();
                 setVideo(data);
@@ -83,7 +83,7 @@ function RadioPlayer() {
         setIsLoading(true);
         try {
             const response = await fetch(
-                "https://archive.pinapelz.moe/api/random_video"
+                "https://patchwork-backend.vercel.app/api/random_video"
             );
             const data = await response.json();
             setVideo(data);

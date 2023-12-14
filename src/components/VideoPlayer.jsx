@@ -61,7 +61,7 @@ const VideoPlayer = ({ videoId }) => {
 
   useEffect(() => {
     if (videoId) {
-      fetch("https://archive.pinapelz.moe/api/database/video_data/" + videoId)
+      fetch("https://patchwork-backend.vercel.app/api/database/video_data/" + videoId)
         .then((response) => response.json())
         .then((data) => setVideoData(data))
         .catch((error) => console.error(error));
