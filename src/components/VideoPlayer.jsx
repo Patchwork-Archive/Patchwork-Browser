@@ -21,6 +21,7 @@ const VideoPlayer = ({ videoId }) => {
   const [showCaptions, setShowCaptions] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
+  const [notFound, setNotFound] = useState(false);
   const [currentBufferingMessage, setCurrentBufferingMessage] = useState("");
   const videoRef = useRef(null);
 
@@ -63,10 +64,15 @@ const VideoPlayer = ({ videoId }) => {
     if (videoId) {
       fetch("https://patchwork-backend.vercel.app/api/database/video_data/" + videoId)
         .then((response) => response.json())
-        .then((data) => setVideoData(data))
+        .then((data) => {
+          setVideoData(data);
+          if (data.error) {
+            setNotFound(true);
+          }
+        })
         .catch((error) => console.error(error));
     }
-  }, [videoId]);
+  }, [videoId, videoData.error]);
 
   useEffect(() => {
     const bufferingMessages = [
@@ -149,6 +155,29 @@ const VideoPlayer = ({ videoId }) => {
     a.href = `https://www.youtube.com/watch?v=${videoId}`;
     a.target = "_blank";
     a.click();
+  }
+
+  if (notFound) {
+    return (
+      <div className="flex flex-col items-center p-4 md:p-6 rounded-lg">
+        <HeadTags
+          title="Video not found"
+          description="Video not found"
+          image={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
+          url={`/watch?v=${videoId}`}
+        />
+        <h1 className="text-white text-lg font-bold py-4">Video not found</h1>
+        <p className="text-white text-lg py-4">
+          Uh oh... Seems like we don&apos;t have this video archived. Sorry!
+        </p>
+        <a href={`https://www.youtube.com/watch?v=${videoId}`} className="text-white text-lg bg-red-500 px-2 rounded-lg">
+          Check YouTube?
+        </a>
+        <a href={`https://bilibili.com/video/${videoId}`} className="text-white text-lg bg-blue-500 px-2 rounded-lg mt-2">
+          Check BiliBili
+        </a>
+      </div>
+    );
   }
 
   return (
