@@ -2,6 +2,8 @@ import { useLocation } from "react-router-dom";
 import SearchResults from "../components/SearchResults";
 import PageSwitcher from "../components/PageSwitcher";
 import Footer from "../components/Footer";
+import HeadTags from "../components/HeadTags";
+
 
 function SearchResultPage() {
   const { search } = useLocation();
@@ -10,6 +12,10 @@ function SearchResultPage() {
 
   return (
     <>
+      <HeadTags
+        title={query + " - Patchwork Archive"}
+        description="Preserving Cultured Rhythm For the Future"
+        image="https://patchwork.moekyun.me/favicon.png"/>
       <PageSwitcher />
       <h2 className="text-2xl text-white font-bold mb-3 mt-6 flex justify-center">
         Search Results
