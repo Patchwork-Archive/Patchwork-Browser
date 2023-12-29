@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import VideoGrid from "../components/VideoGrid";
 import PageSwitcher from "../components/PageSwitcher";
 import ChannelCard from "../components/ChannelCard";
+import Footer from "../components/Footer";
 
 function ChannelPage() {
     const queryParams = new URLSearchParams(window.location.search);
@@ -17,7 +18,7 @@ function ChannelPage() {
         <VideoGrid apiUrl={`https://patchwork-backend.vercel.app/api/channel/${channelID}?page=${page}`} />
         </div>
         <PageSwitcher/>
-            
+        <Footer />
         </>
     );
 }

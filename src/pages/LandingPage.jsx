@@ -3,6 +3,7 @@ import HeadTags from "../components/HeadTags";
 import Announcement from "../components/Announcement";
 import VideoGrid from "../components/VideoGrid";
 import Divider from "../components/Divider";
+import Footer from "../components/Footer";
 
 function LandingPage() {
   const [storageUsed, setStorageUsed] = useState(0);
@@ -76,6 +77,7 @@ function LandingPage() {
           titleText="Recently Archived"
         />
       </main>
+      <Footer />
     </>
   );
 }

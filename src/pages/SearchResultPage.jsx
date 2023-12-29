@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import SearchResults from "../components/SearchResults";
 import PageSwitcher from "../components/PageSwitcher";
+import Footer from "../components/Footer";
 
 function SearchResultPage() {
   const { search } = useLocation();
@@ -18,6 +19,7 @@ function SearchResultPage() {
         apiUrl={`https://patchwork-backend.vercel.app/api/search/results?q=${query}&page=${page}`}
       />
       <PageSwitcher />
+      <Footer />
     </>
   );
 }

@@ -61,8 +61,8 @@ const [currentSong, setCurrentSong] = useState({
     <>
     <div className="mb-8">
         <div className="text-center text-white"> 
-            <img src={currentSong.thumbnailurl} alt={currentSong.title} className="w-1/3 mx-auto" />
-            <h2 className="font-bold mt-2">{currentSong.title}</h2>
+            <img src={currentSong.thumbnailurl} alt={currentSong.title} className="w-1/3 mx-auto rounded-lg mb-2 hover:underline" />
+            <h2 className="font-bold mt-2"><a href={`/watch?v=${currentSong.video_id}`}>{currentSong.title}</a></h2>
             <h3>{currentSong.artist}</h3>
         </div>
     </div >
@@ -86,8 +86,9 @@ const [currentSong, setCurrentSong] = useState({
               setPlaylistSet(true);
             }
           }}
-          placeholder="Enter text here"
+          placeholder="Enter playlist data"
           style={{ width: "50%", resize: "none" }}
+          className="rounded-lg"
         ></textarea>
       </div>
         <AudioPlayer

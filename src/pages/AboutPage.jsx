@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col mt-6 items-center">
@@ -95,7 +96,9 @@ function AboutPage() {
         </section>
         <p className="text-sm text-gray-400">API Documentation Coming Soon!!!</p>
       </section>
+      <Footer />
     </div>
+
   );
 }
 

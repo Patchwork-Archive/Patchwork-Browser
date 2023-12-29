@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import VideoPlayer from "../components/VideoPlayer";
 import ColumnVideoGrid from "../components/ColumnVideoGrid";
+import Footer from "../components/Footer";
 
 const VideoPage = () => {
   const [videoId, setVideoId] = useState("");
@@ -24,6 +25,7 @@ const VideoPage = () => {
           />
         </div>
       </div>
+      <Footer />
     </>
   );
 };

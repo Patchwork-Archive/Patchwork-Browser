@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import ServerStatusCard from "../components/ServerStatusCard";
 import WorkerGrid from "../components/WorkerGrid";
 import HeadTags from "../components/HeadTags";
+import Footer from "../components/Footer";
 
 function StatusPage() {
   const [timeLeft, setTimeLeft] = useState(15);
@@ -69,6 +70,7 @@ function StatusPage() {
       <p className="text-white mt-2 justify-center flex">
         Time left until refresh: {timeLeft} seconds
       </p>
+      <Footer />
     </>
   );
 }
