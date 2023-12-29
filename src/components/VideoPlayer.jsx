@@ -103,6 +103,9 @@ const VideoPlayer = ({ videoId }) => {
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
+    if (isExpanded) {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
   };
 
   const toggleCaptions = () => {
@@ -300,9 +303,9 @@ const VideoPlayer = ({ videoId }) => {
                   ))}
                   <button
                     onClick={toggleExpand}
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded mt-3"
+                    className="bg-gray-600 hover:underline text-white font-bold py-1 px-4 rounded mt-3"
                   >
-                    Collapse
+                    Collapse ↥
                   </button>
                 </React.Fragment>
                 </Linkify>
@@ -321,9 +324,9 @@ const VideoPlayer = ({ videoId }) => {
                   {videoData.description.split(/\n|\\n/).length > 4 && (
                     <button
                       onClick={toggleExpand}
-                      className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-3"
+                      className="hover:underline bg-gray-600 text-white font-bold font-lg py-1 px-4 rounded mt-3"
                     >
-                      {isExpanded ? "Collapse" : "Expand Description"}
+                      {isExpanded ? "Collapse ↥" : "Expand ↴"}
                     </button>
                   )}
                 </React.Fragment>
