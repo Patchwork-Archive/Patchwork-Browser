@@ -96,24 +96,26 @@ const [currentSong, setCurrentSong] = useState({
           showSkipControls
           src={`https://cdn.pinapelz.com/VTuber%20Covers%20Archive/${currentSong.video_id}.webm`}
           onClickNext={() => {
-            if(playlistSet){
-                setCurrentSongIndex(currentSongIndex + 1);
-                setCurrentSong(playlist[currentSongIndex + 1]);
-            }
-            else{
-                fetch("https://archive.pinapelz.moe/api/random_video")
-                    .then((response) => response.json())
-                    .then((data) => {
-                        const songObject = {
-                            title: data.title,
-                            artist: data.channel_name,
-                            video_id: data.video_id,
-                            thumbnailurl: `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${data.video_id}.jpg`
-                        };
-                        setCurrentSong(songObject);
-                        setCurrentSongIndex(0);
-                    });
-            }
+            if (currentSongIndex < playlist.length - 1){
+              if(playlistSet){
+                  setCurrentSongIndex(currentSongIndex + 1);
+                  setCurrentSong(playlist[currentSongIndex + 1]);
+              }
+              else{
+                  fetch("https://archive.pinapelz.moe/api/random_video")
+                      .then((response) => response.json())
+                      .then((data) => {
+                          const songObject = {
+                              title: data.title,
+                              artist: data.channel_name,
+                              video_id: data.video_id,
+                              thumbnailurl: `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${data.video_id}.jpg`
+                          };
+                          setCurrentSong(songObject);
+                          setCurrentSongIndex(0);
+                      });
+              }
+          }
           }
           }
           onClickPrevious={() => {
