@@ -12,7 +12,7 @@ Frontend for Patchwork Archive, an archival project for VTuber music.
 npm install
 npm run dev
 ```
-Data will automatically be pulled from Patchwork's API `https://archive.pinapelz.moe/api`
+Data will automatically be pulled from Patchwork's API `https://patchwork-backend.vercel.app/api`
 
 Note that this repository does not contain any archival tools or code for the backend
 
