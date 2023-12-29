@@ -48,7 +48,7 @@ function LandingPage() {
             Welcome to the VTuber Music Archives
           </h2>
           <p className="text-xl text-gray-400">
-            We have {numberOfVideos} videos archived taking up {storageUsed}GB of storage space.
+            We have {numberOfVideos.toLocaleString()} videos archived taking up {storageUsed}GB of storage space.
           </p>
         </div>
         <VideoGrid
