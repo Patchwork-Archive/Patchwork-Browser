@@ -8,6 +8,7 @@ function LandingPage() {
   const [storageUsed, setStorageUsed] = useState(0);
   const [numberOfVideos, setNumberOfVideos] = useState(0);
   const [announcementMessage, setAnnouncementMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch("https://patchwork-backend.vercel.app/api/storage/status")
@@ -15,13 +16,18 @@ function LandingPage() {
       .then((data) => {
         setStorageUsed(data.storage_size);
         setNumberOfVideos(data.number_of_files);
+        setIsLoading(false);
       })
       .catch((error) => console.error(error));
 
     fetch("https://api.lanyard.rest/v1/users/246787839570739211")
       .then((response) => response.json())
       .then((data) => {
-        if (data.success && data.data.kv && data.data.kv.patchworkAnnouncement) {
+        if (
+          data.success &&
+          data.data.kv &&
+          data.data.kv.patchworkAnnouncement
+        ) {
           const message = data.data.kv.patchworkAnnouncement;
           if (message !== "None") {
             setAnnouncementMessage(message);
@@ -47,9 +53,14 @@ function LandingPage() {
           <h2 className="text-4xl font-bold mb-4 mt-16 text-white">
             Welcome to the VTuber Music Archives
           </h2>
-          <p className="text-xl text-gray-400">
-            We have {numberOfVideos.toLocaleString()} videos archived taking up {storageUsed}GB of storage space.
-          </p>
+          {isLoading ? (
+            <p className="text-xl text-gray-400">Now loading the archives...</p>
+          ) : (
+            <p className="text-xl text-gray-400">
+              We have {numberOfVideos.toLocaleString()} videos archived taking
+              up {storageUsed}GB of storage space.
+            </p>
+          )}
         </div>
         <VideoGrid
           apiUrl="https://patchwork-backend.vercel.app/api/daily_featured_videos"
