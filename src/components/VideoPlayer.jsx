@@ -262,25 +262,25 @@ const VideoPlayer = ({ videoId }) => {
               </p>
             )}
             {videoData.subtitles && (
-              <div className="flex items-center mt-2">
+              <div className="flex flex-col sm:flex-row items-left mt-2 space-y-2 sm:space-y-0 sm:space-x-2">
                 <SubtitleDropdown
                   subtitles={videoData.subtitles}
                   onSelect={handleSubtitleSelect}
                 />
                 <button
-                  className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
                   onClick={toggleCaptions}
                 >
                   {showCaptions ? "Hide Captions" : "Show Captions"}
                 </button>
                 <button
-                  className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
                   onClick={downloadVideo}
                 >
                   Download Video
                 </button>
                 <button
-                  className="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
                   onClick={handleWatchOnYouTube}
                 >
                   Watch on YouTube
