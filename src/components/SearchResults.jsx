@@ -7,10 +7,12 @@ const thumbnailDomain =
 const SearchResults = ({ apiUrl, pageNumber }) => {
     const [results, setResults] = useState([]);
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         fetch(apiUrl + "&" + "page=" + pageNumber)
             .then((response) => {
+                setIsLoading(false);
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
@@ -22,6 +24,14 @@ const SearchResults = ({ apiUrl, pageNumber }) => {
 
     if (error) {
         return <div className="text-white">Error: {error.message}</div>;
+    }
+
+    if (isLoading) {
+        return (
+            <div className="text-white text-xl justify-center flex animate-pulse">
+                Loading Search Results. Guru Guru...
+            </div>
+        );
     }
 
     return (
