@@ -160,6 +160,12 @@ const VideoPlayer = ({ videoId }) => {
     a.click();
   }
 
+  const handleOpenWithVLC = () => {
+    const a = document.createElement("a");
+    a.href = `vlc://${videoCDNUrl}`;
+    a.click();
+  }
+
   if (notFound) {
     return (
       <div className="flex flex-col items-center p-4 md:p-6 rounded-lg">
@@ -280,10 +286,16 @@ const VideoPlayer = ({ videoId }) => {
                   Download Video
                 </button>
                 <button
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
                   onClick={handleWatchOnYouTube}
                 >
                   Watch on YouTube
+                </button>
+                <button
+                  className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-1 px-4 rounded"
+                  onClick={handleOpenWithVLC}
+                >
+                  Open with VLC
                 </button>
               </div>
             )}
