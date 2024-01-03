@@ -7,7 +7,6 @@ import SearchResultPage from "./pages/SearchResultPage";
 import ChannelPage from "./pages/ChannelPage";
 import StatusPage from "./pages/StatusPage";
 import RadioPage from "./pages/RadioPage";
-import Footer from "./components/Footer";
 import NotFoundPage from "./pages/NotFoundPage";
 import AboutPage from "./pages/AboutPage";
 import { HelmetProvider } from "react-helmet-async";
