@@ -1,23 +1,38 @@
 import { useParams } from "react-router-dom";
-import VideoGrid from "../components/VideoGrid";
 import PageSwitcher from "../components/PageSwitcher";
 import ChannelCard from "../components/ChannelCard";
+import ChannelPageGrid from "../components/ChannelPageGrid";
 import Footer from "../components/Footer";
+import { useEffect, useState } from "react";
 
 function ChannelPage() {
     const queryParams = new URLSearchParams(window.location.search);
+    const [channelPageData, setChannelPageData] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [numPages, setNumPages] = useState(0);
     let page = parseInt(queryParams.get("page"));
     if (isNaN(page) || page < 1) {
         page = 1;
       }
     const { channelID } = useParams();
+
+    useEffect(() => {
+        fetch(`https://patchwork-backend.vercel.app/api/channel/${channelID}?page=${page}`)
+        .then((response) => response.json())
+        .then((data) => {
+            setChannelPageData(data.results)
+            setNumPages(data.pages)
+            setIsLoading(false);
+        })
+        .catch((error) => console.log(error));
+    }, [page]);
     return (
         <>
         <ChannelCard apiUrl={`https://patchwork-backend.vercel.app/api/channel_name?channel_id=${channelID}`} channelID={`${channelID}`} />
         <div className="max-w-screen-xl mx-auto px-4 mt-8">
-        <VideoGrid apiUrl={`https://patchwork-backend.vercel.app/api/channel/${channelID}?page=${page}`} />
+        <ChannelPageGrid isLoading={isLoading} videos={channelPageData} />
         </div>
-        <PageSwitcher/>
+        <PageSwitcher currentPage={page} maxPage={numPages}/>
         <Footer />
         </>
     );
