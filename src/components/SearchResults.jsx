@@ -9,7 +9,7 @@ const SearchResults = ({ results }) => {
         <div className="p-4 mx-12">
             <div className="-m-2">
                 {!Array.isArray(results) || results.length === 0 ? (
-                    <p className="text-white text-xl justify-center flex">No results on this page</p>
+                    <p className="text-white text-xl justify-center flex font-bold">No results for this query</p>
                 ) : (
                     results.map((video) => (
                         <div

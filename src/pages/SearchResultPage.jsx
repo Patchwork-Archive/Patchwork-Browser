@@ -13,6 +13,7 @@ function SearchResultPage() {
   const [searchResultData, setSearchResultData] = useState({});
   const[error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [numResults, setNumResults] = useState(0);
 
   useEffect(() => {
     fetch(`https://patchwork-backend.vercel.app/api/search/results?q=${query}&page=${page}`)
@@ -23,7 +24,10 @@ function SearchResultPage() {
       }
       return response.json();
     })
-    .then((data) => setSearchResultData(data))
+    .then((data) => {
+      setSearchResultData(data)
+      setNumResults(data.results.length)
+    })
     .catch((error) => setError(error));
   }, [page]); 
 
@@ -48,7 +52,13 @@ function SearchResultPage() {
         results={searchResultData.results}
       />
       )}
-      <PageSwitcher currentPage={page} maxPage={searchResultData.pages} />
+      {
+        isLoading || numResults == 0 ? (
+          <></>
+        ) : (
+          <PageSwitcher currentPage={page} maxPage={searchResultData.pages} />
+        )
+      }
       <Footer />
     </>
   );

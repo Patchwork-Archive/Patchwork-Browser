@@ -26,9 +26,14 @@ function PageSwitcher({ currentPage, maxPage }) {
 
   return (
     <div className="text-center mt-6">
-      <span className="text-white font-bold">
-        Page {currentPage} of {maxPage}
-      </span>
+      {maxPage == 0 ? (
+        <></>
+      ) : (
+        <span className="text-white font-bold">
+          Showing {currentPage} of {maxPage} pages
+        </span>
+      )
+      }
       <div className="mx-2 px-4 py-2 rounded">
         {currentPage == 1 ? (
           <></>
