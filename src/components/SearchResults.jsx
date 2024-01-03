@@ -1,38 +1,9 @@
-import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const thumbnailDomain =
     "https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails";
 
-const SearchResults = ({ apiUrl, pageNumber }) => {
-    const [results, setResults] = useState([]);
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        fetch(apiUrl + "&" + "page=" + pageNumber)
-            .then((response) => {
-                setIsLoading(false);
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then((data) => setResults(data))
-            .catch((error) => setError(error));
-    }, [apiUrl, pageNumber]);
-
-    if (error) {
-        return <div className="text-white">Error: {error.message}</div>;
-    }
-
-    if (isLoading) {
-        return (
-            <div className="text-white text-xl justify-center flex animate-pulse">
-                Loading Search Results. Guru Guru...
-            </div>
-        );
-    }
+const SearchResults = ({ results }) => {
 
     return (
         <div className="p-4 mx-12">
@@ -43,7 +14,7 @@ const SearchResults = ({ apiUrl, pageNumber }) => {
                     results.map((video) => (
                         <div
                             key={video.id}
-                            className="p-2 flex mb-4 border-gray-400"
+                            className="p-2 flex mb-4 border-gray-400 hover:bg-gray-700 hover:rounded-lg transition-colors duration-200"
                             style={{ width: "calc(100% - 1rem)" }}
                         >
                             <div className="flex-shrink-0">
@@ -62,10 +33,10 @@ const SearchResults = ({ apiUrl, pageNumber }) => {
                                     </h3>
                                 </a>
                                 <a className="hover:underline" href={"/channel/" + video.channel_id}>
-                                <p className="hover:underline text-lg text-white">
-                                    <span className="font-medium ">{video.channel_name}</span> -{" "}
-                                    {video.upload_date}
-                                </p>
+                                    <p className="hover:underline text-lg text-white">
+                                        <span className="font-medium ">{video.channel_name}</span> -{" "}
+                                        {video.upload_date}
+                                    </p>
                                 </a>
                             </div>
                         </div>
@@ -77,8 +48,16 @@ const SearchResults = ({ apiUrl, pageNumber }) => {
 };
 
 SearchResults.propTypes = {
-    apiUrl: PropTypes.string.isRequired,
-    pageNumber: PropTypes.string,
-};
+    results: PropTypes.arrayOf(
+      PropTypes.shape({
+        channel_id: PropTypes.string,
+        channel_name: PropTypes.string,
+        description: PropTypes.string,
+        title: PropTypes.string,
+        upload_date: PropTypes.string,
+        video_id: PropTypes.string,
+      })
+    ),
+  };
 
 export default SearchResults;

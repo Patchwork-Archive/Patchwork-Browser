@@ -3,12 +3,33 @@ import SearchResults from "../components/SearchResults";
 import PageSwitcher from "../components/PageSwitcher";
 import Footer from "../components/Footer";
 import HeadTags from "../components/HeadTags";
+import { useEffect, useState } from "react";
 
 
 function SearchResultPage() {
   const { search } = useLocation();
   const query = new URLSearchParams(search).get("q");
   const page = new URLSearchParams(search).get("page") || 1;
+  const [searchResultData, setSearchResultData] = useState({});
+  const[error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`https://patchwork-backend.vercel.app/api/search/results?q=${query}&page=${page}`)
+    .then((response) => {
+      setIsLoading(false);
+      if (!response.ok) {
+          throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((data) => setSearchResultData(data))
+    .catch((error) => setError(error));
+  }, [page]); 
+
+  if (error) {
+    return <p className="text-white text-xl justify-center flex">Error: {error.message}</p>;
+  }
 
   return (
     <>
@@ -16,15 +37,18 @@ function SearchResultPage() {
         title={query + " - Patchwork Archive"}
         description="Preserving Cultured Rhythm For the Future"
         image="https://patchwork.moekyun.me/favicon.png"/>
-      <PageSwitcher />
-      <h2 className="text-2xl text-white font-bold mb-3 mt-6 flex justify-center">
-        Search Results
+      <h2 className="text-2xl text-white font-bold mb-2 mt-6 flex justify-center">
+        Showing results for
       </h2>
-      <SearchResults
-        pageNumber={page}
-        apiUrl={`https://patchwork-backend.vercel.app/api/search/results?q=${query}&page=${page}`}
+      <i className="text-lg text-white flex justify-center">{query}</i>
+      {isLoading ? (
+        <p className="text-white text-xl justify-center flex">Loading...</p>
+      ) : (
+        <SearchResults
+        results={searchResultData.results}
       />
-      <PageSwitcher />
+      )}
+      <PageSwitcher currentPage={page} maxPage={searchResultData.pages} />
       <Footer />
     </>
   );
