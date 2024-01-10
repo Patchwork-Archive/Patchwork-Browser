@@ -77,6 +77,9 @@ function Navbar() {
         >
             ☰
         </button>
+        <Link to="/" className="text-white text-2xl font-bold">
+            Patchwork Archive
+        </Link>
         <div className="flex items-center justify-center w-full max-w-screen-lg px-4 mx-auto">
             <form
                 action="/results"
