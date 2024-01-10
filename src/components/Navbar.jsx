@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { slide as Menu } from "react-burger-menu";
+import {
+  faHome,
+  faBars
 
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -34,7 +39,7 @@ function Navbar() {
             className="px-4 py-1 text-white text-2xl mt-4 font-bold mb-2"
             onClick={toggleMenu}
           >
-            ☰ Patchwork Archive
+             <FontAwesomeIcon icon={faBars}></FontAwesomeIcon> Patchwork Archive
           </button>
           <Link
             onClick={() => setMenuOpen(false)}
@@ -71,20 +76,19 @@ function Navbar() {
             menuOpen ? "opacity-50" : ""
         }`}
     >
-        <button
-            className="px-4 py-1 text-white text-2xl font-bold"
-            onClick={toggleMenu}
-        >
-            ☰
+
+        <button>
+        <FontAwesomeIcon icon={faBars} className="hidden md:flex text-white text-3xl mx-4" onClick={toggleMenu}/>
         </button>
-        <Link to="/" className="text-white text-2xl font-bold">
-            Patchwork Archive
-        </Link>
+      
         <div className="flex items-center justify-center w-full max-w-screen-lg px-4 mx-auto">
+        <button>
+        <FontAwesomeIcon icon={faBars} className="md:hidden text-white text-3xl mx-4" onClick={toggleMenu}/>
+        </button>
             <form
                 action="/results"
                 method="GET"
-                className="flex-1 mx-2 md:mx-8 my-2 md:my-0"
+                className="flex-1 mx-2 md:mx-8 my-2 md:my-0 w-1/2"
             >
                 <input
                     type="text"
@@ -94,6 +98,9 @@ function Navbar() {
                 ></input>
             </form>
         </div>
+        <a href="/" className="hover:cursor-pointer hidden md:block">
+          <FontAwesomeIcon icon={faHome} className="text-white text-3xl mx-4" />
+        </a>
     </header>
     </>
   );
