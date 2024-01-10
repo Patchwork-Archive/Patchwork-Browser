@@ -31,7 +31,7 @@ function Navbar() {
           className="bg-accent"
         >
           <button
-            className="px-4 py-1 text-white text-2xl mt-4 font-bold"
+            className="px-4 py-1 text-white text-2xl mt-4 font-bold mb-2"
             onClick={toggleMenu}
           >
             ☰ Patchwork Archive
