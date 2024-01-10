@@ -25,7 +25,7 @@ function ChannelPage() {
             setIsLoading(false);
         })
         .catch((error) => console.log(error));
-    }, [page]);
+    }, [page, channelID]);
     return (
         <>
         <ChannelCard apiUrl={`https://patchwork-backend.vercel.app/api/channel_name?channel_id=${channelID}`} channelID={`${channelID}`} />

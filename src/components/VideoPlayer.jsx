@@ -305,25 +305,30 @@ const VideoPlayer = ({ videoId }) => {
             <h2 className="text-white font-bold mt-4 text-lg">Description</h2>
             <div className="text-white mt-2">
               {isExpanded ? (
-                <Linkify>
-                <React.Fragment>
-                  {videoData.description.split(/\n|\\n/).map((line, index) => (
-                    <React.Fragment key={index}>
-                      {line}
-                      <br />
-                    </React.Fragment>
-                  ))}
-                  <button
-                    onClick={toggleExpand}
-                    className="bg-gray-600 hover:underline text-white font-bold py-1 px-4 rounded mt-3"
-                  >
-                    Collapse ↥
-                  </button>
-                </React.Fragment>
+                <Linkify 
+                  options={{ 
+                    className: 'hover:underline text-light-blue-500'
+                  }}
+                >
+                    {videoData.description.split(/\n|\\n/).map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line}
+                        <br />
+                      </React.Fragment>
+                    ))}
+                    <button
+                      onClick={toggleExpand}
+                      className="bg-gray-600 hover:underline text-white font-bold py-1 px-4 rounded mt-3"
+                    >
+                      Collapse ↥
+                    </button>
                 </Linkify>
               ) : (
-                <Linkify>
-                <React.Fragment>
+                <Linkify 
+                  options={{ 
+                    className: 'hover:underline text-light-blue-500'
+                  }}
+                >
                   {videoData.description
                     .split(/\n|\\n/)
                     .slice(0, 4)
@@ -341,7 +346,6 @@ const VideoPlayer = ({ videoId }) => {
                       {isExpanded ? "Collapse ↥" : "Expand ↴"}
                     </button>
                   )}
-                </React.Fragment>
                 </Linkify>
               )}
             </div>
