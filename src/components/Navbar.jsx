@@ -66,32 +66,32 @@ function Navbar() {
           </Link>
         </Menu>
       ) : null}
-      <header
+    <header
         className={`bg-accent py-2 md:py-4 flex flex-col md:flex-row justify-center items-center ${
-          menuOpen ? "opacity-50" : ""
+            menuOpen ? "opacity-50" : ""
         }`}
-      >
+    >
         <button
-          className="px-4 py-1 text-white text-2xl font-bold"
-          onClick={toggleMenu}
+            className="px-4 py-1 text-white text-2xl font-bold"
+            onClick={toggleMenu}
         >
-          ☰
+            ☰
         </button>
-        <div className="flex items-center justify-between w-full max-w-screen-lg px-4 mx-auto">
-          <form
-            action="/results"
-            method="GET"
-            className="flex-1 mx-2 md:mx-8 my-2 md:my-0"
-          >
-            <input
-              type="text"
-              name="q"
-              placeholder="Search"
-              className="w-full py-2 px-4 bg-gray-800 rounded text-white"
-            ></input>
-          </form>
+        <div className="flex items-center justify-center w-full max-w-screen-lg px-4 mx-auto">
+            <form
+                action="/results"
+                method="GET"
+                className="flex-1 mx-2 md:mx-8 my-2 md:my-0"
+            >
+                <input
+                    type="text"
+                    name="q"
+                    placeholder="Search"
+                    className="w-full py-2 px-4 bg-gray-800 rounded text-white"
+                ></input>
+            </form>
         </div>
-      </header>
+    </header>
     </>
   );
 }
