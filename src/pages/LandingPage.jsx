@@ -49,20 +49,21 @@ function LandingPage() {
       {announcementMessage ? (
         <Announcement message={announcementMessage} />
       ) : null}
-      <main className="max-w-screen-xl mx-auto px-4 mt-8">
+      <div className="max-w-screen-xl mx-auto px-4 mt-8">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold mb-4 mt-16 text-white">
+          <h1 className="text-4xl font-bold mb-4 mt-16 text-white">
             Welcome to the VTuber Music Archives
-          </h2>
+          </h1>
           {isLoading ? (
-            <p className="text-xl text-gray-400">Now loading the archives...</p>
+            <h2 className="text-xl text-gray-400">Now loading the archives...</h2>
           ) : (
-            <p className="text-xl text-gray-400">
+            <h2 className="text-xl text-gray-400">
               We have {numberOfVideos.toLocaleString()} videos archived taking
               up {storageUsed}GB of storage space.
-            </p>
+            </h2>
           )}
         </div>
+        <main>
         <VideoGrid
           apiUrl="https://patchwork-backend.vercel.app/api/daily_featured_videos"
           titleText="Daily Featured"
@@ -77,6 +78,7 @@ function LandingPage() {
           titleText="Recently Archived"
         />
       </main>
+      </div>
       <Footer />
     </>
   );
