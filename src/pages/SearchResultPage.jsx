@@ -41,9 +41,9 @@ function SearchResultPage() {
         title={query + " - Patchwork Archive"}
         description="Preserving Cultured Rhythm For the Future"
         image="https://patchwork.moekyun.me/favicon.png"/>
-      <h2 className="text-2xl text-white font-bold mb-2 mt-6 flex justify-center">
+      <h1 className="text-2xl text-white font-bold mb-2 mt-6 flex justify-center">
         Showing results for
-      </h2>
+      </h1>
       <i className="text-lg text-white flex justify-center">{query}</i>
       {isLoading ? (
         <p className="text-white text-xl justify-center flex">Loading...</p>

@@ -20,7 +20,7 @@ const VideoGrid = ({ apiUrl = "", titleText = "" }) => {
   return (
     <>
       <div className="p-4">
-        <h2 className="text-2xl text-white mb-3 font-bold">{titleText}</h2>
+        <h1 className="text-2xl text-white mb-3 font-bold">{titleText}</h1>
         <div className="flex flex-wrap -m-2">
           {isLoading
             ? Array.from({ length: 10 }).map((_, index) => (
@@ -71,9 +71,9 @@ const VideoGrid = ({ apiUrl = "", titleText = "" }) => {
                           href={"/watch?v=" + video.video_id}
                           className="transition-colors duration-300 hover:text-gray-300"
                         >
-                          <h3 className="text-white text-lg font-bold mb-2 m-0 hover:underline">
+                          <h2 className="text-white text-lg font-bold mb-2 m-0 hover:underline">
                             {video.title}
-                          </h3>
+                          </h2>
                         </a>
                       </div>
                       <a

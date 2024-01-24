@@ -67,9 +67,9 @@ function StatusPage() {
       <div className="justify-center flex">
         <WorkerGrid key={refreshCounter} workers={workers} /> {}
       </div>
-      <p className="text-white mt-2 justify-center flex">
+      <h1 className="text-white mt-2 justify-center flex">
         Time left until refresh: {timeLeft} seconds
-      </p>
+      </h1>
       <Footer />
     </>
   );

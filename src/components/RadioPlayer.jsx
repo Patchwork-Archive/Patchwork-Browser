@@ -62,10 +62,10 @@ function RadioPlayer() {
             alt={currentSong.title}
             className="w-1/3 mx-auto rounded-lg mb-2 hover:underline"
           />
-          <h2 className="font-bold mt-2">
+          <h1 className="font-bold mt-2">
             <a href={`/watch?v=${currentSong.video_id}`}>{currentSong.title}</a>
-          </h2>
-          <h3>{currentSong.artist}</h3>
+          </h1>
+          <h2>{currentSong.artist}</h2>
         </div>
       </div>
       {!playlistSet ? (
@@ -73,7 +73,7 @@ function RadioPlayer() {
           <h1 className="text-white text-lg text-center mb-2">
             Playing random songs
           </h1>
-            <img src="/3x.gif" alt="annylebronjam" style={{ width: "auto", height: "80%" }} />
+            <img src="/3x.gif" alt="annylebronjam emote gif (picture an anime fox girl headbanging)" style={{ width: "auto", height: "80%" }} />
         </div>
       ) : (
         <>
