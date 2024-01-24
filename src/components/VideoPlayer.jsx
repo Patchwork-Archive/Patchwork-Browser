@@ -302,7 +302,7 @@ const VideoPlayer = ({ videoId }) => {
             <p className="text-white text-lg mt-2">
               Published on: {formatDate(videoData.upload_date)}
             </p>
-            <h2 className="text-white font-bold mt-4 text-lg">Description</h2>
+            <h1 className="text-white font-bold mt-4 text-lg">Description</h1>
             <div className="text-white mt-2">
               {isExpanded ? (
                 <Linkify 
