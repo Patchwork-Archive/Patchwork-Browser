@@ -10,6 +10,9 @@ function LandingPage() {
   const [numberOfVideos, setNumberOfVideos] = useState(0);
   const [announcementMessage, setAnnouncementMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const discoverAPIUrl = import.meta.env.VITE_QUERY_RANDOM_FROM_DB 
+  ? import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL
+  : "https://patchwork-backend.vercel.app/api/discover_videos";
 
   useEffect(() => {
     fetch("https://patchwork-backend.vercel.app/api/storage/status")
@@ -69,7 +72,7 @@ function LandingPage() {
           titleText="Daily Featured"
         />
         <VideoGrid
-          apiUrl="https://patchwork-backend.vercel.app/api/discover_videos"
+          apiUrl={discoverAPIUrl}
           titleText="Discover"
         />
         <Divider className="my-4" />
