@@ -6,6 +6,7 @@ import { CaptionsRenderer } from "react-srv3";
 import VideoControls from "./VideoControls";
 import SubtitleDropdown from "./SubtitleDropdown";
 import Linkify from "react-linkify";
+import { useHotkeys } from "react-hotkeys-hook";
 
 
 const VideoPlayer = ({ videoId }) => {
@@ -24,6 +25,7 @@ const VideoPlayer = ({ videoId }) => {
   const [notFound, setNotFound] = useState(false);
   const [currentBufferingMessage, setCurrentBufferingMessage] = useState("");
   const videoRef = useRef(null);
+  const vidControlRef = useRef(null);
 
   const handlePlayStateChange = (playing) => {
     setIsPlaying(playing);
@@ -32,6 +34,14 @@ const VideoPlayer = ({ videoId }) => {
   const handleSubtitleSelect = useCallback((subtitle) => {
     setSelectedSubtitle(subtitle);
   }, []);
+
+  useHotkeys('alt+p', () => focusVideoControls());
+
+  const focusVideoControls = () => {
+    if (vidControlRef.current) {
+      vidControlRef.current.focus();
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -241,7 +251,7 @@ const VideoPlayer = ({ videoId }) => {
                 )}
               </div>
             </div>
-            <div className="video-controls w-full mt-1">
+            <div className="video-controls w-full mt-1" tabIndex="-1" ref={vidControlRef}>
               <VideoControls
                 videoRef={videoRef}
                 isPlaying={isPlaying}
