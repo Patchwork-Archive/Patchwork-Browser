@@ -195,6 +195,9 @@ const VideoPlayer = ({ videoId }) => {
         <a href={`https://bilibili.com/video/${videoId}`} className="text-white text-lg bg-blue-500 px-2 rounded-lg mt-2">
           Check BiliBili
         </a>
+        <a href="/" className="text-white text-lg bg-gray-500 px-2 rounded-lg mt-2">
+          Go back home
+        </a>
       </div>
     );
   }
