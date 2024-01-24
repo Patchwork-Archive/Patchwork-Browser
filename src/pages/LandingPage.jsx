@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import HeadTags from "../components/HeadTags";
 import Announcement from "../components/Announcement";
 import VideoGrid from "../components/VideoGrid";
@@ -13,6 +14,15 @@ function LandingPage() {
   const discoverAPIUrl = import.meta.env.VITE_QUERY_RANDOM_FROM_DB 
   ? import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL
   : "https://patchwork-backend.vercel.app/api/discover_videos";
+  const mainRef = useRef(null);
+
+  useHotkeys('alt+p', () => focusMainContent());
+
+  const focusMainContent = () => {
+    if (mainRef.current) {
+      mainRef.current.focus();
+    }
+  };
 
   useEffect(() => {
     fetch("https://patchwork-backend.vercel.app/api/storage/status")
@@ -41,6 +51,7 @@ function LandingPage() {
       .catch((error) => console.error(error));
   }, []);
 
+
   return (
     <>
       <HeadTags
@@ -66,7 +77,7 @@ function LandingPage() {
             </h2>
           )}
         </div>
-        <main>
+        <main tabIndex="-1" ref={mainRef}>
         <VideoGrid
           apiUrl="https://patchwork-backend.vercel.app/api/daily_featured_videos"
           titleText="Daily Featured"

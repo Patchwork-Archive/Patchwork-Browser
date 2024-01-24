@@ -77,13 +77,21 @@ function Navbar() {
         }`}
     >
 
-        <button>
-        <FontAwesomeIcon icon={faBars} className="hidden md:flex text-white text-3xl mx-4" onClick={toggleMenu}/>
+        <button
+        aria-label="Toggle Sidebar Menu"
+        aria-haspopup="menu"
+        onClick={toggleMenu}
+        >
+        <FontAwesomeIcon icon={faBars} className="hidden md:flex text-white text-3xl mx-4"/>
         </button>
       
         <div className="flex items-center justify-center w-full max-w-screen-lg px-4 mx-auto">
-        <button>
-        <FontAwesomeIcon icon={faBars} className="md:hidden text-white text-3xl mx-4" onClick={toggleMenu}/>
+        <button
+        aria-label="Toggle Sidebar Menu"
+        aria-haspopup="menu"
+        onClick={toggleMenu}
+        >
+        <FontAwesomeIcon icon={faBars} className="md:hidden text-white text-3xl mx-4"/>
         </button>
             <form
                 action="/results"
@@ -92,15 +100,23 @@ function Navbar() {
             >
                 <input
                     type="text"
+                    aria-label="Search Input"
                     name="q"
                     placeholder="Search"
                     className="w-full py-2 px-4 bg-gray-800 rounded text-white"
                 ></input>
             </form>
         </div>
-        <a href="/" className="hover:cursor-pointer hidden md:block">
+        <button
+        aria-label="Return to Home Page"
+        href="/" className="hover:cursor-pointer hidden md:block"
+        onClick={
+        () => {
+          window.location.href = "/";
+        }}
+        >
           <FontAwesomeIcon icon={faHome} className="text-white text-3xl mx-4" />
-        </a>
+        </button>
     </header>
     </>
   );
