@@ -277,7 +277,7 @@ const VideoPlayer = ({ videoId }) => {
             {videoData._type ? null : (
               <p className="text-gray-500 text-base mt-2">
                 This video is missing an info.json. The data you see is from the
-                fallback database
+                fallback database.
               </p>
             )}
             {videoData.subtitles && (
@@ -286,7 +286,10 @@ const VideoPlayer = ({ videoId }) => {
                   subtitles={videoData.subtitles}
                   onSelect={handleSubtitleSelect}
                 />
-                <button
+              </div>
+            )}
+            <div className="flex flex-col sm:flex-row items-left mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
+                            <button
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
                   onClick={toggleCaptions}
                 >
@@ -310,8 +313,7 @@ const VideoPlayer = ({ videoId }) => {
                 >
                   Open with VLC
                 </button>
-              </div>
-            )}
+            </div>
             <p className="text-white text-lg mt-2">
               Published on: {formatDate(videoData.upload_date)}
             </p>
