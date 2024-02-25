@@ -16,8 +16,8 @@ function RadioPage() {
   return (
     <>
       <HeadTags
-        title="Patchwork Archive - Playlist"
-        description="Preserving Cultured Rhythm For the Future"
+        title="Patchwork Archive - Radio"
+        description="Listen to a stream of all music archived on Patchwork"
         image="https://patchwork.moekyun.me/favicon.png"
         url="/playlist"
       />
