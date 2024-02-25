@@ -1,6 +1,5 @@
 import { useState } from "react";
 import HeadTags from "../components/HeadTags";
-import Footer from "../components/Footer";
 
 function RadioPage() {
   const m3uAPIUrl = import.meta.env.VITE_RADIO_M3U;
@@ -13,7 +12,7 @@ function RadioPage() {
     <>
       <HeadTags
         title="Patchwork Archive - Radio"
-        description="Listen to a stream of all music archived on Patchwork"
+        description="VTuber Music Radio. Listen to a stream of all music archived on Patchwork."
         image="https://patchwork.moekyun.me/favicon.png"
         url="/playlist"
       />

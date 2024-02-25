@@ -6,7 +6,7 @@ function NotFoundPage() {
     <div className="flex flex-col items-center justify-center h-screen text-white">
       <HeadTags
         title="Patchwork Archive"
-        description="Preserving Cultured Rhythm For the Future"
+        description="Preserving rhythm, one video at a time"
         image="https://patchwork.moekyun.me/favicon.png"
         url=""
       />

@@ -21,7 +21,7 @@ useEffect(() => {
       <div className="bg-accent p-4 rounded">
         <HeadTags
           title={`Patchwork Archive - ${channelData}`}
-          description="Preserving Cultured Rhythm For the Future"
+          description="Preserving rhythm, one video at a time"
           image="https://patchwork.moekyun.me/favicon.png"
           url={`channel/${channelID}`}
         />

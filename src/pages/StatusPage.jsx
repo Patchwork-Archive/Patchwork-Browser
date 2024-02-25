@@ -56,7 +56,7 @@ function StatusPage() {
     <>
       <HeadTags 
         title="Patchwork Archive - Status" 
-        description="Preserving Cultured Rhythm For the Future"
+        description="Preserving rhythm, one video at a time"
         image="https://patchwork.moekyun.me/favicon.png"
         url="/status"
         />

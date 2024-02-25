@@ -6,7 +6,7 @@ function RadioPage() {
     <>
       <HeadTags 
         title="Patchwork Archive - Playlist" 
-        description="Preserving Cultured Rhythm For the Future"
+        description="Preserving rhythm, one video at a time"
         image="https://patchwork.moekyun.me/favicon.png"
         url="/playlist"
         />
