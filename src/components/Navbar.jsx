@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { slide as Menu } from "react-burger-menu";
-import {
-  faHome,
-  faBars
-
-} from "@fortawesome/free-solid-svg-icons";
+import { faHome, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,7 +35,7 @@ function Navbar() {
             className="px-4 py-1 text-white text-2xl mt-4 font-bold mb-2"
             onClick={toggleMenu}
           >
-             <FontAwesomeIcon icon={faBars}></FontAwesomeIcon> Patchwork Archive
+            <FontAwesomeIcon icon={faBars}></FontAwesomeIcon> Patchwork Archive
           </button>
           <Link
             onClick={() => setMenuOpen(false)}
@@ -57,11 +53,20 @@ function Navbar() {
           </Link>
           <Link
             onClick={() => setMenuOpen(false)}
-            to="/radio"
+            to="/playlist"
             className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
           >
-            Radio
+            Playlist
           </Link>
+          {import.meta.env.VITE_RADIO_URL_MP3 ? (
+            <Link
+              onClick={() => setMenuOpen(false)}
+              to="/radio"
+              className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+            >
+              Radio
+            </Link>
+          ) : null}
           <Link
             onClick={() => setMenuOpen(false)}
             to="/about"
@@ -71,53 +76,58 @@ function Navbar() {
           </Link>
         </Menu>
       ) : null}
-    <header
+      <header
         className={`bg-accent py-2 md:py-4 flex flex-col md:flex-row justify-center items-center ${
-            menuOpen ? "opacity-50" : ""
+          menuOpen ? "opacity-50" : ""
         }`}
-    >
+      >
+        <button
+          aria-label="Toggle Sidebar Menu"
+          aria-haspopup="menu"
+          onClick={toggleMenu}
+        >
+          <FontAwesomeIcon
+            icon={faBars}
+            className="hidden md:flex text-white text-3xl mx-4"
+          />
+        </button>
 
-        <button
-        aria-label="Toggle Sidebar Menu"
-        aria-haspopup="menu"
-        onClick={toggleMenu}
-        >
-        <FontAwesomeIcon icon={faBars} className="hidden md:flex text-white text-3xl mx-4"/>
-        </button>
-      
         <div className="flex items-center justify-center w-full max-w-screen-lg px-4 mx-auto">
-        <button
-        aria-label="Toggle Sidebar Menu"
-        aria-haspopup="menu"
-        onClick={toggleMenu}
-        >
-        <FontAwesomeIcon icon={faBars} className="md:hidden text-white text-3xl mx-4"/>
-        </button>
-            <form
-                action="/results"
-                method="GET"
-                className="flex-1 mx-2 md:mx-8 my-2 md:my-0 w-1/2"
-            >
-                <input
-                    type="text"
-                    aria-label="Search Input"
-                    name="q"
-                    placeholder="Search"
-                    className="w-full py-2 px-4 bg-gray-800 rounded text-white"
-                ></input>
-            </form>
+          <button
+            aria-label="Toggle Sidebar Menu"
+            aria-haspopup="menu"
+            onClick={toggleMenu}
+          >
+            <FontAwesomeIcon
+              icon={faBars}
+              className="md:hidden text-white text-3xl mx-4"
+            />
+          </button>
+          <form
+            action="/results"
+            method="GET"
+            className="flex-1 mx-2 md:mx-8 my-2 md:my-0 w-1/2"
+          >
+            <input
+              type="text"
+              aria-label="Search Input"
+              name="q"
+              placeholder="Search"
+              className="w-full py-2 px-4 bg-gray-800 rounded text-white"
+            ></input>
+          </form>
         </div>
         <button
-        aria-label="Return to Home Page"
-        href="/" className="hover:cursor-pointer hidden md:block"
-        onClick={
-        () => {
-          window.location.href = "/";
-        }}
+          aria-label="Return to Home Page"
+          href="/"
+          className="hover:cursor-pointer hidden md:block"
+          onClick={() => {
+            window.location.href = "/";
+          }}
         >
           <FontAwesomeIcon icon={faHome} className="text-white text-3xl mx-4" />
         </button>
-    </header>
+      </header>
     </>
   );
 }

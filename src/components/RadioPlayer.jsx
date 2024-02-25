@@ -3,7 +3,7 @@ import PlaylistQueue from "./PlaylistQueue";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
-function RadioPlayer() {
+function PlaylistPlayer() {
   const [playlistData, setPlaylistData] = useState("");
   const [playlist, setPlaylist] = useState([]);
   const [playlistSet, setPlaylistSet] = useState(false);
@@ -100,7 +100,7 @@ function RadioPlayer() {
                 setPlaylistSet(true);
               }
             }}
-            placeholder="Enter playlist data"
+            placeholder="Enter comma seperated video ID as playlist data (ex. fYZBrmQQIPE,b0v0pzJ5-NI,alVYdx95sng)"
             style={{ width: "50%", resize: "none" }}
             className="rounded-lg"
           ></textarea>
@@ -177,4 +177,4 @@ function RadioPlayer() {
     </>
   );
 }
-export default RadioPlayer;
+export default PlaylistPlayer;
