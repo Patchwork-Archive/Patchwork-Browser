@@ -4,3 +4,9 @@
 body {
     background-color: #1c1c1c;
 }
+.markdown-content {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #FFFF;
+    
+}

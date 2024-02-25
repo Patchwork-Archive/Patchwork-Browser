@@ -16,6 +16,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-three/drei": "^9.93.0",
     "@react-three/fiber": "^8.15.13",
+    "@tailwindcss/typography": "^0.5.10",
     "font-awesome": "^4.7.0",
     "react": "^18.2.0",
     "react-burger-menu": "^3.0.9",
@@ -27,7 +28,8 @@
     "react-linkify": "^1.0.0-alpha",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.21.1",
-    "react-srv3": "github:Patchwork-Archive/react-srv3"
+    "react-srv3": "github:Patchwork-Archive/react-srv3",
+    "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.47",
