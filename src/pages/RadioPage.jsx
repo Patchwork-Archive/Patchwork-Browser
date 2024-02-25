@@ -34,7 +34,7 @@ function RadioPage() {
                     </a>
                 )}
             </div>
-            <div className="mx-auto max-w-md py-8">
+            <div className="mx-auto max-w-xl py-8">
                 {useEmbed ? (
                     <iframe 
                         src={embedUrl} 
