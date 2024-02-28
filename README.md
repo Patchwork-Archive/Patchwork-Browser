@@ -4,8 +4,6 @@
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 
-# Currently migrating off of Netlify. Service may be degraded. Please try clearing your browser's cache if you've visited before and cannot connect.
-
 Frontend for Patchwork Archive, an archival project for VTuber music. 
 
 ## Deploy
