@@ -40,7 +40,7 @@ function SearchResultPage() {
       <HeadTags
         title={query + " - Patchwork Archive"}
         description="Preserving rhythm, one video at a time"
-        image="https://patchwork.moekyun.me/favicon.png"/>
+        image="/android-chrome-192x192.png"/>
       <h1 className="text-2xl text-white font-bold mb-2 mt-6 flex justify-center">
         Showing results for
       </h1>

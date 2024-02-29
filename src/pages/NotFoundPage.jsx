@@ -7,7 +7,7 @@ function NotFoundPage() {
       <HeadTags
         title="Patchwork Archive"
         description="Preserving rhythm, one video at a time"
-        image="https://patchwork.moekyun.me/favicon.png"
+        image="/android-chrome-192x192.png"
         url=""
       />
       <meta name="prerender-status-code" content="404"></meta>

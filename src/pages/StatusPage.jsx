@@ -57,7 +57,7 @@ function StatusPage() {
       <HeadTags 
         title="Patchwork Archive - Status" 
         description="Preserving rhythm, one video at a time"
-        image="https://patchwork.moekyun.me/favicon.png"
+        image="/android-chrome-192x192.png"
         url="/status"
         />
       <ServerStatusCard apiUrl="https://patchwork-backend.vercel.app/api/status" />
