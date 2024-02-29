@@ -7,7 +7,7 @@ function RadioPage() {
       <HeadTags 
         title="Patchwork Archive - Playlist" 
         description="Preserving rhythm, one video at a time"
-        image="/android-chrome-192x192.png"
+        image="https://files.pinapelz.com/android-chrome-192x192.png"
         url="/playlist"
         />
       <div className="mt-4 text-lg">

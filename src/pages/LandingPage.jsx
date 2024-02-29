@@ -57,7 +57,7 @@ function LandingPage() {
       <HeadTags
         title="Patchwork Archive"
         description="Preserving rhythm, one video at a time"
-        image="/android-chrome-192x192.png"
+        image="https://files.pinapelz.com/android-chrome-192x192.png"
         url=""
       />
       {announcementMessage ? (

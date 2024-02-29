@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import HeadTags from "./HeadTags";
 import { CaptionsRenderer } from "react-srv3";
 import VideoControls from "./VideoControls";
 import SubtitleDropdown from "./SubtitleDropdown";
-import Linkify from "react-linkify";
+import { Linkify } from "react-linkify";
 import { useHotkeys } from "react-hotkeys-hook";
 
 
@@ -326,10 +326,10 @@ const VideoPlayer = ({ videoId }) => {
                   }}
                 >
                     {videoData.description.split(/\n|\\n/).map((line, index) => (
-                      <React.Fragment key={index}>
+                      <Fragment key={index}>
                         {line}
                         <br />
-                      </React.Fragment>
+                      </Fragment>
                     ))}
                     <button
                       onClick={toggleExpand}
@@ -348,10 +348,10 @@ const VideoPlayer = ({ videoId }) => {
                     .split(/\n|\\n/)
                     .slice(0, 4)
                     .map((line, index) => (
-                      <React.Fragment key={index}>
+                      <Fragment key={index}>
                         {line}
                         <br />
-                      </React.Fragment>
+                      </Fragment>
                     ))}
                   {videoData.description.split(/\n|\\n/).length > 4 && (
                     <button

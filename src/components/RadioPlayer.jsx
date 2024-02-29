@@ -73,7 +73,7 @@ function PlaylistPlayer() {
           <h1 className="text-white text-lg text-center mb-2">
             Playing random songs
           </h1>
-            <img src="/3x.gif" alt="annylebronjam emote gif (picture an anime fox girl headbanging)" style={{ width: "auto", height: "80%" }} />
+            <img src="https://files.pinapelz.com/3x.gif" alt="annylebronjam emote gif (picture an anime fox girl headbanging)" style={{ width: "auto", height: "80%" }} />
         </div>
       ) : (
         <>
