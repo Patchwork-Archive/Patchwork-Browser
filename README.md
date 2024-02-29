@@ -3,6 +3,7 @@
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2a8e849f-8415-4683-a6f7-06f4ff473049/deploy-status)](https://app.netlify.com/sites/patchwork-archive/deploys)
 
 Frontend for Patchwork Archive, an archival project for VTuber music. 
 
