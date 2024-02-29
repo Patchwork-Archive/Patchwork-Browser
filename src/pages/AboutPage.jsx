@@ -19,7 +19,6 @@ function AboutPage() {
             <HeadTags 
                 title="Patchwork Archive - About" 
                 description="Preserving rhythm, one video at a time"
-                image="https://files.pinapelz.com/android-chrome-192x192.png"
                 url="/playlist"
             />
             <div className="flex justify-center items-center w-50 py-8" >

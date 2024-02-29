@@ -57,7 +57,6 @@ function StatusPage() {
       <HeadTags 
         title="Patchwork Archive - Status" 
         description="Preserving rhythm, one video at a time"
-        image="https://files.pinapelz.com/android-chrome-192x192.png"
         url="/status"
         />
       <ServerStatusCard apiUrl="https://patchwork-backend.vercel.app/api/status" />

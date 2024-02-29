@@ -13,7 +13,6 @@ function RadioPage() {
       <HeadTags
         title="Patchwork Archive - Radio"
         description="VTuber Music Radio. Listen to a stream of all music archived on Patchwork."
-        image="https://files.pinapelz.com/android-chrome-192x192.png"
         url="/playlist"
       />
       {radioUrl ? (

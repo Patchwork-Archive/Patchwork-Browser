@@ -2,6 +2,18 @@ import PropTypes from "prop-types";
 import { Helmet } from "react-helmet-async";
 
 export default function HeadTags({title, description, image, url}) {
+  if (!title) {
+    title = "Patchwork Archive";
+  }
+  if (!description) {
+    description = "Preserving rhythm, one video at a time";
+  }
+  if (!url) {
+    url = "";
+  }
+  if(!image){
+    image = import.meta.env.VITE_DEFAULT_OG_IMAGE;
+  }
   return (
     <Helmet>
       <title>{title}</title>

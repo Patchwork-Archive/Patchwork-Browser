@@ -22,7 +22,6 @@ useEffect(() => {
         <HeadTags
           title={`Patchwork Archive - ${channelData}`}
           description="Preserving rhythm, one video at a time"
-          image="https://files.pinapelz.com/android-chrome-192x192.png"
           url={`channel/${channelID}`}
         />
         {isLoading ? (
