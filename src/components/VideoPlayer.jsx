@@ -5,7 +5,7 @@ import HeadTags from "./HeadTags";
 import { CaptionsRenderer } from "react-srv3";
 import VideoControls from "./VideoControls";
 import SubtitleDropdown from "./SubtitleDropdown";
-import { Linkify } from "react-linkify";
+import Linkify  from "react-linkify";
 import { useHotkeys } from "react-hotkeys-hook";
 
 

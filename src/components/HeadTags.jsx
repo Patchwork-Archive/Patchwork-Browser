@@ -1,19 +1,7 @@
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet-async";
 
-export default function HeadTags({title, description, image, url}) {
-  if (!title) {
-    title = "Patchwork Archive";
-  }
-  if (!description) {
-    description = "Preserving rhythm, one video at a time";
-  }
-  if (!url) {
-    url = "";
-  }
-  if(!image){
-    image = import.meta.env.VITE_DEFAULT_OG_IMAGE;
-  }
+export default function HeadTags({title="Patchwork Archive", description="Preserving rhythm, one video at a time", image="", url=""}) {
   return (
     <Helmet>
       <title>{title}</title>
@@ -46,8 +34,8 @@ export default function HeadTags({title, description, image, url}) {
 }
 
 HeadTags.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.string,
-  url: PropTypes.string,
+  title: PropTypes.any,
+  description: PropTypes.any,
+  image: PropTypes.any,
+  url: PropTypes.any,
 };
