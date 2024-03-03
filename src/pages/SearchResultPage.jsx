@@ -29,7 +29,7 @@ function SearchResultPage() {
       setNumResults(data.results.length)
     })
     .catch((error) => setError(error));
-  }, [page]); 
+  }, [page, query]); 
 
   if (error) {
     return <p className="text-white text-xl justify-center flex">Error: {error.message}</p>;
