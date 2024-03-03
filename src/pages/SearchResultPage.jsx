@@ -16,7 +16,7 @@ function SearchResultPage() {
   const [numResults, setNumResults] = useState(0);
 
   useEffect(() => {
-    fetch(`https://patchwork-backend.vercel.app/api/search/results?q=${query}&page=${page}`)
+    fetch(import.meta.env.VITE_API_DOMAIN+`/api/search/results?q=${query}&page=${page}`)
     .then((response) => {
       setIsLoading(false);
       if (!response.ok) {

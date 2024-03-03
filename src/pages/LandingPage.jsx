@@ -13,7 +13,7 @@ function LandingPage() {
   const [isLoading, setIsLoading] = useState(true);
   const discoverAPIUrl = import.meta.env.VITE_QUERY_RANDOM_FROM_DB 
   ? import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL
-  : "https://patchwork-backend.vercel.app/api/discover_videos";
+  : import.meta.env.VITE+"/api/discover_videos";
   const mainRef = useRef(null);
 
   useHotkeys('alt+p', () => focusMainContent());
@@ -25,7 +25,7 @@ function LandingPage() {
   };
 
   useEffect(() => {
-    fetch("https://patchwork-backend.vercel.app/api/storage/status")
+    fetch(import.meta.env.VITE_API_DOMAIN+"/api/storage/status")
       .then((response) => response.json())
       .then((data) => {
         setStorageUsed(data.storage_size);
@@ -34,7 +34,7 @@ function LandingPage() {
       })
       .catch((error) => console.error(error));
 
-    fetch("https://api.lanyard.rest/v1/users/246787839570739211")
+    fetch(import.meta.env.VITE_KV_DOMAIN)
       .then((response) => response.json())
       .then((data) => {
         if (
@@ -78,7 +78,7 @@ function LandingPage() {
         </div>
         <main tabIndex="-1" ref={mainRef}>
         <VideoGrid
-          apiUrl="https://patchwork-backend.vercel.app/api/daily_featured_videos"
+          apiUrl= {import.meta.env.VITE_API_DOMAIN+"/api/daily_featured_videos"}
           titleText="Daily Featured"
         />
         <VideoGrid
@@ -87,7 +87,7 @@ function LandingPage() {
         />
         <Divider className="my-4" />
         <VideoGrid
-          apiUrl="https://patchwork-backend.vercel.app/api/recently_archived"
+          apiUrl={import.meta.env.VITE_API_DOMAIN+"/api/recently_archived"}
           titleText="Recently Archived"
         />
       </main>

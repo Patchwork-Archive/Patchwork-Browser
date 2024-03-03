@@ -37,7 +37,7 @@ function StatusPage() {
   }, [timeLeft]);
 
   const refreshData = () => {
-    fetch("https://patchwork-backend.vercel.app/api/status")
+    fetch(import.meta.env.VITE_API_DOMAIN+"/api/status")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -59,7 +59,7 @@ function StatusPage() {
         description="Preserving rhythm, one video at a time"
         url="/status"
         />
-      <ServerStatusCard apiUrl="https://patchwork-backend.vercel.app/api/status" />
+      <ServerStatusCard apiUrl={import.meta.env.VITE_API_DOMAIN+"/api/status"} />
       <h1 className="text-white text-3xl justify-center flex font-bold">
         Workers
       </h1>

@@ -17,7 +17,7 @@ function ChannelPage() {
     const { channelID } = useParams();
 
     useEffect(() => {
-        fetch(`https://patchwork-backend.vercel.app/api/channel/${channelID}?page=${page}`)
+        fetch(import.meta.env.VITE_API_DOMAIN+`/api/channel/${channelID}?page=${page}`)
         .then((response) => response.json())
         .then((data) => {
             setChannelPageData(data.results)
@@ -28,7 +28,7 @@ function ChannelPage() {
     }, [page, channelID]);
     return (
         <>
-        <ChannelCard apiUrl={`https://patchwork-backend.vercel.app/api/channel_name?channel_id=${channelID}`} channelID={`${channelID}`} />
+        <ChannelCard apiUrl={import.meta.env.VITE_API_DOMAIN+`/api/channel_name?channel_id=${channelID}`} channelID={`${channelID}`} />
         <div className="max-w-screen-xl mx-auto px-4 mt-8">
         <ChannelPageGrid isLoading={isLoading} videos={channelPageData} />
         </div>
