@@ -11,9 +11,9 @@ function LandingPage() {
   const [numberOfVideos, setNumberOfVideos] = useState(0);
   const [announcementMessage, setAnnouncementMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const discoverAPIUrl = import.meta.env.VITE_QUERY_RANDOM_FROM_DB 
-  ? import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL
-  : import.meta.env.VITE+"/api/discover_videos";
+  const discoverAPIUrl = import.meta.env.VITE_QUERY_RANDOM_FROM_DB == "true"
+  ? import.meta.env.VITE+"/api/discover_videos"
+  : import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL;
   const mainRef = useRef(null);
 
   useHotkeys('alt+p', () => focusMainContent());
