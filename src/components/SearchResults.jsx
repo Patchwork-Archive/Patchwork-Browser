@@ -5,7 +5,7 @@ const thumbnailDomain =
 
 const SearchResults = ({ results }) => {
   return (
-    <div className="p-4 mx-12">
+    <div className="py-4 px-2 mx-2">
       <div className="-m-2">
         {!Array.isArray(results) || results.length === 0 ? (
           <p className="text-white text-xl justify-center flex font-bold">
@@ -18,7 +18,7 @@ const SearchResults = ({ results }) => {
               className="flex flex-col sm:flex-row p-2 mb-4 border-gray-400 hover:bg-gray-700 hover:rounded-lg transition-colors duration-200"
               style={{ width: "calc(100% - 1rem)" }}
             >
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 py-2">
                 <a href={"/watch?v=" + video.video_id}>
                   <img
                     src={thumbnailDomain + "/" + video.video_id + ".jpg"}
