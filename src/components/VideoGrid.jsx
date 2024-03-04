@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 const thumbnailDomain = import.meta.env.VITE_THUMBNAIL_DOMAIN;
@@ -7,14 +7,17 @@ const VideoGrid = ({ apiUrl = "", titleText = "" }) => {
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        setVideos(data);
-        setIsLoading(false);
-      });
-  }, [apiUrl]);
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      setVideos(Array.isArray(data) ? data : []);
+      setIsLoading(false);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      setVideos([]);
+      setIsLoading(false);
+    });
 
   return (
     <>
