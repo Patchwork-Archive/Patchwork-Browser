@@ -18,14 +18,14 @@ function PlaylistPlayer() {
     if (playlistData !== "") {
       const playlistArray = playlistData.split(",");
       const playlistPromises = playlistArray.map((song) => {
-        return fetch(`https://archive.pinapelz.moe/api/video/${song}`)
+        return fetch(import.meta.env.VITE_API_DOMAIN+`/api/video/${song}`)
           .then((response) => response.json())
           .then((data) => {
             const songObject = {
               title: data.title,
               artist: data.channel_name,
               video_id: data.video_id,
-              thumbnailurl: `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${data.video_id}.jpg`,
+              thumbnailurl: import.meta.env.VITE_THUMBNAIL_DOMAIN`/${data.video_id}.jpg`,
             };
             return songObject;
           });
@@ -38,14 +38,14 @@ function PlaylistPlayer() {
         setCurrentSongIndex(0);
       });
     } else {
-      fetch("https://archive.pinapelz.moe/api/random_video")
+      fetch(import.meta.env.VITE_API_DOMAIN+"/api/random_video")
         .then((response) => response.json())
         .then((data) => {
           const songObject = {
             title: data.title,
             artist: data.channel_name,
             video_id: data.video_id,
-            thumbnailurl: `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${data.video_id}.jpg`,
+            thumbnailurl: import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${data.video_id}.jpg`,
           };
           setCurrentSong(songObject);
           setCurrentSongIndex(0);
@@ -108,7 +108,7 @@ function PlaylistPlayer() {
         <AudioPlayer
           autoPlay
           showSkipControls
-          src={`https://cdn.pinapelz.com/VTuber%20Covers%20Archive/${currentSong.video_id}.webm`}
+          src={import.meta.env.VITE_CDN_DOMAIN+`/${currentSong.video_id}.webm`}
           onClickNext={() => {
             if (playlistSet) {
               if (currentSongIndex < playlist.length - 1) {
@@ -116,14 +116,14 @@ function PlaylistPlayer() {
                 setCurrentSong(playlist[currentSongIndex + 1]);
               }
             } else {
-              fetch("https://archive.pinapelz.moe/api/random_video")
+              fetch(import.meta.env.VITE_API_DOMAIN+"/api/random_video")
                 .then((response) => response.json())
                 .then((data) => {
                   const songObject = {
                     title: data.title,
                     artist: data.channel_name,
                     video_id: data.video_id,
-                    thumbnailurl: `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${data.video_id}.jpg`,
+                    thumbnailurl: import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${data.video_id}.jpg`,
                   };
                   setCurrentSong(songObject);
                   setCurrentSongIndex(0);
@@ -137,14 +137,14 @@ function PlaylistPlayer() {
                 setCurrentSong(playlist[currentSongIndex - 1]);
               }
             } else {
-              fetch("https://archive.pinapelz.moe/api/random_video")
+              fetch(import.meta.env.VITE_API_DOMAIN+"/api/random_video")
                 .then((response) => response.json())
                 .then((data) => {
                   const songObject = {
                     title: data.title,
                     artist: data.channel_name,
                     video_id: data.video_id,
-                    thumbnailurl: `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${data.video_id}.jpg`,
+                    thumbnailurl: import.meta.env.VITE_API_DOMAIN+`/${data.video_id}.jpg`,
                   };
                   setCurrentSong(songObject);
                   setCurrentSongIndex(0);
@@ -158,14 +158,14 @@ function PlaylistPlayer() {
                 setCurrentSong(playlist[currentSongIndex + 1]);
               }
             } else {
-              fetch("https://archive.pinapelz.moe/api/random_video")
+              fetch(import.meta.env.VITE_API_DOMAIN+"/api/random_video")
                 .then((response) => response.json())
                 .then((data) => {
                   const songObject = {
                     title: data.title,
                     artist: data.channel_name,
                     video_id: data.video_id,
-                    thumbnailurl: `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${data.video_id}.jpg`,
+                    thumbnailurl: import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${data.video_id}.jpg`,
                   };
                   setCurrentSong(songObject);
                   setCurrentSongIndex(0);

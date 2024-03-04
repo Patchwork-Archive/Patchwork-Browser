@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const thumbnailDomain =
-  "https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails";
+const thumbnailDomain = import.meta.env.VITE_THUMBNAIL_DOMAIN;
 
 const VideoGrid = ({ apiUrl = "", titleText = "" }) => {
   const [videos, setVideos] = useState([]);

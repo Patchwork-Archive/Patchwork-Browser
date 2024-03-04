@@ -102,7 +102,7 @@ const VideoPlayer = ({ videoId }) => {
   useEffect(() => {
     if (selectedSubtitle) {
       fetch(
-        `https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/captions/${videoId}/${videoId}.${selectedSubtitle}.srv3`
+        import.meta.env.VITE_CAPTIONS_DOMAIN+`/${videoId}/${videoId}.${selectedSubtitle}.srv3`
       )
         .then((res) => res.text())
         .then((text) => {
@@ -182,7 +182,7 @@ const VideoPlayer = ({ videoId }) => {
         <HeadTags
           title="Video not found"
           description="Video not found"
-          image={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
+          image={import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${videoId}.jpg`}
           url={`/watch?v=${videoId}`}
         />
         <h1 className="text-white text-lg font-bold py-4">Video not found</h1>
@@ -210,7 +210,7 @@ const VideoPlayer = ({ videoId }) => {
             <HeadTags
               title={videoData.title}
               description={videoData.channel}
-              image={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
+              image={import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${videoId}.jpg`}
               url={`/watch?v=${videoId}`}
             />
             <div className="video-container w-full relative">
@@ -223,7 +223,7 @@ const VideoPlayer = ({ videoId }) => {
                   ref={videoRef}
                   className="absolute top-0 left-0 w-full h-full object-contain"
                   src={videoCDNUrl}
-                  poster={`https://content.pinapelz.com/file/vtuber-rabbit-hole-archive/VTuber+Covers+Archive/thumbnails/${videoId}.jpg`}
+                  poster={import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${videoId}.jpg`}
                   onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
                   onClick={handleVideoClick}
                   onWaiting={() => setIsBuffering(true)}

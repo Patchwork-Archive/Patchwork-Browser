@@ -1,7 +1,7 @@
-import RadioPlayer from "../components/RadioPlayer";
+import PlaylistPlayer from "../components/PlaylistPlayer";
 import HeadTags from "../components/HeadTags";
 
-function RadioPage() {
+function PlaylistPage() {
   return (
     <>
       <HeadTags 
@@ -10,9 +10,9 @@ function RadioPage() {
         url="/playlist"
         />
       <div className="mt-4 text-lg">
-        <RadioPlayer />
+        <PlaylistPlayer />
       </div>
     </>
   );
 }
-export default RadioPage;
+export default PlaylistPage;
