@@ -25,6 +25,7 @@ const VideoPage = () => {
           <ColumnVideoGrid
             apiUrl={discoverAPIUrl}
             titleText="Discover"
+            currentVideoId={videoId}
           />
         </div>
       </div>

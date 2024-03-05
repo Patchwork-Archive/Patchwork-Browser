@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const thumbnailDomain = import.meta.env.VITE_THUMBNAIL_DOMAIN;
 
-const ColumnVideoGrid = ({ apiUrl, titleText }) => {
+const ColumnVideoGrid = ({ apiUrl, titleText, currentVideoId="" }) => {
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -12,9 +12,12 @@ const ColumnVideoGrid = ({ apiUrl, titleText }) => {
       .then((response) => response.json())
       .then((data) => {
         setVideos(data);
+        if (currentVideoId) {
+          setVideos((prev) => prev.filter((video) => video.video_id !== currentVideoId));
+        }
         setIsLoading(false);
       });
-  }, [apiUrl]);
+  }, [apiUrl, currentVideoId]);
   
   return (
     <div className="p-2 md:p-4">
@@ -79,6 +82,7 @@ const ColumnVideoGrid = ({ apiUrl, titleText }) => {
 ColumnVideoGrid.propTypes = {
   apiUrl: PropTypes.string,
   titleText: PropTypes.string,
+  currentVideoId: PropTypes.string
 };
 
 export default ColumnVideoGrid;
