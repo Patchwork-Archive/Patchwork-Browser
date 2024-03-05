@@ -12,7 +12,7 @@ function LandingPage() {
   const [announcementMessage, setAnnouncementMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const discoverAPIUrl = import.meta.env.VITE_QUERY_RANDOM_FROM_DB == "true"
-  ? import.meta.env.VITE+"/api/discover_videos"
+  ? import.meta.env.VITE_API_DOMAIN+"/api/discover_videos"
   : import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL;
   const mainRef = useRef(null);
 

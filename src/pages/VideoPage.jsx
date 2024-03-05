@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 const VideoPage = () => {
   const [videoId, setVideoId] = useState("");
   const discoverAPIUrl = import.meta.env.VITE_QUERY_RANDOM_FROM_DB == "true"
-  ? import.meta.env.VITE+"/api/discover_videos"
+  ? import.meta.env.VITE_API_DOMAIN+"/api/discover_videos"
   : import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL;
 
   useEffect(() => {
