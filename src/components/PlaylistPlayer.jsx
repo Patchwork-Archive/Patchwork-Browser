@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import "../styles/playlist-player.css";
 
 function PlaylistPlayer({ playlistData }) {
   const [playlist, setPlaylist] = useState([]);
@@ -80,36 +81,37 @@ function PlaylistPlayer({ playlistData }) {
 return (
   <>
   <div className="container mx-auto flex flex-col md:flex-row justify-center items-start space-y-4 md:space-y-0 md:space-x-4">
-    <div className="video-player flex-grow w-full">
-      <video controls width="100%" height="auto" autoPlay key={playlist[currentVideoIndex]}
-             onEnded={handleVideoEnd}>
-        <source src={playlist[currentVideoIndex]} type="video/webm" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <div className="playlist-sidebar w-full md:w-1/3 bg-gray-200 p-4" style={{ maxHeight: "500px" }}>
-      <ul className="playlist-list">
-        {playlist.map((videoUrl, index) => {
-          const videoIdMatch = videoUrl.match(/\/([a-zA-Z0-9_-]+)\.webm$/);
-          const videoId = videoIdMatch ? videoIdMatch[1] : 'Unknown';
-          return (
-            <li key={index} className={`mb-2 flex justify-between items-center ${index === currentVideoIndex ? 'bg-blue-100' : ''}`}>
-              <button
-                className="text-left text-accent hover:text-blue-700 focus:outline-none"
-                onClick={() => handleVideoChange(index)}
-              >
-                {videoId}
-              </button>
-              <button
-                className="ml-4 text-red-500 hover:text-red-700 focus:outline-none"
-                onClick={() => handleRemoveVideo(index)}
-              >
-                Remove
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+<div className="video-player-wrapper">
+  <div className="video-player">
+    <video controls autoPlay key={playlist[currentVideoIndex]} onEnded={handleVideoEnd}>
+      <source src={playlist[currentVideoIndex]} type="video/webm" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+    <div className="playlist-sidebar w-full md:w-1/3 bg-gray-200 p-4" style={{ maxHeight: "600px" }}>
+  <ul className="playlist-list overflow-auto max-h-96">
+    {playlist.map((videoUrl, index) => {
+      const videoIdMatch = videoUrl.match(/\/([a-zA-Z0-9_-]+)\.webm$/);
+      const videoId = videoIdMatch ? videoIdMatch[1] : 'Unknown';
+      return (
+        <li key={index} className={`mb-2 flex justify-between items-center ${index === currentVideoIndex ? 'bg-blue-100' : ''}`}>
+          <button
+            className="text-left text-accent hover:text-blue-700 focus:outline-none"
+            onClick={() => handleVideoChange(index)}
+          >
+            {videoId}
+          </button>
+          <button
+            className="ml-4 text-red-500 hover:text-red-700 focus:outline-none"
+            onClick={() => handleRemoveVideo(index)}
+          >
+            Remove
+          </button>
+        </li>
+      );
+    })}
+  </ul>
       <div className="add-video mt-4">
         <input
           type="text"
