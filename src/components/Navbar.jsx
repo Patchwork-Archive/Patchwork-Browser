@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { slide as Menu } from "react-burger-menu";
-import { faHome, faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHome,
+  faBars,
+  faCircleInfo,
+  faRadio,
+  faRecordVinyl,
+  faCircleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,51 +36,57 @@ function Navbar() {
           isOpen={menuOpen}
           onStateChange={handleStateChange}
           left
-          className="bg-accent"
+          className="bg-accent flex flex-col h-full"
         >
-          <button
-            className="px-4 py-1 text-white text-2xl mt-4 font-bold mb-2"
-            onClick={toggleMenu}
-          >
-            <FontAwesomeIcon icon={faBars}></FontAwesomeIcon> Patchwork Archive
-          </button>
-          <Link
-            onClick={() => setMenuOpen(false)}
-            to="/"
-            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
-          >
-            Home
-          </Link>
-          <Link
-            onClick={() => setMenuOpen(false)}
-            to="/status"
-            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
-          >
-            Status
-          </Link>
-          <Link
-            onClick={() => setMenuOpen(false)}
-            to="/playlist"
-            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
-          >
-            Playlist
-          </Link>
-          {import.meta.env.VITE_RADIO_URL_MP3 ? (
+            <button
+              className="px-4 py-1 text-white text-2xl mt-4 font-bold mb-2"
+              onClick={toggleMenu}
+            >
+              <FontAwesomeIcon icon={faBars} /> Patchwork Archive
+            </button>
+          <div>
             <Link
               onClick={() => setMenuOpen(false)}
-              to="/radio"
+              to="/"
               className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
             >
-              Radio
+              <FontAwesomeIcon icon={faHome} className="mr-2" /> Home
             </Link>
-          ) : null}
-          <Link
-            onClick={() => setMenuOpen(false)}
-            to="/about"
-            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
-          >
-            About
-          </Link>
+            <Link
+              onClick={() => setMenuOpen(false)}
+              to="/playlist"
+              className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+            >
+              <FontAwesomeIcon icon={faRecordVinyl} className="mr-2" /> Playlist
+            </Link>
+            {import.meta.env.VITE_RADIO_URL_MP3 ? (
+              <Link
+                onClick={() => setMenuOpen(false)}
+                to="/radio"
+                className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+              >
+                <FontAwesomeIcon icon={faRadio} className="mr-2" /> Radio
+              </Link>
+            ) : null}
+          </div>
+          <div className="mt-8">
+            <h2 className="text-white text-xl font-light px-2">Information</h2>
+            <Link
+              onClick={() => setMenuOpen(false)}
+              to="/status"
+              className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+            >
+              <FontAwesomeIcon icon={faCircleExclamation} className="mr-2" />{" "}
+              Status
+            </Link>
+            <Link
+              onClick={() => setMenuOpen(false)}
+              to="/about"
+              className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+            >
+              <FontAwesomeIcon icon={faCircleInfo} className="mr-2" /> About
+            </Link>
+          </div>
         </Menu>
       ) : null}
       <header
