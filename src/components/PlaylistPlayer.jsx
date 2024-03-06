@@ -80,7 +80,7 @@ function PlaylistPlayer({ playlistData }) {
 return (
   <>
   <div className="container mx-auto flex flex-col md:flex-row justify-center items-start space-y-4 md:space-y-0 md:space-x-4">
-    <div className="video-player flex-grow">
+    <div className="video-player flex-grow w-full">
       <video controls width="100%" height="auto" autoPlay key={playlist[currentVideoIndex]}
              onEnded={handleVideoEnd}>
         <source src={playlist[currentVideoIndex]} type="video/webm" />
@@ -135,7 +135,7 @@ return (
       </div>
     </div>
   </div>
-  <div className="px-24 info-box p-5">
+  <div className="px-12 info-box p-5 absolute fixed md:px-48">
   <h1 className="text-3xl font-bold text-white mb-3">Patchwork Playlist</h1>
   <p className="text-white text-lg mb-4">
     Create a playlist of content archived on Patchwork!<br/>
@@ -144,7 +144,7 @@ return (
   <p className="text-white text-lg mb-4">
     Need some ideas?
   </p>
-  <button className="bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 rounded"
+  <button className="bg-accent hover:bg-accent-dark text-white font-bold p-4 rounded"
     onClick={handleAddRandomSong}
   >
     <p className="text-white">Add a random song!</p>
