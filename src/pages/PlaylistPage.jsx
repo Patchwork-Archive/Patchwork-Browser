@@ -2,6 +2,7 @@ import PlaylistPlayer from "../components/PlaylistPlayer";
 import HeadTags from "../components/HeadTags";
 
 function PlaylistPage() {
+  const playlistData = new URLSearchParams(window.location.search).get("pl");
   return (
     <>
       <HeadTags 
@@ -10,7 +11,7 @@ function PlaylistPage() {
         url="/playlist"
         />
       <div className="mt-4 text-lg">
-        <PlaylistPlayer />
+        <PlaylistPlayer playlistData={playlistData}/>
       </div>
     </>
   );

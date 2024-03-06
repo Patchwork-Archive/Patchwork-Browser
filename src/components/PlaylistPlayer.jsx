@@ -1,180 +1,162 @@
 import { useState, useEffect } from "react";
-import PlaylistQueue from "./PlaylistQueue";
-import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
+import PropTypes from "prop-types";
 
-function PlaylistPlayer() {
-  const [playlistData, setPlaylistData] = useState("");
+function PlaylistPlayer({ playlistData }) {
   const [playlist, setPlaylist] = useState([]);
-  const [playlistSet, setPlaylistSet] = useState(false);
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [currentSong, setCurrentSong] = useState({
-    title: "No song playing",
-    artist: "Nobody",
-    thumbnailurl: "",
-  });
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [newVideo, setNewVideo] = useState("");
 
   useEffect(() => {
-    if (playlistData !== "") {
-      const playlistArray = playlistData.split(",");
-      const playlistPromises = playlistArray.map((song) => {
-        return fetch(import.meta.env.VITE_API_DOMAIN+`/api/video/${song}`)
-          .then((response) => response.json())
-          .then((data) => {
-            const songObject = {
-              title: data.title,
-              artist: data.channel_name,
-              video_id: data.video_id,
-              thumbnailurl: import.meta.env.VITE_THUMBNAIL_DOMAIN`/${data.video_id}.jpg`,
-            };
-            return songObject;
-          });
-      });
-
-      Promise.all(playlistPromises).then((playlistObject) => {
-        console.log(playlistObject);
-        setPlaylist(playlistObject);
-        setCurrentSong(playlistObject[0]);
-        setCurrentSongIndex(0);
-      });
-    } else {
-      fetch(import.meta.env.VITE_API_DOMAIN+"/api/random_video")
-        .then((response) => response.json())
-        .then((data) => {
-          const songObject = {
-            title: data.title,
-            artist: data.channel_name,
-            video_id: data.video_id,
-            thumbnailurl: import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${data.video_id}.jpg`,
-          };
-          setCurrentSong(songObject);
-          setCurrentSongIndex(0);
-        });
+    if (playlistData) {
+      const videos = playlistData.split(",").map(videoId => import.meta.env.VITE_CDN_DOMAIN+`/${videoId}.webm`);
+      setPlaylist(videos);
+      setCurrentVideoIndex(0);
     }
   }, [playlistData]);
 
-  return (
-    <>
-      <div className="mb-8">
-        <div className="text-center text-white">
-          <img
-            src={currentSong.thumbnailurl}
-            alt={currentSong.title}
-            className="w-1/3 mx-auto rounded-lg mb-2 hover:underline"
-          />
-          <h1 className="font-bold mt-2">
-            <a href={`/watch?v=${currentSong.video_id}`}>{currentSong.title}</a>
-          </h1>
-          <h2>{currentSong.artist}</h2>
-        </div>
-      </div>
-      {!playlistSet ? (
-        <div className="flex flex-col items-center justify-center">
-          <h1 className="text-white text-lg text-center mb-2">
-            Playing random songs
-          </h1>
-            <img src="https://files.pinapelz.com/3x.gif" alt="annylebronjam emote gif (picture an anime fox girl headbanging)" style={{ width: "auto", height: "80%" }} />
-        </div>
-      ) : (
-        <>
-          <h1 className="text-white font-bold text-lg text-center mb-2">
-            Playing from your playlist
-          </h1>
-          <PlaylistQueue
-            playlist={playlist}
-            currentSongIndex={currentSongIndex}
-          />
-        </>
-      )}
+  const handleVideoChange = (index) => {
+    setCurrentVideoIndex(index);
+  };
 
-      <div className="fixed inset-x-0 bottom-0 mt-4 text-lg mb-4 z-10">
-        <div className="text-center mt-4">
-          <textarea
-            value={playlistData}
-            onChange={(e) => {
-              if (e.target.value === "") {
-                setPlaylistSet(false);
-                setPlaylistData(e.target.value);
-              } else {
-                setPlaylistData(e.target.value);
-                setPlaylistSet(true);
-              }
-            }}
-            placeholder="Enter comma seperated video ID as playlist data (ex. fYZBrmQQIPE,b0v0pzJ5-NI,alVYdx95sng)"
-            style={{ width: "50%", resize: "none" }}
-            className="rounded-lg"
-          ></textarea>
-        </div>
-        <AudioPlayer
-          autoPlay
-          showSkipControls
-          src={import.meta.env.VITE_CDN_DOMAIN+`/${currentSong.video_id}.webm`}
-          onClickNext={() => {
-            if (playlistSet) {
-              if (currentSongIndex < playlist.length - 1) {
-                setCurrentSongIndex(currentSongIndex + 1);
-                setCurrentSong(playlist[currentSongIndex + 1]);
-              }
-            } else {
-              fetch(import.meta.env.VITE_API_DOMAIN+"/api/random_video")
-                .then((response) => response.json())
-                .then((data) => {
-                  const songObject = {
-                    title: data.title,
-                    artist: data.channel_name,
-                    video_id: data.video_id,
-                    thumbnailurl: import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${data.video_id}.jpg`,
-                  };
-                  setCurrentSong(songObject);
-                  setCurrentSongIndex(0);
-                });
-            }
-          }}
-          onClickPrevious={() => {
-            if (playlistSet) {
-              if (currentSongIndex > 0) {
-                setCurrentSongIndex(currentSongIndex - 1);
-                setCurrentSong(playlist[currentSongIndex - 1]);
-              }
-            } else {
-              fetch(import.meta.env.VITE_API_DOMAIN+"/api/random_video")
-                .then((response) => response.json())
-                .then((data) => {
-                  const songObject = {
-                    title: data.title,
-                    artist: data.channel_name,
-                    video_id: data.video_id,
-                    thumbnailurl: import.meta.env.VITE_API_DOMAIN+`/${data.video_id}.jpg`,
-                  };
-                  setCurrentSong(songObject);
-                  setCurrentSongIndex(0);
-                });
-            }
-          }}
-          onEnded={() => {
-            if (playlistSet) {
-              if (currentSongIndex < playlist.length - 1) {
-                setCurrentSongIndex(currentSongIndex + 1);
-                setCurrentSong(playlist[currentSongIndex + 1]);
-              }
-            } else {
-              fetch(import.meta.env.VITE_API_DOMAIN+"/api/random_video")
-                .then((response) => response.json())
-                .then((data) => {
-                  const songObject = {
-                    title: data.title,
-                    artist: data.channel_name,
-                    video_id: data.video_id,
-                    thumbnailurl: import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${data.video_id}.jpg`,
-                  };
-                  setCurrentSong(songObject);
-                  setCurrentSongIndex(0);
-                });
-            }
-          }}
-        ></AudioPlayer>
+  const handleAddVideo = () => {
+    let videoId = newVideo;
+    const urlMatch = newVideo.match(/watch\?v=([a-zA-Z0-9_-]+)/);
+    if (urlMatch) {
+      videoId = import.meta.env.VITE_CDN_DOMAIN+`/${urlMatch[1]}.webm`;
+    } else {
+      videoId = import.meta.env.VITE_CDN_DOMAIN+`/${newVideo}.webm`;
+    }
+
+    if (videoId) {
+      setPlaylist([...playlist, videoId]);
+      setNewVideo("");
+    }
+  };
+
+  const handleRemoveVideo = (videoIndex) => {
+    const updatedPlaylist = playlist.filter((_, index) => index !== videoIndex);
+    setPlaylist(updatedPlaylist);
+    if (videoIndex <= currentVideoIndex && updatedPlaylist.length) {
+      setCurrentVideoIndex(currentVideoIndex > 0 ? currentVideoIndex - 1 : 0);
+    }
+  };
+
+  const handleVideoEnd = () => {
+    const nextVideoIndex = currentVideoIndex + 1;
+    if (nextVideoIndex < playlist.length) {
+      setCurrentVideoIndex(nextVideoIndex);
+    } else {
+      setCurrentVideoIndex(0); 
+    }
+  };
+
+  const handleAddRandomSong = () => {
+    fetch(import.meta.env.VITE_API_DOMAIN+'/api/random_video')
+      .then(response => response.json())
+      .then(data => {
+      const videoId = data.video_id;
+      const videoUrl = import.meta.env.VITE_CDN_DOMAIN + `/${videoId}.webm`;
+      setPlaylist([...playlist, videoUrl]);
+      })
+      .catch(error => {
+      console.error('Failed to fetch random video:', error);
+      });
+  }
+
+  const exportPlaylistToUrl = () => {
+    const videoIds = playlist.map(videoUrl => {
+      const match = videoUrl.match(/\/([a-zA-Z0-9_-]+)\.webm$/);
+      return match ? match[1] : '';
+    }).join(',');
+
+    const url = `${window.location.origin}${window.location.pathname}?pl=${videoIds}`;
+    navigator.clipboard.writeText(url).then(() => {
+      alert('Playlist URL copied to clipboard!');
+    }, () => {
+      alert('Failed to copy URL');
+    });
+  };
+
+return (
+  <>
+  <div className="container mx-auto flex flex-col md:flex-row justify-center items-start space-y-4 md:space-y-0 md:space-x-4">
+    <div className="video-player flex-grow">
+      <video controls width="100%" height="auto" autoPlay key={playlist[currentVideoIndex]}
+             onEnded={handleVideoEnd}>
+        <source src={playlist[currentVideoIndex]} type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div className="playlist-sidebar w-full md:w-1/3 bg-gray-200 p-4" style={{ maxHeight: "500px" }}>
+      <ul className="playlist-list">
+        {playlist.map((videoUrl, index) => {
+          const videoIdMatch = videoUrl.match(/\/([a-zA-Z0-9_-]+)\.webm$/);
+          const videoId = videoIdMatch ? videoIdMatch[1] : 'Unknown';
+          return (
+            <li key={index} className={`mb-2 flex justify-between items-center ${index === currentVideoIndex ? 'bg-blue-100' : ''}`}>
+              <button
+                className="text-left text-accent hover:text-blue-700 focus:outline-none"
+                onClick={() => handleVideoChange(index)}
+              >
+                {videoId}
+              </button>
+              <button
+                className="ml-4 text-red-500 hover:text-red-700 focus:outline-none"
+                onClick={() => handleRemoveVideo(index)}
+              >
+                Remove
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <div className="add-video mt-4">
+        <input
+          type="text"
+          value={newVideo}
+          onChange={(e) => setNewVideo(e.target.value)}
+          placeholder="Enter video URL or ID..."
+          className="p-2 border rounded w-full"
+        />
+        <button
+          className="mt-2 w-full bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 rounded"
+          onClick={handleAddVideo}
+        >
+          Add Video
+        </button>
       </div>
-    </>
-  );
+      <div className="export-playlist mt-4">
+        <button
+          className="w-full bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 rounded"
+          onClick={exportPlaylistToUrl}
+        >
+          Export Playlist
+        </button>
+      </div>
+    </div>
+  </div>
+  <div className="px-24 info-box p-5">
+  <h1 className="text-3xl font-bold text-white mb-3">Patchwork Playlist</h1>
+  <p className="text-white text-lg mb-4">
+    Create a playlist of content archived on Patchwork!<br/>
+    Add the video ID or URL to the playlist then export to share and save the direct URL to the playlist.
+  </p>
+  <p className="text-white text-lg mb-4">
+    Need some ideas?
+  </p>
+  <button className="bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 rounded"
+    onClick={handleAddRandomSong}
+  >
+    <p className="text-white">Add a random song!</p>
+  </button>
+</div>
+
+  </>
+);
 }
+
+PlaylistPlayer.propTypes = {
+  playlistData: PropTypes.string,
+};
+
 export default PlaylistPlayer;
