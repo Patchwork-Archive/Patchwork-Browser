@@ -5,7 +5,8 @@ import HeadTags from "../components/HeadTags";
 import Footer from "../components/Footer";
 
 function StatusPage() {
-  const [timeLeft, setTimeLeft] = useState(15);
+  const refreshTimeSeconds = import.meta.env.VITE_STATUS_REFRESH || 60;
+  const [timeLeft, setTimeLeft] = useState(refreshTimeSeconds);
   const [workers, setWorkers] = useState([]);
   const [refreshCounter, setRefreshCounter] = useState(0);
 
@@ -13,12 +14,12 @@ function StatusPage() {
     const intervalId = setInterval(() => {
       refreshData();
       setRefreshCounter((prevCounter) => prevCounter + 1);
-    }, 15000);
+    }, refreshTimeSeconds*1000);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [workers]);
+  }, [workers, refreshTimeSeconds]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
