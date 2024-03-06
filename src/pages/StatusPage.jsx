@@ -7,12 +7,12 @@ import Footer from "../components/Footer";
 function StatusPage() {
   const [timeLeft, setTimeLeft] = useState(15);
   const [workers, setWorkers] = useState([]);
-  const [refreshCounter, setRefreshCounter] = useState(0); 
+  const [refreshCounter, setRefreshCounter] = useState(0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       refreshData();
-      setRefreshCounter(prevCounter => prevCounter + 1); 
+      setRefreshCounter((prevCounter) => prevCounter + 1);
     }, 15000);
 
     return () => {
@@ -37,7 +37,7 @@ function StatusPage() {
   }, [timeLeft]);
 
   const refreshData = () => {
-    fetch(import.meta.env.VITE_API_DOMAIN+"/api/status")
+    fetch(import.meta.env.VITE_API_DOMAIN + "/api/status")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -54,16 +54,35 @@ function StatusPage() {
 
   return (
     <>
-      <HeadTags 
-        title="Patchwork Archive - Status" 
+      <HeadTags
+        title="Patchwork Archive - Status"
         description="Preserving rhythm, one video at a time"
         url="/status"
-        />
-      <ServerStatusCard apiUrl={import.meta.env.VITE_API_DOMAIN+"/api/status"} />
-      <h1 className="text-white text-3xl justify-center flex font-bold">
-        Workers
+      />
+      <div className="flex justify-center items-center w-50 py-8 px-2">
+        <div className="flex flex-col justify-center items-center w-50 py-4 px-2">
+          <h1 className="text-white text-3xl font-bold mb-4">
+            Patchwork Archive Server Status
+          </h1>
+          <img
+            src={import.meta.env.VITE_DEFAULT_OG_IMAGE}
+            alt="Patchwork Archive Logo"
+            className="w-1/4 h-1/4 rounded-full mt-2"
+          />
+        </div>
+      </div>
+      <ServerStatusCard
+        apiUrl={import.meta.env.VITE_API_DOMAIN + "/api/status"}
+      />
+      <h1 className="text-white text-3xl mb-1 justify-center flex font-bold">
+        Worker Status
       </h1>
-      <div className="justify-center flex">
+      <h2 className="text-white text-m justify-center flex text-center px-1">
+        Workers are the servers that process the videos. <br />
+        They are responsible for downloading, processing, and uploading the
+        videos
+      </h2>
+      <div>
         <WorkerGrid key={refreshCounter} workers={workers} /> {}
       </div>
       <h1 className="text-white mt-2 justify-center flex">

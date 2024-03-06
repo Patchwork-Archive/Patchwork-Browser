@@ -70,7 +70,7 @@ function Navbar() {
             ) : null}
           </div>
           <div className="mt-8">
-            <h2 className="text-white text-xl font-light px-2">Information</h2>
+            <h2 className="text-white text-xl font-light px-2 mb-1">Information</h2>
             <Link
               onClick={() => setMenuOpen(false)}
               to="/status"
