@@ -8,6 +8,7 @@ import {
   faRadio,
   faRecordVinyl,
   faCircleExclamation,
+  faPenToSquare
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Navbar() {
@@ -79,6 +80,14 @@ function Navbar() {
               <FontAwesomeIcon icon={faCircleExclamation} className="mr-2" />{" "}
               Status
             </Link>
+            {import.meta.env.VITE_SUBMISSION_FORM ? (
+              <Link
+                to={import.meta.env.VITE_SUBMISSION_FORM}
+                className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+              >
+                <FontAwesomeIcon icon={faPenToSquare} className="mr-2" /> Form
+              </Link>
+            ) : null}
             <Link
               onClick={() => setMenuOpen(false)}
               to="/about"
