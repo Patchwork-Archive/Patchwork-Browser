@@ -1,11 +1,12 @@
 import { useState } from "react";
 import HeadTags from "../components/HeadTags";
+import RadioPlayer from "../components/RadioPlayer";
 
 function RadioPage() {
   const m3uAPIUrl = import.meta.env.VITE_RADIO_M3U;
   const plsAPIUrl = import.meta.env.VITE_RADIO_PLS;
-  const radioUrl = import.meta.env.VITE_RADIO_URL_MP3;
   const embedUrl = import.meta.env.VITE_EMBED_URL;
+  const radioUrl = import.meta.env.VITE_RADIO_URL_MP3;
   const [useEmbed, setUseEmbed] = useState(!embedUrl);
 
   return (
@@ -42,7 +43,7 @@ function RadioPage() {
                 style={{ width: "100%", minHeight: "150px", border: "0" }}
               />
             ) : (
-              <audio controls autoPlay className="w-full" src={radioUrl} />
+              <RadioPlayer radioUrl={radioUrl}/>
             )}
           </div>
           <div className="mt-4 text-white text-center">
