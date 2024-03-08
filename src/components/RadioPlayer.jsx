@@ -17,15 +17,23 @@ function RadioPlayer({ radioUrl }) {
         })
       );
     };
-socket.onmessage = (event) => {
-    console.log(event.data);
-    if (JSON.stringify(event.data) == JSON.stringify({}) || !event.data) return;
-    const radio_data = JSON.parse(event.data);
-    if (!radio_data) return;
-    const curr_song_data = radio_data.connect.data[0].pub.data.np.now_playing.song;
-    console.log(curr_song_data.title);
-    setCurrentSong(curr_song_data);
-};
+    socket.onmessage = (event) => {
+      const jsonData = JSON.parse(event.data);
+      if (Object.keys(jsonData).length === 0) return;
+      if ("connect" in jsonData) {
+        console.log("WebSocket connected to radio server.");
+        const initialData = jsonData.connect.data ?? [];
+        setCurrentSong(initialData[0].pub.data.np.now_playing.song);
+      } else if ("channel" in jsonData && jsonData.channel != "global:time") {
+        console.log("WebSocket received channel song data.");
+        const updatedNowPlayingData = jsonData.pub.data.np;
+        setCurrentSong(updatedNowPlayingData.now_playing.song);
+      }
+      else{
+        // Must be a global:time message for syncing. We'll stub for now
+        console.log("Sync message received")
+      }
+    };
     socket.onerror = (error) => {
       console.log("WebSocket error: ", error);
     };
