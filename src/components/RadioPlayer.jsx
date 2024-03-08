@@ -1,5 +1,6 @@
 import PropType from "prop-types";
 import { useEffect, useState } from "react";
+import { Transition } from "@headlessui/react";
 
 function RadioPlayer({ radioUrl }) {
   const [currentSong, setCurrentSong] = useState(null);
@@ -28,10 +29,9 @@ function RadioPlayer({ radioUrl }) {
         console.log("WebSocket received channel song data.");
         const updatedNowPlayingData = jsonData.pub.data.np;
         setCurrentSong(updatedNowPlayingData.now_playing.song);
-      }
-      else{
+      } else {
         // Must be a global:time message for syncing. We'll stub for now
-        console.log("Sync message received")
+        console.log("Sync message received");
       }
     };
     socket.onerror = (error) => {
@@ -43,16 +43,29 @@ function RadioPlayer({ radioUrl }) {
   }, []);
 
   return (
-    <div>
-      <audio controls autoPlay className="w-full" src={radioUrl} />
-      {currentSong && (
-        <div className="text-white">
-          <h2>Now Playing:</h2>
-          <p>
-            {currentSong.artist} - {currentSong.title}
+    <div className="bg-gradient-to-tr animate-gradient-x from-indigo-500 via-purple-500 to-purple-500 p-5 rounded-xl shadow-xl flex flex-col items-center gap-3 transition-all duration-500 ease-in-out transform hover:scale-105">
+      <Transition
+        show={Boolean(currentSong)}
+        enter="transition-opacity duration-750"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-750"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <div className="text-white text-center">
+          <h2 className="text-2xl font-bold">Now Playing:</h2>
+          <p className="text-md mt-2">
+            {currentSong?.title}<br/>{currentSong?.artist}
           </p>
-        </div>
-      )}
+          </div>
+      </Transition>
+      <audio
+        controls
+        autoPlay
+        className="w-full rounded-lg shadow-inner"
+        src={radioUrl}
+      />
     </div>
   );
 }

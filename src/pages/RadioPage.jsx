@@ -49,7 +49,7 @@ function RadioPage() {
           <div className="mt-4 text-white text-center">
             {m3uAPIUrl ? (
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded"
+                className="bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 mx-2 rounded"
                 onClick={() => (window.location.href = m3uAPIUrl)}
               >
                 Download M3U
@@ -57,7 +57,7 @@ function RadioPage() {
             ) : null}
             {plsAPIUrl ? (
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded"
+                className="bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 mx-2 rounded"
                 onClick={() => (window.location.href = plsAPIUrl)}
               >
                 Download PLS
