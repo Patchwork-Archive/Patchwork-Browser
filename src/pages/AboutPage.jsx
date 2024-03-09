@@ -19,7 +19,7 @@ function AboutPage() {
             <HeadTags 
                 title="Patchwork Archive - About" 
                 description="Preserving rhythm, one video at a time"
-                url="/playlist"
+                url="playlist"
             />
             <div className="flex justify-center items-center w-50 py-8 px-2" >
             <Markdown remarkPlugins={[remarkGfm]} className="prose dark:prose-invert text-white">{markdown}</Markdown>

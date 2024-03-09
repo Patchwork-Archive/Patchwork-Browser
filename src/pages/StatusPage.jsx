@@ -58,7 +58,7 @@ function StatusPage() {
       <HeadTags
         title="Patchwork Archive - Status"
         description="Preserving rhythm, one video at a time"
-        url="/status"
+        url="status"
       />
       <div className="flex justify-center items-center w-50 py-8 px-2">
         <div className="flex flex-col justify-center items-center w-50 py-4 px-2">

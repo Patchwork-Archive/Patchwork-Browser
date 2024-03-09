@@ -8,7 +8,7 @@ function PlaylistPage() {
       <HeadTags 
         title="Patchwork Archive - Playlist" 
         description="Preserving rhythm, one video at a time"
-        url="/playlist"
+        url="playlist"
         />
       <div className="mt-4 text-lg">
         <PlaylistPlayer playlistData={playlistData}/>

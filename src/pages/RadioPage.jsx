@@ -14,7 +14,7 @@ function RadioPage() {
       <HeadTags
         title="Patchwork Archive - Radio"
         description="VTuber Music Radio. Listen to a stream of all music archived on Patchwork."
-        url="/playlist"
+        url="radio"
       />
       {radioUrl ? (
         <>
