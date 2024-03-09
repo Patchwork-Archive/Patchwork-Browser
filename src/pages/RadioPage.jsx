@@ -18,52 +18,36 @@ function RadioPage() {
       />
       {radioUrl ? (
         <>
-          <div className="mt-4 text-white text-center">
-            <h1 className="text-2xl">Patchwork Radio Beta!</h1>
-            <p>
-              Listen to a stream of all music archived on Patchwork <br />
-              Synced up with everyone else listening
-              <br />
-              <br />
-              Currently being tested, expect some downtime and changes
-            </p>
-            {embedUrl && (
-              <a
-                className=" hover:underline text-white font-bold py-2 mt-2 px-4 mx-2 rounded cursor-pointer"
-                onClick={() => setUseEmbed(!useEmbed)}
-              >
-                {useEmbed ? "Switch to Audio Player" : "Switch to Embed Player"}
-              </a>
-            )}
-          </div>
+<div className="mt-6 text-white text-center">
+  <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-4 transition-all duration-700 ease-in-out transform hover:scale-105">
+    Patchwork Archive - VTuber Songs and Covers
+  </h1>
+  <p className="text-xl font-light leading-relaxed mb-4">
+    Listen to an endless stream of VTuber music 24/7, all archived on Patchwork.
+  </p>
+  <p className="font-medium italic">
+    Currently being tested, expect some downtime and changes.
+  </p>
+  {embedUrl && (
+    <a
+      className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 mt-4 px-6 mx-2 rounded-full cursor-pointer transition-all duration-300 ease-in-out transform hover:-translate-y-1 shadow-lg"
+      onClick={() => setUseEmbed(!useEmbed)}
+    >
+      {useEmbed ? "Hide Embed Player" : "Show Embed Player"}
+    </a>
+  )}
+</div>
+
           <div className="mx-auto max-w-xl py-8">
             {useEmbed ? (
               <iframe
                 src={embedUrl}
                 style={{ width: "100%", minHeight: "150px", border: "0" }}
               />
-            ) : (
-              <RadioPlayer radioUrl={radioUrl}/>
-            )}
-          </div>
-          <div className="mt-4 text-white text-center">
-            {m3uAPIUrl ? (
-              <button
-                className="bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 mx-2 rounded"
-                onClick={() => (window.location.href = m3uAPIUrl)}
-              >
-                Download M3U
-              </button>
             ) : null}
-            {plsAPIUrl ? (
-              <button
-                className="bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 mx-2 rounded"
-                onClick={() => (window.location.href = plsAPIUrl)}
-              >
-                Download PLS
-              </button>
-            ) : null}
+            <RadioPlayer radioUrl={radioUrl} m3uAPIUrl={m3uAPIUrl} plsAPIUrl={plsAPIUrl}/>
           </div>
+
         </>
       ) : null}
     </>
