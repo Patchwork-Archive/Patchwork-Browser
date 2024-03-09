@@ -19,7 +19,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
   const audioRef = useRef(null);
 
   const resyncStream = () => {
-    if (!audioRef) return;
+    if (!audioRef.current) return;
     audioRef.current.load();
     if (isPlaying) {
       audioRef.current.play();
@@ -27,13 +27,12 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
   };
 
   useEffect(() => {
-    if (audioRef.current) {
-      isPlaying ? audioRef.current.play() : audioRef.current.pause();
-    }
+    if (!audioRef.current) return;
+    isPlaying ? audioRef.current.play() : audioRef.current.pause();
   }, [isPlaying]);
 
   useEffect(() => {
-    if (!audioRef) return;
+    if (!audioRef.current) return;
     audioRef.current.volume = volume;
     if (volume == 0) {
       setIsMuted(true);
@@ -43,7 +42,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
   }, [volume]);
 
   useEffect(() => {
-    if (!audioRef) return;
+    if (!audioRef.current) return;
     const handleTimeUpdate = () => {
       setElapsedTimeStr(
         new Date(audioRef.current.currentTime * 1000)
@@ -53,7 +52,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
     };
     audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      if (!audioRef.current) return;
       audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
     };
   }, []);
