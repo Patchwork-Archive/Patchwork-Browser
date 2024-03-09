@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-import HeadTags from "../components/HeadTags";
 import Announcement from "../components/Announcement";
 import VideoGrid from "../components/VideoGrid";
 import Divider from "../components/Divider";
@@ -54,11 +53,6 @@ function LandingPage() {
 
   return (
     <>
-      <HeadTags
-        title="Patchwork Archive"
-        description="Preserving rhythm, one video at a time"
-        url=""
-      />
       {announcementMessage ? (
         <Announcement message={announcementMessage} />
       ) : null}
