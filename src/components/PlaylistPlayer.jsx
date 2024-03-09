@@ -1,25 +1,53 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "../styles/playlist-player.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 function PlaylistPlayer({ playlistData }) {
   const [playlist, setPlaylist] = useState([]);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [newVideo, setNewVideo] = useState("");
+  const [currTitle, setCurrTitle] = useState("Patchwork Playlist");
+  const [currChannelName, setCurrChannelName] = useState("Create a playlist of content archived on Patchwork! Enqueue videos by providing their URLs or IDs");
+  const [currVideoID, setCurrVideoID] = useState("Unknown");
+  const [currChannelId, setCurrChannelId] = useState("Unknown");
+
+  useEffect(() => {
+    if (currVideoID === "Unknown") return;
+    fetch(import.meta.env.VITE_API_DOMAIN+'/api/video/'+currVideoID)
+      .then(response => response.json())
+      .then(data => {
+      setCurrTitle(data.title);
+      setCurrChannelName(data.channel_name);
+      setCurrChannelId(data.channel_id);
+      })
+      .catch(error => {
+      console.error('Failed to fetch video data:', error);
+      });
+  }, [currVideoID]);
 
   useEffect(() => {
     if (playlistData) {
       const videos = playlistData.split(",").map(videoId => import.meta.env.VITE_CDN_DOMAIN+`/${videoId}.webm`);
       setPlaylist(videos);
       setCurrentVideoIndex(0);
+      const firstVideoUrlMatch = videos[0].match(/\/([a-zA-Z0-9_-]+)\.webm$/);
+      const firstVideoId = firstVideoUrlMatch ? firstVideoUrlMatch[1] : 'Unknown';
+      setCurrVideoID(firstVideoId);
+      console.log("First video ID: ", firstVideoId);
+      
     }
   }, [playlistData]);
 
   const handleVideoChange = (index) => {
     setCurrentVideoIndex(index);
+    const videoUrlMatch = playlist[index].match(/\/([a-zA-Z0-9_-]+)\.webm$/);
+    const videoId = videoUrlMatch ? videoUrlMatch[1] : 'Unknown';
+    setCurrVideoID(videoId);
   };
 
   const handleAddVideo = () => {
+    if (!newVideo) return;
     let videoId = newVideo;
     const urlMatch = newVideo.match(/watch\?v=([a-zA-Z0-9_-]+)/);
     if (urlMatch) {
@@ -36,9 +64,16 @@ function PlaylistPlayer({ playlistData }) {
 
   const handleRemoveVideo = (videoIndex) => {
     const updatedPlaylist = playlist.filter((_, index) => index !== videoIndex);
+    toast.error('Removed song from playlist!');
     setPlaylist(updatedPlaylist);
     if (videoIndex <= currentVideoIndex && updatedPlaylist.length) {
       setCurrentVideoIndex(currentVideoIndex > 0 ? currentVideoIndex - 1 : 0);
+      if(currentVideoIndex - 1 >= 0) {
+      const videoUrlMatch = playlist[currentVideoIndex-1].match(/\/([a-zA-Z0-9_-]+)\.webm$/);
+      const videoId = videoUrlMatch ? videoUrlMatch[1] : 'Unknown';
+      console.log("New video ID: ", videoId);
+      setCurrVideoID(videoId);
+      }
     }
   };
 
@@ -46,6 +81,10 @@ function PlaylistPlayer({ playlistData }) {
     const nextVideoIndex = currentVideoIndex + 1;
     if (nextVideoIndex < playlist.length) {
       setCurrentVideoIndex(nextVideoIndex);
+      const videoUrlMatch = playlist[nextVideoIndex].match(/\/([a-zA-Z0-9_-]+)\.webm$/);
+      const videoId = videoUrlMatch ? videoUrlMatch[1] : 'Unknown';
+      setCurrVideoID(videoId);
+
     } else {
       setCurrentVideoIndex(0); 
     }
@@ -57,7 +96,11 @@ function PlaylistPlayer({ playlistData }) {
       .then(data => {
       const videoId = data.video_id;
       const videoUrl = import.meta.env.VITE_CDN_DOMAIN + `/${videoId}.webm`;
+      toast.success('Added random song to playlist!');
       setPlaylist([...playlist, videoUrl]);
+      if (playlist.length === 0) {
+        setCurrVideoID(videoId);
+      }
       })
       .catch(error => {
       console.error('Failed to fetch random video:', error);
@@ -80,6 +123,9 @@ function PlaylistPlayer({ playlistData }) {
 
 return (
   <>
+  <Toaster
+  position="bottom-center"
+   />
   <div className="container mx-auto flex flex-col md:flex-row justify-center items-start space-y-4 md:space-y-0 md:space-x-4">
 <div className="video-player-wrapper">
   <div className="video-player">
@@ -138,11 +184,12 @@ return (
     </div>
   </div>
   <div className="px-12 info-box p-5 fixed md:px-48">
-  <h1 className="text-3xl font-bold text-white mb-3">Patchwork Playlist</h1>
-  <p className="text-white text-lg mb-4">
-    Create a playlist of content archived on Patchwork!<br/>
-    Add the video ID or URL to the playlist then export to share and save the direct URL to the playlist.
+    <a href={"/watch?v="+currVideoID}>  <h1 className="text-2xl font-bold text-white mb-3 hover:underline">{currTitle}</h1>
+    </a>
+  <a href={"/channel/"+currChannelId}><p className="text-white text-xl mb-4 hover:underline">
+    {currChannelName}
   </p>
+  </a>
   <p className="text-white text-lg mb-4">
     Need some ideas?
   </p>
