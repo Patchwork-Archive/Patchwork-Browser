@@ -137,7 +137,7 @@ return (
       </div>
     </div>
   </div>
-  <div className="px-12 info-box p-5 absolute fixed md:px-48">
+  <div className="px-12 info-box p-5 fixed md:px-48">
   <h1 className="text-3xl font-bold text-white mb-3">Patchwork Playlist</h1>
   <p className="text-white text-lg mb-4">
     Create a playlist of content archived on Patchwork!<br/>
