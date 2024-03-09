@@ -19,8 +19,6 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef(null);
 
- 
-
   const resyncStream = () => {
     if (!audioRef.current) return;
     audioRef.current.load();
@@ -59,6 +57,31 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
       audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
     };
   }, []);
+
+  useEffect(() => {
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: currentSong?.title,
+        artist: currentSong?.artist,
+        album: import.meta.env.VITE_RADIO_NAME,
+        artwork: [
+          {
+            src: import.meta.env.VITE_DEFAULT_OG_IMAGE,
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      });
+
+      navigator.mediaSession.setActionHandler("play", () => {
+        setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+      });
+
+      navigator.mediaSession.setActionHandler("pause", () => {
+        setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+      });
+    }
+  }, [currentSong, isPlaying]);
 
   useEffect(() => {
     const socket = new WebSocket(import.meta.env.VITE_RADIO_WSS);
