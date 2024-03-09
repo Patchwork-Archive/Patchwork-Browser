@@ -18,7 +18,7 @@ export default function HeadTags({title="Patchwork Archive", description="Preser
         content="Preserving rhythm, one video at a time"/>
 
       <meta property="twitter:card" content="summary" />
-      {url ? && <meta property="twitter:url" content={`${window.location.origin}/${url}`} /> : null }
+      {url ? <meta property="twitter:url" content={`${window.location.origin}/${url}`} /> : null }
       <meta
         property="twitter:title"
         content={`${title}`}/>
