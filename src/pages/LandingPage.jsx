@@ -4,18 +4,20 @@ import Announcement from "../components/Announcement";
 import VideoGrid from "../components/VideoGrid";
 import Divider from "../components/Divider";
 import Footer from "../components/Footer";
+import HeadTags from "../components/HeadTags";
 
 function LandingPage() {
   const [storageUsed, setStorageUsed] = useState(0);
   const [numberOfVideos, setNumberOfVideos] = useState(0);
   const [announcementMessage, setAnnouncementMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const discoverAPIUrl = import.meta.env.VITE_QUERY_RANDOM_FROM_DB == "true"
-  ? import.meta.env.VITE_API_DOMAIN+"/api/discover_videos"
-  : import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL;
+  const discoverAPIUrl =
+    import.meta.env.VITE_QUERY_RANDOM_FROM_DB == "true"
+      ? import.meta.env.VITE_API_DOMAIN + "/api/discover_videos"
+      : import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL;
   const mainRef = useRef(null);
 
-  useHotkeys('alt+p', () => focusMainContent());
+  useHotkeys("alt+p", () => focusMainContent());
 
   const focusMainContent = () => {
     if (mainRef.current) {
@@ -24,7 +26,7 @@ function LandingPage() {
   };
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_API_DOMAIN+"/api/storage/status")
+    fetch(import.meta.env.VITE_API_DOMAIN + "/api/storage/status")
       .then((response) => response.json())
       .then((data) => {
         setStorageUsed(data.storage_size);
@@ -50,9 +52,14 @@ function LandingPage() {
       .catch((error) => console.error(error));
   }, []);
 
-
   return (
     <>
+      <HeadTags
+        title="Patchwork Archive"
+        description="Preserving rhythm, one video at a time"
+        url="playlist"
+        image={import.meta.env.VITE_OG_IMAGE_DYNA}
+      />
       {announcementMessage ? (
         <Announcement message={announcementMessage} />
       ) : null}
@@ -62,7 +69,9 @@ function LandingPage() {
             Welcome to the VTuber Music Archives
           </h1>
           {isLoading ? (
-            <h2 className="text-xl text-gray-400">Now loading the archives...</h2>
+            <h2 className="text-xl text-gray-400">
+              Now loading the archives...
+            </h2>
           ) : (
             <h2 className="text-xl text-gray-400">
               We have {numberOfVideos.toLocaleString()} videos archived taking
@@ -71,20 +80,19 @@ function LandingPage() {
           )}
         </div>
         <main tabIndex="-1" ref={mainRef}>
-        <VideoGrid
-          apiUrl= {import.meta.env.VITE_API_DOMAIN+"/api/daily_featured_videos"}
-          titleText="Daily Featured"
-        />
-        <VideoGrid
-          apiUrl={discoverAPIUrl}
-          titleText="Discover"
-        />
-        <Divider className="my-4" />
-        <VideoGrid
-          apiUrl={import.meta.env.VITE_API_DOMAIN+"/api/recently_archived"}
-          titleText="Recently Archived"
-        />
-      </main>
+          <VideoGrid
+            apiUrl={
+              import.meta.env.VITE_API_DOMAIN + "/api/daily_featured_videos"
+            }
+            titleText="Daily Featured"
+          />
+          <VideoGrid apiUrl={discoverAPIUrl} titleText="Discover" />
+          <Divider className="my-4" />
+          <VideoGrid
+            apiUrl={import.meta.env.VITE_API_DOMAIN + "/api/recently_archived"}
+            titleText="Recently Archived"
+          />
+        </main>
       </div>
       <Footer />
     </>

@@ -8,6 +8,7 @@ function NotFoundPage() {
         title="Patchwork Archive"
         description="Preserving rhythm, one video at a time"
         url=""
+        image={import.meta.env.VITE_OG_IMAGE_DYNA}
       />
       <meta name="prerender-status-code" content="404"></meta>
       <h1 className="text-4xl font-bold mb-8">404 - Not Found!</h1>

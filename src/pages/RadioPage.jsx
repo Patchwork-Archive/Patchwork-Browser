@@ -15,6 +15,7 @@ function RadioPage() {
         title="Patchwork Archive - Radio"
         description="VTuber Music Radio. Listen to a stream of all music archived on Patchwork."
         url="radio"
+        image={import.meta.env.VITE_OG_IMAGE_DYNA}
       />
       {radioUrl ? (
         <>

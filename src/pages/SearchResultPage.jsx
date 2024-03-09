@@ -40,6 +40,7 @@ function SearchResultPage() {
       <HeadTags
         title={query + " - Patchwork Archive"}
         description="Preserving rhythm, one video at a time"
+        image={import.meta.env.VITE_OG_IMAGE_DYNA}
       />
       <h1 className="text-2xl text-white font-bold mb-2 mt-6 flex justify-center">
         Showing results for

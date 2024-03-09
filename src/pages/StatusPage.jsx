@@ -59,6 +59,7 @@ function StatusPage() {
         title="Patchwork Archive - Status"
         description="Preserving rhythm, one video at a time"
         url="status"
+        image={import.meta.env.VITE_OG_IMAGE_DYNA}
       />
       <div className="flex justify-center items-center w-50 py-8 px-2">
         <div className="flex flex-col justify-center items-center w-50 py-4 px-2">

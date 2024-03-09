@@ -9,6 +9,7 @@ function PlaylistPage() {
         title="Patchwork Archive - Playlist" 
         description="Preserving rhythm, one video at a time"
         url="playlist"
+        image={import.meta.env.VITE_OG_IMAGE_DYNA}
         />
       <div className="mt-4 text-lg">
         <PlaylistPlayer playlistData={playlistData}/>
