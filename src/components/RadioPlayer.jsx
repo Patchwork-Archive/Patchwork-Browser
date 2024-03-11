@@ -102,7 +102,16 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
       if ("connect" in jsonData) {
         console.log("WebSocket connected to radio server.");
         const initialData = jsonData.connect.data ?? [];
-        setCurrentSong(initialData[0].pub.data.np.now_playing.song);
+        try{
+          setCurrentSong(initialData[0].pub.data.np.now_playing.song);
+        }
+        catch(e){
+          console.log("Error parsing initial song data. Setting stub data.");
+          setCurrentSong({
+            title: "Patchwork Radio",
+            artist: "Preserving rhythm, one video at a time.",
+          });
+        }
       } else if ("channel" in jsonData && jsonData.channel != "global:time") {
         console.log("WebSocket received channel song data.");
         const updatedNowPlayingData = jsonData.pub.data.np;
@@ -149,7 +158,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
                   {currentSong ? currentSong.artist : "Loading..."}
                 </p>
                 <p className="text-sm font-light text-purple-200">
-                  Listened for:{elapsedTimeStr}
+                  Listened for: {elapsedTimeStr}
                 </p>
               </div>
             </div>
