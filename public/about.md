@@ -18,7 +18,7 @@ Currently we only archive the following for each video
 The idea of Patchwork is greatly inspired by [Ragtag Archive](https://archive.ragtag.moe). Thank you for your hard work!
 
 # How is Content Sourced?
-Content is queried via the [Holodex API](https://docs.holodex.net/) or it's found manually and queued up for archival by us.
+Content is queried via the [Patchwork Crawler](https://github.com/Patchwork-Archive/Patchwork-Crawler) which crawls both Holodex and individual YouTube channels for potential videos. Otherwise we manually enqueue appropriate content.
 
 **Note:** Some videos are missing metadata or captions. Since these 2 functionalities were added after archival had already started, some content had already been deleted by the time we went back for them. In those cases only the info stored within our database is available.
 
