@@ -4,7 +4,7 @@ Patchwork Archive aims to archive original songs and covers created by VTubers.
 With many VTubers "graduating" from their activities, content is often privated or deleted. The goal of Patchwork Archive is to preserve and archive a subset of content produced by VTubers.
 
 # Why Music?
-There are some great music videos and very talented singers in the VTuber community, it would be a shame to lose them. Archiving a subset of VTuber content allows us to pull content from a wide range of VTubers while keeping costs low.
+There are some great music videos and very talented singers in the VTuber community. Archiving a subset of VTuber content allows us to pull content from a wide range of VTubers while keeping the project sustainable.
 
 # What's Archived?
 Original songs and covers are archived. Short form content is archived on a case by case basis. All archived content was publicly available at the time of processing.
@@ -20,7 +20,7 @@ The idea of Patchwork is greatly inspired by [Ragtag Archive](https://archive.ra
 # How is Content Sourced?
 Content is queried via the [Patchwork Crawler](https://github.com/Patchwork-Archive/Patchwork-Crawler) which crawls both Holodex and individual YouTube channels for potential videos. Otherwise we manually enqueue appropriate content.
 
-**Note:** Some videos are missing metadata or captions. Since these 2 functionalities were added after archival had already started, some content had already been deleted by the time we went back for them. In those cases only the info stored within our database is available.
+**Note:** Some content is missing metadata (info.json) and/or captions. In some cases this means that the video was removed before we had a chance to save this additional info. If a video is still available on YouTube and missing either, please submit a request for recrawl via the forms.
 
 # Playback
 Due to the nature of how some content was previously archived. Playback for certain videos may be broken on non-Chromium based browsers.
