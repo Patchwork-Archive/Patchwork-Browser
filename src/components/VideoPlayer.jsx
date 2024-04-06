@@ -99,11 +99,11 @@ const VideoPlayer = ({ videoId }) => {
       });
 
       navigator.mediaSession.setActionHandler("play", () => {
-        setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+        handleVideoClick();
       });
 
       navigator.mediaSession.setActionHandler("pause", () => {
-        setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+        handleVideoClick();
       });
     }
   }, [videoData, isPlaying, videoId]);
