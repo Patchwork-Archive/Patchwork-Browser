@@ -5,14 +5,12 @@ import HeadTags from "./HeadTags";
 import { CaptionsRenderer } from "react-srv3";
 import VideoControls from "./VideoControls";
 import SubtitleDropdown from "./SubtitleDropdown";
-import Linkify  from "react-linkify";
+import Linkify from "react-linkify";
 import { useHotkeys } from "react-hotkeys-hook";
 
-
 const VideoPlayer = ({ videoId }) => {
-  const videoCDNUrl = import.meta.env.VITE_CDN_DOMAIN+`/${
-    videoId ?? ""
-  }.webm`;
+  const videoCDNUrl =
+    import.meta.env.VITE_CDN_DOMAIN + `/${videoId ?? ""}.webm`;
 
   const [videoData, setVideoData] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
@@ -35,7 +33,7 @@ const VideoPlayer = ({ videoId }) => {
     setSelectedSubtitle(subtitle);
   }, []);
 
-  useHotkeys('alt+p', () => focusVideoControls());
+  useHotkeys("alt+p", () => focusVideoControls());
 
   const focusVideoControls = () => {
     if (vidControlRef.current) {
@@ -54,7 +52,7 @@ const VideoPlayer = ({ videoId }) => {
             videoRef.current.currentTime -= 5;
             break;
           case " ":
-            if (event.target.tagName.toLowerCase() !== 'input') {
+            if (event.target.tagName.toLowerCase() !== "input") {
               event.preventDefault();
               handleVideoClick();
             }
@@ -72,7 +70,9 @@ const VideoPlayer = ({ videoId }) => {
 
   useEffect(() => {
     if (videoId) {
-      fetch(import.meta.env.VITE_API_DOMAIN+"/api/database/video_data/" + videoId)
+      fetch(
+        import.meta.env.VITE_API_DOMAIN + "/api/database/video_data/" + videoId
+      )
         .then((response) => response.json())
         .then((data) => {
           setVideoData(data);
@@ -83,6 +83,30 @@ const VideoPlayer = ({ videoId }) => {
         .catch((error) => console.error(error));
     }
   }, [videoId, videoData.error]);
+
+  useEffect(() => {
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: videoData.title + " - On Patchwork Archive",
+        artist: videoData.channel,
+        artwork: [
+          {
+            src: import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`,
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      });
+
+      navigator.mediaSession.setActionHandler("play", () => {
+        setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+      });
+
+      navigator.mediaSession.setActionHandler("pause", () => {
+        setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+      });
+    }
+  }, [videoData, isPlaying, videoId]);
 
   useEffect(() => {
     const bufferingMessages = [
@@ -102,7 +126,8 @@ const VideoPlayer = ({ videoId }) => {
   useEffect(() => {
     if (selectedSubtitle) {
       fetch(
-        import.meta.env.VITE_CAPTIONS_DOMAIN+`/${videoId}/${videoId}.${selectedSubtitle}.srv3`
+        import.meta.env.VITE_CAPTIONS_DOMAIN +
+          `/${videoId}/${videoId}.${selectedSubtitle}.srv3`
       )
         .then((res) => res.text())
         .then((text) => {
@@ -161,20 +186,20 @@ const VideoPlayer = ({ videoId }) => {
     a.href = videoCDNUrl;
     a.download = videoId + ".webm";
     a.click();
-  }
+  };
 
   const handleWatchOnYouTube = () => {
     const a = document.createElement("a");
     a.href = `https://www.youtube.com/watch?v=${videoId}`;
     a.target = "_blank";
     a.click();
-  }
+  };
 
   const handleOpenWithVLC = () => {
     const a = document.createElement("a");
     a.href = `vlc://${videoCDNUrl}`;
     a.click();
-  }
+  };
 
   if (notFound) {
     return (
@@ -182,20 +207,29 @@ const VideoPlayer = ({ videoId }) => {
         <HeadTags
           title="Video not found"
           description="Video not found"
-          image={import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${videoId}.jpg`}
+          image={import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`}
           url={`/watch?v=${videoId}`}
         />
         <h1 className="text-white text-lg font-bold py-4">Video not found</h1>
         <p className="text-white text-lg py-4">
           Uh oh... Seems like we don&apos;t have this video archived. Sorry!
         </p>
-        <a href={`https://www.youtube.com/watch?v=${videoId}`} className="text-white text-lg bg-red-500 px-2 rounded-lg">
+        <a
+          href={`https://www.youtube.com/watch?v=${videoId}`}
+          className="text-white text-lg bg-red-500 px-2 rounded-lg"
+        >
           Check YouTube?
         </a>
-        <a href={`https://bilibili.com/video/${videoId}`} className="text-white text-lg bg-blue-500 px-2 rounded-lg mt-2">
+        <a
+          href={`https://bilibili.com/video/${videoId}`}
+          className="text-white text-lg bg-blue-500 px-2 rounded-lg mt-2"
+        >
           Check BiliBili
         </a>
-        <a href="/" className="text-white text-lg bg-gray-500 px-2 rounded-lg mt-2">
+        <a
+          href="/"
+          className="text-white text-lg bg-gray-500 px-2 rounded-lg mt-2"
+        >
           Go back home
         </a>
       </div>
@@ -210,7 +244,7 @@ const VideoPlayer = ({ videoId }) => {
             <HeadTags
               title={videoData.title}
               description={videoData.channel}
-              image={import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${videoId}.jpg`}
+              image={import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`}
               url={`/watch?v=${videoId}`}
             />
             <div className="video-container w-full relative">
@@ -223,7 +257,9 @@ const VideoPlayer = ({ videoId }) => {
                   ref={videoRef}
                   className="absolute top-0 left-0 w-full h-full object-contain"
                   src={videoCDNUrl}
-                  poster={import.meta.env.VITE_THUMBNAIL_DOMAIN+`/${videoId}.jpg`}
+                  poster={
+                    import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`
+                  }
                   onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
                   onClick={handleVideoClick}
                   onWaiting={() => setIsBuffering(true)}
@@ -254,7 +290,11 @@ const VideoPlayer = ({ videoId }) => {
                 )}
               </div>
             </div>
-            <div className="video-controls w-full mt-1" tabIndex="-1" ref={vidControlRef}>
+            <div
+              className="video-controls w-full mt-1"
+              tabIndex="-1"
+              ref={vidControlRef}
+            >
               <VideoControls
                 videoRef={videoRef}
                 isPlaying={isPlaying}
@@ -289,30 +329,30 @@ const VideoPlayer = ({ videoId }) => {
               </div>
             )}
             <div className="flex flex-col sm:flex-row items-left mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
-                            <button
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
-                  onClick={toggleCaptions}
-                >
-                  {showCaptions ? "Hide Captions" : "Show Captions"}
-                </button>
-                <button
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
-                  onClick={downloadVideo}
-                >
-                  Download Video
-                </button>
-                <button
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
-                  onClick={handleWatchOnYouTube}
-                >
-                  Watch on YouTube
-                </button>
-                <button
-                  className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-1 px-4 rounded"
-                  onClick={handleOpenWithVLC}
-                >
-                  Open with VLC
-                </button>
+              <button
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                onClick={toggleCaptions}
+              >
+                {showCaptions ? "Hide Captions" : "Show Captions"}
+              </button>
+              <button
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+                onClick={downloadVideo}
+              >
+                Download Video
+              </button>
+              <button
+                className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
+                onClick={handleWatchOnYouTube}
+              >
+                Watch on YouTube
+              </button>
+              <button
+                className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-1 px-4 rounded"
+                onClick={handleOpenWithVLC}
+              >
+                Open with VLC
+              </button>
             </div>
             <p className="text-white text-lg mt-2">
               Published on: {formatDate(videoData.upload_date)}
@@ -320,28 +360,28 @@ const VideoPlayer = ({ videoId }) => {
             <h1 className="text-white font-bold mt-4 text-lg">Description</h1>
             <div className="text-white mt-2">
               {isExpanded ? (
-                <Linkify 
-                  options={{ 
-                    className: 'hover:underline text-light-blue-500'
+                <Linkify
+                  options={{
+                    className: "hover:underline text-light-blue-500",
                   }}
                 >
-                    {videoData.description.split(/\n|\\n/).map((line, index) => (
-                      <Fragment key={index}>
-                        {line}
-                        <br />
-                      </Fragment>
-                    ))}
-                    <button
-                      onClick={toggleExpand}
-                      className="bg-gray-600 hover:underline text-white font-bold py-1 px-4 rounded mt-3"
-                    >
-                      Collapse ↥
-                    </button>
+                  {videoData.description.split(/\n|\\n/).map((line, index) => (
+                    <Fragment key={index}>
+                      {line}
+                      <br />
+                    </Fragment>
+                  ))}
+                  <button
+                    onClick={toggleExpand}
+                    className="bg-gray-600 hover:underline text-white font-bold py-1 px-4 rounded mt-3"
+                  >
+                    Collapse ↥
+                  </button>
                 </Linkify>
               ) : (
-                <Linkify 
-                  options={{ 
-                    className: 'hover:underline text-light-blue-500'
+                <Linkify
+                  options={{
+                    className: "hover:underline text-light-blue-500",
                   }}
                 >
                   {videoData.description
