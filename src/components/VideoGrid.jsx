@@ -60,7 +60,7 @@ useEffect(() => {
                         className="w-full object-cover rounded-t-lg transition-brightness duration-300 hover:brightness-90"
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = "placeholder.jpg";
+                          e.target.src = import.meta.env.VITE_THUMBNAIL_PLACEHOLDER;
                         }}
                       />
                     </a>
