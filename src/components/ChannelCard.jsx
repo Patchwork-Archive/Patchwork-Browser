@@ -20,7 +20,7 @@ useEffect(() => {
     <div className="flex justify-center rounded mt-8">
       <div className="bg-accent p-4 rounded">
         <HeadTags
-          title={`Patchwork Archive - ${channelData}`}
+          title={`${channelData} - Patchwork Archive`}
           description="Preserving rhythm, one video at a time"
           url={`channel/${channelID}`}
         />
