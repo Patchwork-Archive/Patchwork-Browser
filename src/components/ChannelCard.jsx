@@ -38,7 +38,7 @@ const ChannelCard = ({ apiUrl, channelID }) => {
         className="banner-image"
         style={{
           backgroundImage: `url(${bannerImage})`,
-          height: "216px",
+          height: "251px",
           width: "100%",
           backgroundSize: "cover",
           backgroundPosition: "center",
