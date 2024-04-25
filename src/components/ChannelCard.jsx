@@ -1,42 +1,140 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import HeadTags from "../components/HeadTags";
+import { BrowserView, MobileView } from "react-device-detect";
 
 const ChannelCard = ({ apiUrl, channelID }) => {
-  const [channelData, setChannelData] = useState(null);
-const [isLoading, setIsLoading] = useState(true);
-
-useEffect(() => {
+  const [channelName, setChannelName] = useState(null);
+  const [channelDescription, setChannelDescription] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const profilePic =
+    import.meta.env.VITE_PFP_DOMAIN + "/" + channelID + "_pfp.jpg";
+  const bannerImage =
+    import.meta.env.VITE_BANNER_DOMAIN + "/" + channelID + "_banner.jpg";
+  const [descriptionExpanded, setDescriptionExpanded] = useState(false);
+  useEffect(() => {
     setIsLoading(true);
     fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
-            setChannelData(data.channel_name || data.uploader);
-            setIsLoading(false);
-        });
-}, [apiUrl]);
+      .then((response) => response.json())
+      .then((data) => {
+        setChannelName(data.channel_name || data.uploader);
+        setChannelDescription(data.description);
+        setIsLoading(false);
+      });
+  }, [apiUrl]);
+
+  const renderDescription = (description) => {
+    return description.split("\n").map((line, index, array) => (
+      <span key={index}>
+        {line}
+        {index < array.length - 1 && <br />}
+      </span>
+    ));
+  };
 
   return (
-    <div className="flex justify-center rounded mt-8">
-      <div className="bg-accent p-4 rounded">
-        <HeadTags
-          title={`${channelData} - Patchwork Archive`}
-          description="Preserving rhythm, one video at a time"
-          url={`channel/${channelID}`}
+    <div className="channel-card">
+      <div
+        className="banner-image"
+        style={{
+          backgroundImage: `url(${bannerImage})`,
+          height: "216px",
+          width: "100%",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      ></div>
+      <div
+        className="flex justify-start items-start mt-4 ml-2 sm:ml-80"
+        style={{ position: "relative" }}
+      >
+        <img
+          src={profilePic}
+          alt="Profile"
+          style={{
+            width: "120px",
+            height: "120px",
+            borderRadius: "50%",
+            objectFit: "cover",
+            border: "4px solid white",
+          }}
         />
-        {isLoading ? (
-          <h1 className="text-white text-xl font-bold">Loading...</h1>
-        ) : (
-          <h1 className="text-white text-xl font-bold">{channelData}</h1>
-        )}
+        <div
+          className="ml-8"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <HeadTags
+            title={`${channelName} - Patchwork Archive`}
+            description="Preserving rhythm, one video at a time"
+            url={`channel/${channelID}`}
+          />
+          {isLoading ? (
+            <h1 className="text-2xl sm:text-4x font-bold text-white">
+              Loading...
+            </h1>
+          ) : (
+            <h1 className="text-2xl sm:text-4xl font-bold text-white">
+              {channelName}
+            </h1>
+          )}
+          <div>
+            {isLoading ? (
+              <p className="text-white mt-2">Loading...</p>
+            ) : (
+              <div>
+                <BrowserView>
+                  <p
+                    className={`text-white mt-2 ${
+                      !descriptionExpanded ? "truncate" : ""
+                    }`}
+                    style={{
+                      maxWidth: "1000px",
+                      WebkitLineClamp: descriptionExpanded ? "none" : "3",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {descriptionExpanded
+                      ? renderDescription(channelDescription)
+                      : channelDescription}
+                  </p>
+                </BrowserView>
+                <MobileView>
+                  {descriptionExpanded && (
+                    <p
+                      className="text-white mt-2"
+                      style={{
+                        maxWidth: "1000px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {renderDescription(channelDescription)}
+                    </p>
+                  )}
+                </MobileView>
+
+                <button
+                  className="text-blue-500 mt-2"
+                  onClick={() => setDescriptionExpanded(!descriptionExpanded)}
+                >
+                  {descriptionExpanded ? "Show Less" : "Show More"}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 ChannelCard.propTypes = {
-  apiUrl: PropTypes.string,
-  channelID: PropTypes.string,
+  apiUrl: PropTypes.string.isRequired,
+  channelID: PropTypes.string.isRequired,
 };
 
 export default ChannelCard;
