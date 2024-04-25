@@ -2,10 +2,10 @@
 
 <img src="https://patchwork-og.vercel.app/api/og" width="70%">
 
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+| Powered By |
+|-------------------------------|
+| <img src="https://github.com/Patchwork-Archive/Patchwork-Browser/assets/21994085/abf8efbc-6e8c-4e47-bac8-80a100a126bb" width="150"/> <img src="https://github.com/Patchwork-Archive/Patchwork-Browser/assets/21994085/070adad1-e063-4cd0-bead-e34f56a887b9" width="150"/> <img src="https://github.com/Patchwork-Archive/Patchwork-Browser/assets/21994085/1cb241bd-19b5-4c8d-94a4-36e9048d8ccd" width="150"/>|
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2a8e849f-8415-4683-a6f7-06f4ff473049/deploy-status)](https://app.netlify.com/sites/patchwork-archive/deploys)
 
 Frontend for Patchwork Archive, an archival project for VTuber music.
@@ -23,3 +23,9 @@ Designed to work with [Patchwork-Backend](https://github.com/Patchwork-Archive/P
 
 
 ![Patchwork Archive Discovery Panel](https://github.com/Patchwork-Archive/Patchwork-Browser/assets/21994085/e8e4b312-754e-4baa-9aff-6ec328516573)
+
+
+![Patchwork Archive Channel Page Sample Erina Makina](https://github.com/Patchwork-Archive/Patchwork-Browser/assets/21994085/a6e29e9e-b13c-4873-a9b8-0ac52fe27e56)
+
+# Credits
+- Logos in the "Powered By" section created by [Sawaratsuki](https://github.com/SAWARATSUKI/ServiceLogos)
