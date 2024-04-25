@@ -84,71 +84,70 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
     e.target.blur();
   };
 
-  return (
-    <div className="video-controls bg-gray-700 bg-opacity-75 p-1 rounded space-x-4 flex items-center">
-      <button
-        onClick={handlePlayPause}
-        className="p-2 rounded-full hover:bg-gray-600 transition"
-      >
-        <FontAwesomeIcon
-          icon={isPlaying ? faPause : faPlay}
-          className="text-white"
-          size="lg"
-        />
-      </button>
-      <div className="text-white ml-3">
-        {formatTime(currentTime)} /{" "}
-        {formatTime(videoRef.current?.duration || 0)}
-      </div>
-      <div className="relative flex-grow mx-4 flex items-center">
-        <input
-          type="range"
-          value={progress}
-          onChange={handleProgressChange}
-          onWheel={handleWheel}
-          className="w-full cursor-pointer slider-thumb bg-red-500"
-          title=""
-        />
-      </div>
-
-      <button
-        onClick={() => setShowVolumeSlider(!showVolumeSlider)}
-        className="p-2 rounded-full hover:bg-gray-600 transition relative"
-      >
-        <FontAwesomeIcon
-          icon={volume > 0 ? faVolumeUp : faVolumeMute}
-          className="text-white"
-          size="lg"
-        />
-        {showVolumeSlider && (
-          <div className="absolute mb-7 bottom-8 left-1/2 transform -translate-x-1/2 w-20">
-            <input
-              type="range"
-              value={volume}
-              onChange={handleVolumeChange}
-              min="0"
-              max="1"
-              step="0.01"
-              className="w-full cursor-pointer slider-thumb mb-4"
-              title=""
-              style={{ transform: "rotate(270deg)" }}
-            />
-          </div>
-        )}
-      </button>
-
-      <button
-        onClick={toggleFullscreen}
-        className="p-2 rounded-full hover:bg-gray-600 transition"
-      >
-        <FontAwesomeIcon
-          icon={isFullscreen ? faCompress : faExpand}
-          className="text-white"
-          size="lg"
-        />
-      </button>
+return (
+  <div className="video-controls bg-gray-700 bg-opacity-75 p-1 rounded space-x-2 md:space-x-4 flex items-center">
+    <button
+      onClick={handlePlayPause}
+      className="p-1 md:p-2 rounded-full hover:bg-gray-600 transition"
+    >
+      <FontAwesomeIcon
+        icon={isPlaying ? faPause : faPlay}
+        className="text-white text-base md:text-lg"
+        size="lg"
+      />
+    </button>
+    <div className="text-white ml-1 md:ml-3 text-xs md:text-sm">
+      {formatTime(currentTime)} / {formatTime(videoRef.current?.duration || 0)}
     </div>
-  );
+    <div className="relative flex-grow mx-2 md:mx-4 flex items-center">
+      <input
+        type="range"
+        value={progress}
+        onChange={handleProgressChange}
+        onWheel={handleWheel}
+        className="w-full cursor-pointer slider-thumb bg-red-500"
+        title=""
+      />
+    </div>
+
+    <button
+      onClick={() => setShowVolumeSlider(!showVolumeSlider)}
+      className="p-1 md:p-2 rounded-full hover:bg-gray-600 transition relative"
+    >
+      <FontAwesomeIcon
+        icon={volume > 0 ? faVolumeUp : faVolumeMute}
+        className="text-white text-base md:text-lg"
+        size="lg"
+      />
+      {showVolumeSlider && (
+        <div className="absolute mb-7 bottom-8 left-1/2 transform -translate-x-1/2 w-16 md:w-20">
+          <input
+            type="range"
+            value={volume}
+            onChange={handleVolumeChange}
+            min="0"
+            max="1"
+            step="0.01"
+            className="w-full cursor-pointer slider-thumb mb-4"
+            title=""
+            style={{ transform: "rotate(270deg)" }}
+          />
+        </div>
+      )}
+    </button>
+
+    <button
+      onClick={toggleFullscreen}
+      className="p-1 md:p-2 rounded-full hover:bg-gray-600 transition"
+    >
+      <FontAwesomeIcon
+        icon={isFullscreen ? faCompress : faExpand}
+        className="text-white text-base md:text-lg"
+        size="lg"
+      />
+    </button>
+  </div>
+);
 };
 
 VideoControls.propTypes = {

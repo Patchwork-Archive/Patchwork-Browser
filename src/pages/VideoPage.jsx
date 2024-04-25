@@ -5,9 +5,10 @@ import Footer from "../components/Footer";
 
 const VideoPage = () => {
   const [videoId, setVideoId] = useState("");
-  const discoverAPIUrl = import.meta.env.VITE_QUERY_RANDOM_FROM_DB == "true"
-  ? import.meta.env.VITE_API_DOMAIN+"/api/discover_videos"
-  : import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL;
+  const discoverAPIUrl =
+    import.meta.env.VITE_QUERY_RANDOM_FROM_DB == "true"
+      ? import.meta.env.VITE_API_DOMAIN + "/api/discover_videos"
+      : import.meta.env.VITE_STATIC_RANDOM_VIDEO_URL;
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -18,7 +19,7 @@ const VideoPage = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row flex-wrap">
-      <div className="w-full mt-2 md:w-2/3 p-4 flex-shrink-0">
+        <div className="w-full mt-2 md:w-2/3 flex-shrink-0">
           <VideoPlayer videoId={videoId} />
         </div>
         <div className="w-full md:w-1/3">
