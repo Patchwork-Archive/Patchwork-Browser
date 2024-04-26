@@ -7,21 +7,30 @@ const ChannelCard = ({ apiUrl, channelID }) => {
   const [channelName, setChannelName] = useState(null);
   const [channelDescription, setChannelDescription] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isBannerVisible, setIsBannerVisible] = useState(false);
+  const channelBannerUrl =
+    import.meta.env.VITE_BANNER_DOMAIN + "/" + channelID + "_banner.jpg";
   const profilePic =
     import.meta.env.VITE_PFP_DOMAIN + "/" + channelID + "_pfp.jpg";
-  const bannerImage =
-    import.meta.env.VITE_BANNER_DOMAIN + "/" + channelID + "_banner.jpg";
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   useEffect(() => {
     setIsLoading(true);
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setChannelName(data.channel_name || data.uploader);
         setChannelDescription(data.description);
         setIsLoading(false);
       });
   }, [apiUrl]);
+
+  useEffect(() => {
+    const image = new Image();
+    image.src = channelBannerUrl;
+    image.onload = () => setIsBannerVisible(true);
+    image.onerror = () => setIsBannerVisible(false);
+  }, [channelBannerUrl]);
 
   const renderDescription = (description) => {
     return description.split("\n").map((line, index, array) => (
@@ -34,17 +43,21 @@ const ChannelCard = ({ apiUrl, channelID }) => {
 
   return (
     <div className="channel-card">
-      <div
-        className="banner-image"
-        style={{
-          backgroundImage: `url(${bannerImage})`,
-          height: "251px",
-          width: "100%",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      ></div>
+      {isBannerVisible ? (
+        <div
+          className="banner-image"
+          style={{
+            backgroundImage: `url(${channelBannerUrl})`,
+            height: "251px",
+            width: "100%",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        ></div>
+      ) : (
+        <div className="mt-8" />
+      )}
       <div
         className="flex justify-start items-start mt-4 ml-2 sm:ml-80"
         style={{ position: "relative" }}
