@@ -24,6 +24,7 @@ const VideoPlayer = ({ videoId }) => {
   const [currentBufferingMessage, setCurrentBufferingMessage] = useState("");
   const videoRef = useRef(null);
   const vidControlRef = useRef(null);
+  const [pfpUrl, setPfpUrl] = useState("");
 
   const handlePlayStateChange = (playing) => {
     setIsPlaying(playing);
@@ -76,6 +77,9 @@ const VideoPlayer = ({ videoId }) => {
         .then((response) => response.json())
         .then((data) => {
           setVideoData(data);
+          setPfpUrl(
+            import.meta.env.VITE_PFP_DOMAIN + "/" + data.channel_id + "_pfp.jpg"
+          );
           if (data.error) {
             setNotFound(true);
           }
@@ -304,12 +308,17 @@ const VideoPlayer = ({ videoId }) => {
             <h1 className="text-xl md:text-2xl font-bold mt-4 text-white">
               {videoData.title}
             </h1>
-            <span className="hover:underline text-white">
+            <span className="hover:underline mt-2 text-white flex items-center">
               <Link
                 to={`/channel/${videoData.channel_id || videoData.uploader_id}`}
-                style={{ display: "inline-block" }}
+                style={{ display: "flex", alignItems: "center" }}
               >
-                <p className="mt-2 text-lg font-semibold">
+                <img
+                  src={pfpUrl}
+                  alt="Profile"
+                  className="w-12 h-12 rounded-full border-2 border-white"
+                />
+                <p className="ml-4 text-xl font-semibold">
                   {videoData.channel || videoData.uploader}
                 </p>
               </Link>
