@@ -32,6 +32,13 @@ We have a basic API at `https://archive.pinapelz.moe`
 
 [Patchwork Archive is open-source on GitHub](https://github.com/Patchwork-Archive)
 
+[![Githib Icon by SAWARATSUKI
+](https://utfs.io/f/d9ea69df-607b-4a6a-a3cf-0c4dbb1b4139-za171f.png)
+](https://github.com/Patchwork-Archive)
+
+# Credits
+- Various VTuber styled logos seen on the site are made by [SAWARATSUKI](https://github.com/SAWARATSUKI/ServiceLogos)
+- Icons: [FortAwesome](https://github.com/FortAwesome/Font-Awesome)
 
 # Contact
 Any inquiries can be emailed to `pinapelz@moekyun.me`  
