@@ -4,10 +4,11 @@ import HeadTags from "../components/HeadTags";
 import { BrowserView, MobileView } from "react-device-detect";
 
 const ChannelCard = ({ apiUrl, channelID }) => {
-  const [channelName, setChannelName] = useState(null);
-  const [channelDescription, setChannelDescription] = useState(null);
+  const [channelName, setChannelName] = useState("Loading...");
+  const [channelDescription, setChannelDescription] = useState("Loading...");
   const [isLoading, setIsLoading] = useState(true);
   const [isBannerVisible, setIsBannerVisible] = useState(false);
+  const [dataExists, setDataExists] = useState(true);
   const channelBannerUrl =
     import.meta.env.VITE_BANNER_DOMAIN + "/" + channelID + "_banner.jpg";
   const profilePic =
@@ -18,10 +19,22 @@ const ChannelCard = ({ apiUrl, channelID }) => {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        if (!data) {
+          setChannelName("404 - Channel not found");
+          setChannelDescription("Sorry we don't have an information about this channel");
+          setIsLoading(false);
+          setDataExists(false);
+          return;
+        }
         setChannelName(data.channel_name || data.uploader);
         setChannelDescription(data.description);
         setIsLoading(false);
+      })
+      .catch(() => {
+        setChannelName("404 - Channel not found");
+        setChannelDescription("Sorry we don't have an information about this channel");
+        setIsLoading(false);
+        setDataExists(false);
       });
   }, [apiUrl]);
 
@@ -62,17 +75,19 @@ const ChannelCard = ({ apiUrl, channelID }) => {
         className="flex justify-start items-start mt-4 ml-2 sm:ml-80"
         style={{ position: "relative" }}
       >
-        <img
-          src={profilePic}
-          alt="Profile"
-          style={{
-            width: "120px",
-            height: "120px",
-            borderRadius: "50%",
-            objectFit: "cover",
-            border: "4px solid white",
-          }}
-        />
+        {dataExists && (
+          <img
+            src={profilePic}
+            alt="Profile"
+            style={{
+              width: "120px",
+              height: "120px",
+              borderRadius: "50%",
+              objectFit: "cover",
+              border: "4px solid white",
+            }}
+          />
+        )}
         <div
           className="ml-8"
           style={{
@@ -129,18 +144,28 @@ const ChannelCard = ({ apiUrl, channelID }) => {
                     </p>
                   )}
                 </MobileView>
-
-                <button
-                  className="text-blue-500 mt-2"
-                  onClick={() => setDescriptionExpanded(!descriptionExpanded)}
-                >
-                  {descriptionExpanded ? "Show Less" : "Show More"}
-                </button>
+                { dataExists && (
+                  <button
+                    className="text-blue-500 mt-2"
+                    onClick={() => setDescriptionExpanded(!descriptionExpanded)}
+                  >
+                    {descriptionExpanded ? "Show Less" : "Show More"}
+                  </button>
+                )}
               </div>
             )}
           </div>
         </div>
       </div>
+      {!dataExists && (
+        <div className="text-white mt-2 text-center">
+          <img
+            src="https://utfs.io/f/d011aa80-026f-4528-b43b-ac618a79b1db-qral5b.png"
+            className="max-w-full h-auto content-center mx-auto"
+            style={{ maxWidth: "50%", height: "auto" }}
+          />
+        </div>
+      )}
     </div>
   );
 };
