@@ -21,7 +21,7 @@ const ChannelCard = ({ apiUrl, channelID }) => {
       .then((data) => {
         if (!data) {
           setChannelName("404 - Channel not found");
-          setChannelDescription("Sorry we don't have an information about this channel");
+          setChannelDescription("This channel does not exist.");
           setIsLoading(false);
           setDataExists(false);
           return;
@@ -32,7 +32,7 @@ const ChannelCard = ({ apiUrl, channelID }) => {
       })
       .catch(() => {
         setChannelName("404 - Channel not found");
-        setChannelDescription("Sorry we don't have an information about this channel");
+        setChannelDescription("This channel does not exist.");
         setIsLoading(false);
         setDataExists(false);
       });
