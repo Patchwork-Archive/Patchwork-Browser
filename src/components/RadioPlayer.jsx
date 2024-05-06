@@ -12,7 +12,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
-  const [currentSong, setCurrentSong] = useState(null);
+  const [currentSongTitle, setCurrentSongTitle] = useState("Patchwork Archive - Radio");
+  const [currentSongArtist, setCurrentSongArtist] = useState("Preserving rhythm, one video at a time.");
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [elapsedTimeStr, setElapsedTimeStr] = useState(" 00:00:00");
@@ -61,8 +62,8 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
   useEffect(() => {
     if ("mediaSession" in navigator) {
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: currentSong?.title,
-        artist: currentSong?.artist,
+        title: currentSongTitle,
+        artist: currentSongArtist,
         album: import.meta.env.VITE_RADIO_NAME,
         artwork: [
           {
@@ -81,52 +82,20 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
         setIsPlaying((prevIsPlaying) => !prevIsPlaying);
       });
     }
-  }, [currentSong, isPlaying]);
+  }, [currentSongTitle, currentSongArtist, isPlaying]);
 
   useEffect(() => {
-    const socket = new WebSocket(import.meta.env.VITE_RADIO_WSS);
-    socket.onopen = () => {
-      console.log("WebSocket is connected.");
-      socket.send(
-        JSON.stringify({
-          subs: {
-            [`station:${import.meta.env.VITE_RADIO_NAME}`]: {},
-            "global:time": {},
-          },
-        })
-      );
+    const fetchSongData = () => {
+      fetch(import.meta.env.VITE_RADIO_API)
+        .then((res) => res.json())
+        .then((data) => {
+          setCurrentSongTitle(data.now_playing.song.title);
+          setCurrentSongArtist(data.now_playing.song.artist);
+        });
     };
-    socket.onmessage = (event) => {
-      const jsonData = JSON.parse(event.data);
-      if (Object.keys(jsonData).length === 0) return;
-      if ("connect" in jsonData) {
-        console.log("WebSocket connected to radio server.");
-        const initialData = jsonData.connect.data ?? [];
-        try{
-          setCurrentSong(initialData[0].pub.data.np.now_playing.song);
-        }
-        catch(e){
-          console.log("Error parsing initial song data. Setting stub data.");
-          setCurrentSong({
-            title: "Patchwork Radio",
-            artist: "Preserving rhythm, one video at a time.",
-          });
-        }
-      } else if ("channel" in jsonData && jsonData.channel != "global:time") {
-        console.log("WebSocket received channel song data.");
-        const updatedNowPlayingData = jsonData.pub.data.np;
-        setCurrentSong(updatedNowPlayingData.now_playing.song);
-      } else {
-        // Must be a global:time message for syncing. We'll stub for now
-        console.log("Sync message received");
-      }
-    };
-    socket.onerror = (error) => {
-      console.log("WebSocket error: ", error);
-    };
-    socket.onclose = () => {
-      console.log("WebSocket connection closed.");
-    };
+    fetchSongData();
+    const cooldown = setInterval(fetchSongData, 15000)
+    return () => clearInterval(cooldown);
   }, []);
 
   return (
@@ -140,7 +109,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
           />
         </div>
         <Transition
-          show={Boolean(currentSong)}
+          show={true}
           enter="transition-opacity duration-750 ease-in-out"
           enterFrom="opacity-0"
           enterTo="opacity-100"
@@ -152,10 +121,10 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
             <div className="flex flex-col items-center">
               <div className="text-white text-center mt-4">
                 <p className="text-2xl font-semibold mt-2">
-                  {currentSong ? currentSong.title : "Loading..."}
+                  {currentSongTitle ? currentSongTitle : "Loading..."}
                 </p>
                 <p className="text-xl font-light mt-4 text-purple-200">
-                  {currentSong ? currentSong.artist : "Loading..."}
+                  {currentSongArtist ? currentSongArtist : "Loading..."}
                 </p>
                 <p className="text-sm font-light text-purple-200">
                   Listened for: {elapsedTimeStr}
