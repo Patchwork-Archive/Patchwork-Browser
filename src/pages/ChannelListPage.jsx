@@ -37,10 +37,10 @@ function ChannelListPage() {
   };
 
   const handleSearchSubmit = (event) => {
-    event.preventDefault(); // Prevent the form from refreshing the page
+    event.preventDefault();
     fetchChannels(search);
+    setSearch('');
   };
-
   const filteredChannels = channels.filter((channel) =>
     channel.channel_name.toLowerCase().includes(search.toLowerCase())
   );
@@ -48,7 +48,7 @@ function ChannelListPage() {
   return (
     <div className="w-full text-white">
       <HeadTags
-        title="Patchwork Archive"
+        title="Channels - Patchwork Archive"
         description="Preserving rhythm, one video at a time"
         url=""
         image={import.meta.env.VITE_OG_IMAGE_DYNA}
