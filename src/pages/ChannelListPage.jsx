@@ -42,9 +42,9 @@ function ChannelListPage() {
     setSearch('');
   };
   const filteredChannels = channels.filter((channel) =>
-    channel.channel_name.toLowerCase().includes(search.toLowerCase())
+    channel.channel_name.toLowerCase().includes(search.toLowerCase()) ||
+    channel.description.toLowerCase().includes(search.toLowerCase())
   );
-
   return (
     <div className="w-full text-white">
       <HeadTags
@@ -81,7 +81,6 @@ function ChannelListPage() {
                 alt={channel.channel_name}
                 className="w-24 h-24 rounded-full mb-2"
               />
-              
                 {channel.channel_name}
             </div>
             </Link>
