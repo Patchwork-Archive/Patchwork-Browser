@@ -1,0 +1,95 @@
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import HeadTags from "../components/HeadTags";
+
+function ChannelListPage() {
+  const [channels, setChannels] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [searchChanged, setSearchChanged] = useState(false);
+  const searchParams = new URLSearchParams(window.location.search);
+  const channelQuery = searchParams.get("q");
+  const searchAPI = import.meta.env.VITE_API_DOMAIN + "/api/search/channel?q=";
+  const pfpDomain = import.meta.env.VITE_PFP_DOMAIN;
+
+  const fetchChannels = (query) => {
+    setLoading(true);
+    setSearchChanged(false);
+    fetch(searchAPI + query)
+      .then((response) => response.json())
+      .then((data) => {
+        setChannels(data.results);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchChannels(channelQuery);
+  }, [channelQuery]);
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+    setSearchChanged(true);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault(); // Prevent the form from refreshing the page
+    fetchChannels(search);
+  };
+
+  const filteredChannels = channels.filter((channel) =>
+    channel.channel_name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="w-full text-white">
+      <HeadTags
+        title="Patchwork Archive"
+        description="Preserving rhythm, one video at a time"
+        url=""
+        image={import.meta.env.VITE_OG_IMAGE_DYNA}
+      />
+      <form onSubmit={handleSearchSubmit} className="flex flex-col justify-center w-1/2 mx-auto">
+        <input
+          type="text"
+          placeholder="Search channels..."
+          value={search}
+          onChange={handleSearchChange}
+          className="mb-4 p-2 mt-4 mx-4 rounded-md text-black"
+        />
+        {search && searchChanged && (
+          <button type="submit" className="mb-4 p-2 mx-4 rounded-md">
+            Execute Search!
+          </button>
+        )}
+      </form>
+      <div className="grid grid-cols-4 gap-4 m-4 px-16">
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          filteredChannels.map((channel) => (
+            <Link key={channel.channel_id} to={`/channel/${channel.channel_id}`}>
+            <div
+              className="flex flex-col items-center bg-gray-200 text-black p-4 rounded hover:scale-105 transition-transform duration-300 ease-in-out"
+            >
+              <img
+                src={pfpDomain + "/"+channel.channel_id+"_pfp.jpg"}
+                alt={channel.channel_name}
+                className="w-24 h-24 rounded-full mb-2"
+              />
+              
+                {channel.channel_name}
+            </div>
+            </Link>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default ChannelListPage;

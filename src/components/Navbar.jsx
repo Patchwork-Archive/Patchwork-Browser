@@ -8,7 +8,8 @@ import {
   faRadio,
   faRecordVinyl,
   faCircleExclamation,
-  faPenToSquare
+  faPenToSquare,
+  faUser
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Navbar() {
@@ -52,6 +53,13 @@ function Navbar() {
               className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
             >
               <FontAwesomeIcon icon={faHome} className="mr-2" /> Home
+            </Link>
+            <Link
+              onClick={() => setMenuOpen(false)}
+              to="/channels"
+              className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block" 
+            >
+              <FontAwesomeIcon icon={faUser} className="mr-2" /> Channels
             </Link>
             <Link
               onClick={() => setMenuOpen(false)}
