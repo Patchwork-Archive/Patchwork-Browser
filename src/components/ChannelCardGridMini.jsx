@@ -21,10 +21,10 @@ const ChannelCardGridMini = ({ apiUrl = "", titleText = "" }) => {
         <h1 className="text-2xl text-white mb-3 font-bold">{titleText}</h1>
         <div className="flex flex-wrap -m-2">
           {isLoading
-            ? Array.from({ length: 10 }).map((_, index) => (
+            ? Array.from({ length: 6 }).map((_, index) => (
                 <div
                   key={index}
-                  className="channel-item p-2 w-full md:w-1/2 lg:w-1/3 flex-grow"
+                  className="channel-item p-2 w-full md:w-1/2 lg:w-1/6 flex-grow"
                 >
                   <div className="rounded overflow-hidden h-full">
                     <div
@@ -58,8 +58,8 @@ const ChannelCardGridMini = ({ apiUrl = "", titleText = "" }) => {
                         alt={channel.channel_name}
                         className="w-full object-cover rounded-t-lg transition-brightness duration-300 hover:brightness-90"
                         style={{
-                          height: "150px",
-                          width: "150px",
+                          height: "140px",
+                          width: "140px",
                           margin: "0 auto",
                         }}
                         onError={(e) => {
@@ -69,7 +69,7 @@ const ChannelCardGridMini = ({ apiUrl = "", titleText = "" }) => {
                         }}
                       />
                     </a>
-                    <div className="p-3">
+                    <div>
                       <div className="title-container">
                         <a
                           href={"/channel/" + channel.channel_id}
