@@ -5,6 +5,7 @@ import VideoGrid from "../components/VideoGrid";
 import Divider from "../components/Divider";
 import Footer from "../components/Footer";
 import HeadTags from "../components/HeadTags";
+import ChannelCardGridMini from "../components/ChannelCardGridMini";
 
 function LandingPage() {
   const [storageUsed, setStorageUsed] = useState(0);
@@ -84,10 +85,14 @@ function LandingPage() {
             apiUrl={
               import.meta.env.VITE_API_DOMAIN + "/api/daily_featured_videos"
             }
-            titleText="Daily Featured"
+            titleText="Daily Featured Songs"
           />
-          <VideoGrid apiUrl={discoverAPIUrl} titleText="Discover" />
+          <VideoGrid apiUrl={discoverAPIUrl} titleText="Discover Music" />
           <Divider className="my-4" />
+          <ChannelCardGridMini
+            apiUrl={import.meta.env.VITE_API_DOMAIN + "/api/discover_channels"}
+            titleText="Discover VTubers"
+          />
           <VideoGrid
             apiUrl={import.meta.env.VITE_API_DOMAIN + "/api/recently_archived"}
             titleText="Recently Archived"
