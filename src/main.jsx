@@ -5,6 +5,7 @@ import {lazy, Suspense} from "react";
 import Navbar from "./components/Navbar";
 import { HelmetProvider } from "react-helmet-async";
 import "./styles/index.css";
+import "./styles/loading.css"
 
 const LandingPage = lazy(() => import('./pages/LandingPage'));
 const VideoPage = lazy(() => import('./pages/VideoPage'));
@@ -24,7 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Navbar />
       {/* TODO: Make something here for Suspense API*/}
-      <Suspense fallback={<div>Loading...</div>}> 
+      <Suspense fallback={<div class="loader text-center p-4"/>}> 
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/watch" element={<VideoPage />} />
