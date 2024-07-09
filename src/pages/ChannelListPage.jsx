@@ -7,6 +7,7 @@ function ChannelListPage() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [searchChanged, setSearchChanged] = useState(false);
+  const [currentSearch, setCurrentSearch] = useState("");
   const searchParams = new URLSearchParams(window.location.search);
   const channelQuery = searchParams.get("q");
   const searchAPI = import.meta.env.VITE_API_DOMAIN + "/api/search/channel?q=";
@@ -40,6 +41,7 @@ function ChannelListPage() {
     event.preventDefault();
     fetchChannels(search);
     setSearch('');
+    setCurrentSearch(search);
   };
   const filteredChannels = channels.filter((channel) =>
     channel.channel_name.toLowerCase().includes(search.toLowerCase()) ||
@@ -56,33 +58,37 @@ function ChannelListPage() {
       <form onSubmit={handleSearchSubmit} className="flex flex-col justify-center w-1/2 mx-auto">
         <input
           type="text"
-          placeholder="Search channels..."
+          placeholder="Filter channels... Hit enter to create a new search query!"
           value={search}
           onChange={handleSearchChange}
           className="mb-4 p-2 mt-4 mx-4 rounded-md text-black"
         />
         {search && searchChanged && (
-          <button type="submit" className="mb-4 p-2 mx-4 rounded-md">
-            Execute Search!
+          <button type="submit" className="mb-4 p-2 mx-4 rounded-md bg-accent hover:bg-accent-dark">
+            Search
           </button>
         )}
       </form>
+      {currentSearch && (
+        <p className="font-semibold text-center">Showing results for {currentSearch}</p>
+      )
+      }
       <div className="grid grid-cols-4 gap-4 m-4 px-16">
         {loading ? (
           <div>Loading...</div>
         ) : (
           filteredChannels.map((channel) => (
             <Link key={channel.channel_id} to={`/channel/${channel.channel_id}`}>
-            <div
-              className="flex flex-col items-center bg-gray-200 text-black p-4 rounded hover:scale-105 transition-transform duration-300 ease-in-out"
-            >
-              <img
-                src={pfpDomain + "/"+channel.channel_id+"_pfp.jpg"}
-                alt={channel.channel_name}
-                className="w-24 h-24 rounded-full mb-2"
-              />
+              <div
+                className="flex flex-col items-center bg-gray-200 text-black p-4 rounded hover:scale-105 transition-transform duration-300 ease-in-out"
+              >
+                <img
+                  src={pfpDomain + "/" + channel.channel_id + "_pfp.jpg"}
+                  alt={channel.channel_name}
+                  className="w-24 h-24 rounded-full mb-2"
+                />
                 {channel.channel_name}
-            </div>
+              </div>
             </Link>
           ))
         )}
