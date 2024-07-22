@@ -9,8 +9,8 @@ import Linkify from "react-linkify";
 import { useHotkeys } from "react-hotkeys-hook";
 
 const VideoPlayer = ({ videoId }) => {
-  const videoCDNUrl =
-    import.meta.env.VITE_CDN_DOMAIN + `/${videoId ?? ""}.webm`;
+  const videoWebMUrl = import.meta.env.VITE_CDN_DOMAIN + `/${videoId ?? ""}.webm`;
+  const videoMP4Url = import.meta.env.VITE_CDN_DOMAIN + `/${videoId ?? ""}.mp4`;
 
   const [videoData, setVideoData] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
@@ -71,15 +71,11 @@ const VideoPlayer = ({ videoId }) => {
 
   useEffect(() => {
     if (videoId) {
-      fetch(
-        import.meta.env.VITE_API_DOMAIN + "/api/database/video_data/" + videoId
-      )
+      fetch(import.meta.env.VITE_API_DOMAIN + "/api/database/video_data/" + videoId)
         .then((response) => response.json())
         .then((data) => {
           setVideoData(data);
-          setPfpUrl(
-            import.meta.env.VITE_PFP_DOMAIN + "/" + data.channel_id + "_pfp.jpg"
-          );
+          setPfpUrl(import.meta.env.VITE_PFP_DOMAIN + "/" + data.channel_id + "_pfp.jpg");
           if (data.error) {
             setNotFound(true);
           }
@@ -129,10 +125,7 @@ const VideoPlayer = ({ videoId }) => {
 
   useEffect(() => {
     if (selectedSubtitle) {
-      fetch(
-        import.meta.env.VITE_CAPTIONS_DOMAIN +
-          `/${videoId}/${videoId}.${selectedSubtitle}.srv3`
-      )
+      fetch(import.meta.env.VITE_CAPTIONS_DOMAIN + `/${videoId}/${videoId}.${selectedSubtitle}.srv3`)
         .then((res) => res.text())
         .then((text) => {
           setCaptionsText(text);
@@ -187,7 +180,7 @@ const VideoPlayer = ({ videoId }) => {
 
   const downloadVideo = () => {
     const a = document.createElement("a");
-    a.href = videoCDNUrl;
+    a.href = videoWebMUrl; // Default to WebM for download
     a.download = videoId + ".webm";
     a.click();
   };
@@ -201,7 +194,7 @@ const VideoPlayer = ({ videoId }) => {
 
   const handleOpenWithVLC = () => {
     const a = document.createElement("a");
-    a.href = `vlc://${videoCDNUrl}`;
+    a.href = `vlc://${videoWebMUrl}`; // Default to WebM for VLC
     a.click();
   };
 
@@ -260,15 +253,16 @@ const VideoPlayer = ({ videoId }) => {
                 <video
                   ref={videoRef}
                   className="absolute top-0 left-0 w-full h-full object-contain"
-                  src={videoCDNUrl}
-                  poster={
-                    import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`
-                  }
+                  poster={import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`}
                   onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
                   onClick={handleVideoClick}
                   onWaiting={() => setIsBuffering(true)}
                   onPlaying={() => setIsBuffering(false)}
-                />
+                >
+                  <source src={videoWebMUrl} type="video/webm" />
+                  <source src={videoMP4Url} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
                 {!isPlaying && (
                   <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black bg-opacity-50">
                     <p className="text-2xl text-white mb-4">Playback paused</p>
@@ -422,7 +416,7 @@ const VideoPlayer = ({ videoId }) => {
   );
 };
 
-VideoPlayer.propTypes = {
+VideoPlayer.propTypes = { 
   videoId: PropTypes.string,
 };
 
