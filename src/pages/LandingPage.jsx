@@ -36,15 +36,12 @@ function LandingPage() {
       })
       .catch((error) => console.error(error));
 
-    fetch(import.meta.env.VITE_KV_DOMAIN)
+    fetch(import.meta.env.VITE_KV_DOMAIN + "/announcement/get/patchwork")
       .then((response) => response.json())
       .then((data) => {
-        if (
-          data.success &&
-          data.data.kv &&
-          data.data.kv.patchworkAnnouncement
-        ) {
-          const message = data.data.kv.patchworkAnnouncement;
+        if (data) {
+          const message = data.content;
+          console.log(data)
           if (message !== "None") {
             setAnnouncementMessage(message);
           }
