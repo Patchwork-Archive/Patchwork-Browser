@@ -10,7 +10,6 @@ import ChannelCardGridMini from "../components/ChannelCardGridMini";
 function LandingPage() {
   const [storageUsed, setStorageUsed] = useState(0);
   const [numberOfVideos, setNumberOfVideos] = useState(0);
-  const [announcementMessage, setAnnouncementMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const discoverAPIUrl =
     import.meta.env.VITE_QUERY_RANDOM_FROM_DB == "true"
@@ -35,19 +34,6 @@ function LandingPage() {
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
-
-    fetch(import.meta.env.VITE_KV_DOMAIN + "/announcement/get/patchwork")
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          const message = data.content;
-          console.log(data)
-          if (message !== "None") {
-            setAnnouncementMessage(message);
-          }
-        }
-      })
-      .catch((error) => console.error(error));
   }, []);
 
   return (
@@ -58,9 +44,7 @@ function LandingPage() {
         url="playlist"
         image={import.meta.env.VITE_OG_IMAGE_DYNA}
       />
-      {announcementMessage ? (
-        <Announcement message={announcementMessage} />
-      ) : null}
+      <Announcement signpostURL={import.meta.env.VITE_KV_DOMAIN + "/announcement/get/patchwork"} />
       <div className="max-w-screen-xl mx-auto px-4 mt-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-4 mt-16 text-white">
