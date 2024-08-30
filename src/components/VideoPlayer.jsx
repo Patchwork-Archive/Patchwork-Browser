@@ -193,7 +193,7 @@ const VideoPlayer = ({ videoId }) => {
 
   const handleOpenWithVLC = () => {
     const a = document.createElement("a");
-    a.href = `vlc://${videoWebMUrl}`; // Default to WebM for VLC
+    a.href = `vlc://${import.meta.env.VITE_CDN_DOMAIN + "/" + videoId + "."+videoData.file_ext}`; // Default to WebM for VLC
     a.click();
   };
 
