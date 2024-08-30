@@ -31,6 +31,9 @@ function LandingPage() {
       .then((data) => {
         setStorageUsed(data.storage_size);
         setNumberOfVideos(data.number_of_files);
+        if (data.units == "MB"){
+          setStorageUsed((data.storage_size / 1024).toFixed(2));
+        }
         setIsLoading(false);
       })
       .catch((error) => console.error(error));
@@ -57,7 +60,7 @@ function LandingPage() {
           ) : (
             <h2 className="text-xl text-gray-400">
               We have {numberOfVideos.toLocaleString()} videos archived taking
-              up {storageUsed}GB of storage space.
+              up {storageUsed} GB of storage space.
             </h2>
           )}
         </div>
