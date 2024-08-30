@@ -180,8 +180,7 @@ const VideoPlayer = ({ videoId }) => {
 
   const downloadVideo = () => {
     const a = document.createElement("a");
-    a.href = videoWebMUrl; // Default to WebM for download
-    a.download = videoId + ".webm";
+    a.href = import.meta.env.VITE_CDN_DOMAIN + "/" + videoId + "."+videoData.file_ext; // Default to WebM for download
     a.click();
   };
 
