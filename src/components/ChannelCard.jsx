@@ -117,9 +117,8 @@ const ChannelCard = ({ apiUrl, channelID }) => {
               <div>
                 <BrowserView>
                   <p
-                    className={`text-white mt-2 ${
-                      !descriptionExpanded ? "truncate" : ""
-                    }`}
+                    className={`text-white mt-2 ${!descriptionExpanded ? "truncate" : ""
+                      }`}
                     style={{
                       maxWidth: "1000px",
                       WebkitLineClamp: descriptionExpanded ? "none" : "3",
@@ -144,7 +143,7 @@ const ChannelCard = ({ apiUrl, channelID }) => {
                     </p>
                   )}
                 </MobileView>
-                { dataExists && (
+                {dataExists && (
                   <button
                     className="text-blue-500 mt-2"
                     onClick={() => setDescriptionExpanded(!descriptionExpanded)}
@@ -152,6 +151,16 @@ const ChannelCard = ({ apiUrl, channelID }) => {
                     {descriptionExpanded ? "Show Less" : "Show More"}
                   </button>
                 )}
+                <div className="mt-4" >
+                  <a
+                    href={`https://www.youtube.com/channel/${channelID}`}
+                    className="text-white text-lg bg-red-500 p-2 rounded-lg"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View on YouTube
+                  </a>
+                </div>
               </div>
             )}
           </div>
