@@ -12,12 +12,17 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
-  const [currentSongTitle, setCurrentSongTitle] = useState("Patchwork Archive - Radio");
-  const [currentSongArtist, setCurrentSongArtist] = useState("Preserving rhythm, one video at a time.");
+  const [currentSongTitle, setCurrentSongTitle] = useState(
+    "Patchwork Archive - Radio",
+  );
+  const [currentSongArtist, setCurrentSongArtist] = useState(
+    "Preserving rhythm, one video at a time.",
+  );
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [elapsedTimeStr, setElapsedTimeStr] = useState(" 00:00:00");
   const [isMuted, setIsMuted] = useState(false);
+  const [listenerCount, setListenerCount] = useState(0);
   const audioRef = useRef(null);
 
   const resyncStream = () => {
@@ -49,7 +54,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
       setElapsedTimeStr(
         new Date(audioRef.current.currentTime * 1000)
           .toISOString()
-          .slice(11, 19)
+          .slice(11, 19),
       );
     };
     audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
@@ -91,10 +96,11 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
         .then((data) => {
           setCurrentSongTitle(data.now_playing.song.title);
           setCurrentSongArtist(data.now_playing.song.artist);
+          setListenerCount(Number(data.listeners.total));
         });
     };
     fetchSongData();
-    const cooldown = setInterval(fetchSongData, 15000)
+    const cooldown = setInterval(fetchSongData, 15000);
     return () => clearInterval(cooldown);
   }, []);
 
@@ -128,6 +134,9 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
                 </p>
                 <p className="text-sm font-light text-purple-200">
                   Listened for: {elapsedTimeStr}
+                </p>
+                <p className="text-sm font-light text-purple-200">
+                  Listeners: {listenerCount}
                 </p>
               </div>
             </div>
