@@ -1,3 +1,4 @@
+// VideoPlayer.jsx
 import { useState, useEffect, useRef, useCallback, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -205,7 +206,13 @@ const VideoPlayer = ({ videoId }) => {
     }
   };
 
-  const handleVideoClick = () => {
+  const handleVideoClick = useCallback((event) => {
+    alert(event.target.tagName);
+    if(isFullscreen && event.target.tagName === "svg" || 
+      event.target.tagName === "path" || 
+      event.target.tagName === "BUTTON") {
+      return;
+    }
     if (videoRef.current.paused) {
       videoRef.current.play();
       setIsPlaying(true);
@@ -213,7 +220,7 @@ const VideoPlayer = ({ videoId }) => {
       videoRef.current.pause();
       setIsPlaying(false);
     }
-  };
+  });
 
   const downloadVideo = () => {
     const a = document.createElement("a");
@@ -300,7 +307,8 @@ const VideoPlayer = ({ videoId }) => {
                 </video>
 
                 {!isPlaying && (
-                  <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black bg-opacity-50">
+                  <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black bg-opacity-50"
+                  >
                     <p className="text-2xl text-white mb-4">Playback paused</p>
                     {/* <img src="" alt="Animated GIF" width={200} />  TODO  find cool gif here*/}
                   </div>
@@ -322,6 +330,7 @@ const VideoPlayer = ({ videoId }) => {
                       videoRef={videoRef}
                       isPlaying={isPlaying}
                       onPlayStateChange={handlePlayStateChange}
+                      onClick={handleVideoClick}
                     />
                   </div>
                 )}
@@ -347,6 +356,7 @@ const VideoPlayer = ({ videoId }) => {
                 videoRef={videoRef}
                 isPlaying={isPlaying}
                 onPlayStateChange={handlePlayStateChange}
+                onClick={handleVideoClick}
               />
             </div>
             <h1 className="text-xl md:text-2xl font-bold mt-4 text-white">
