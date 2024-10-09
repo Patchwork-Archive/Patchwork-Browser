@@ -1,0 +1,13 @@
+.overlay {
+    z-index: 10;
+    pointer-events: none;
+  }
+  
+  .video-wrapper.fullscreen .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
