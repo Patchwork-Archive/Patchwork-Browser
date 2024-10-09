@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
 const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
@@ -73,10 +72,8 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
     const videoContainer = videoRef.current?.parentElement;
     if (!document.fullscreenElement && videoContainer) {
       videoContainer.requestFullscreen();
-      setIsFullscreen(true);
     } else {
       document.exitFullscreen();
-      setIsFullscreen(false);
     }
   };
 
@@ -142,7 +139,7 @@ return (
       className="p-1 md:p-2 rounded-full hover:bg-gray-600 transition"
     >
       <FontAwesomeIcon
-        icon={isFullscreen ? faCompress : faExpand}
+        icon={document.fullscreenElement === videoRef.current?.parentElement ? faCompress : faExpand}
         className="text-white text-base md:text-lg"
         size="lg"
       />
