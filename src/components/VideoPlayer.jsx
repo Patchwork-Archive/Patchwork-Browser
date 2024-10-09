@@ -207,7 +207,6 @@ const VideoPlayer = ({ videoId }) => {
   };
 
   const handleVideoClick = useCallback((event) => {
-    alert(event.target.tagName);
     if(isFullscreen && event.target.tagName === "svg" || 
       event.target.tagName === "path" || 
       event.target.tagName === "BUTTON") {
