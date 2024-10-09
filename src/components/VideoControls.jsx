@@ -70,8 +70,9 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
   };
 
   const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      videoRef.current?.requestFullscreen();
+    const videoContainer = videoRef.current?.parentElement;
+    if (!document.fullscreenElement && videoContainer) {
+      videoContainer.requestFullscreen();
       setIsFullscreen(true);
     } else {
       document.exitFullscreen();

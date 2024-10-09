@@ -1,3 +1,4 @@
+// VideoPlayer.jsx
 import { useState, useEffect, useRef, useCallback, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
@@ -7,6 +8,7 @@ import VideoControls from "./VideoControls";
 import SubtitleDropdown from "./SubtitleDropdown";
 import Linkify from "react-linkify";
 import { useHotkeys } from "react-hotkeys-hook";
+import "../styles/player.css";
 
 const VideoPlayer = ({ videoId }) => {
   const videoWebMUrl = import.meta.env.VITE_CDN_DOMAIN + `/${videoId ?? ""}.webm`;
@@ -25,6 +27,42 @@ const VideoPlayer = ({ videoId }) => {
   const videoRef = useRef(null);
   const vidControlRef = useRef(null);
   const [pfpUrl, setPfpUrl] = useState("");
+
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(false);
+  const hideControlsTimeout = useRef(null);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement !== null);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleMouseMove = () => {
+      if (isFullscreen) {
+        setControlsVisible(true);
+        if (hideControlsTimeout.current) {
+          clearTimeout(hideControlsTimeout.current);
+        }
+        hideControlsTimeout.current = setTimeout(() => {
+          setControlsVisible(false);
+        }, 2000);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (hideControlsTimeout.current) {
+        clearTimeout(hideControlsTimeout.current);
+      }
+    };
+  }, [isFullscreen]);
 
   const handlePlayStateChange = (playing) => {
     setIsPlaying(playing);
@@ -168,7 +206,12 @@ const VideoPlayer = ({ videoId }) => {
     }
   };
 
-  const handleVideoClick = () => {
+  const handleVideoClick = useCallback((event) => {
+    if(isFullscreen && event.target.tagName === "svg" || 
+      event.target.tagName === "path" || 
+      event.target.tagName === "BUTTON") {
+      return;
+    }
     if (videoRef.current.paused) {
       videoRef.current.play();
       setIsPlaying(true);
@@ -176,11 +219,11 @@ const VideoPlayer = ({ videoId }) => {
       videoRef.current.pause();
       setIsPlaying(false);
     }
-  };
+  });
 
   const downloadVideo = () => {
     const a = document.createElement("a");
-    a.href = import.meta.env.VITE_CDN_DOMAIN + "/" + videoId + "."+videoData.file_ext; // Default to WebM for download
+    a.href = import.meta.env.VITE_CDN_DOMAIN + "/" + videoId + "." + videoData.file_ext; // Default to WebM for download
     a.click();
   };
 
@@ -193,7 +236,7 @@ const VideoPlayer = ({ videoId }) => {
 
   const handleOpenWithVLC = () => {
     const a = document.createElement("a");
-    a.href = `vlc://${import.meta.env.VITE_CDN_DOMAIN + "/" + videoId + "."+videoData.file_ext}`; // Default to WebM for VLC
+    a.href = `vlc://${import.meta.env.VITE_CDN_DOMAIN + "/" + videoId + "." + videoData.file_ext}`; // Default to WebM for VLC
     a.click();
   };
 
@@ -254,7 +297,6 @@ const VideoPlayer = ({ videoId }) => {
                   className="absolute top-0 left-0 w-full h-full object-contain"
                   poster={import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`}
                   onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
-                  onClick={handleVideoClick}
                   onWaiting={() => setIsBuffering(true)}
                   onPlaying={() => setIsBuffering(false)}
                 >
@@ -262,13 +304,37 @@ const VideoPlayer = ({ videoId }) => {
                   <source src={videoMP4Url} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
+
                 {!isPlaying && (
-                  <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black bg-opacity-50">
+                  <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black bg-opacity-50"
+                  >
                     <p className="text-2xl text-white mb-4">Playback paused</p>
                     {/* <img src="" alt="Animated GIF" width={200} />  TODO  find cool gif here*/}
                   </div>
                 )}
 
+                {/* Captions */}
+                {showCaptions && (
+                  <CaptionsRenderer
+                    className={`absolute top-0 left-0 w-full h-full pointer-events-none`} // Captions always stay on top
+                    srv3={captionsText}
+                    currentTime={currentTime}
+                  />
+                )}
+
+                {/* Video Controls Fullscreen Ver */}
+                {isFullscreen && controlsVisible && (
+                  <div className="video-controls absolute bottom-0 left-0 w-full z-10"> {/* Z-index ensures controls are below captions */}
+                    <VideoControls
+                      videoRef={videoRef}
+                      isPlaying={isPlaying}
+                      onPlayStateChange={handlePlayStateChange}
+                      onClick={handleVideoClick}
+                    />
+                  </div>
+                )}
+
+                {/* Buffering Indicator */}
                 {isBuffering && (
                   <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 bg-black bg-opacity-50 p-3 rounded-full shadow-xl flex items-center space-x-3">
                     <div className="w-5 h-5 border-t-2 border-white rounded-full animate-spin"></div>
@@ -277,16 +343,9 @@ const VideoPlayer = ({ videoId }) => {
                     </span>
                   </div>
                 )}
-
-                {showCaptions && (
-                  <CaptionsRenderer
-                    className="absolute"
-                    srv3={captionsText}
-                    currentTime={currentTime}
-                  />
-                )}
               </div>
             </div>
+
             <div
               className="video-controls w-full mt-1"
               tabIndex="-1"
@@ -296,6 +355,7 @@ const VideoPlayer = ({ videoId }) => {
                 videoRef={videoRef}
                 isPlaying={isPlaying}
                 onPlayStateChange={handlePlayStateChange}
+                onClick={handleVideoClick}
               />
             </div>
             <h1 className="text-xl md:text-2xl font-bold mt-4 text-white">
@@ -415,7 +475,7 @@ const VideoPlayer = ({ videoId }) => {
   );
 };
 
-VideoPlayer.propTypes = { 
+VideoPlayer.propTypes = {
   videoId: PropTypes.string,
 };
 
