@@ -13,27 +13,39 @@ function ChannelPage() {
     let page = parseInt(queryParams.get("page"));
     if (isNaN(page) || page < 1) {
         page = 1;
-      }
+    }
     const { channelID } = useParams();
 
     useEffect(() => {
-        fetch(import.meta.env.VITE_API_DOMAIN+`/api/channel/${channelID}?page=${page}`)
-        .then((response) => response.json())
-        .then((data) => {
-            setChannelPageData(data.results)
-            setNumPages(data.pages)
-            setIsLoading(false);
-        })
-        .catch((error) => console.log(error));
+        fetch(
+            import.meta.env.VITE_API_DOMAIN +
+                `/api/channel/${channelID}?page=${page}`,
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                setChannelPageData(data.results);
+                setNumPages(data.pages);
+                setIsLoading(false);
+            })
+            .catch((error) => console.log(error));
     }, [page, channelID]);
     return (
         <>
-        <ChannelCard apiUrl={import.meta.env.VITE_API_DOMAIN+`/api/channel_name?channel_id=${channelID}`} channelID={`${channelID}`} />
-        <div className="max-w-screen-xl mx-auto px-4 mt-8">
-        <ChannelPageGrid isLoading={isLoading} videos={channelPageData} />
-        </div>
-        <PageSwitcher currentPage={page} maxPage={numPages}/>
-        <Footer />
+            <ChannelCard
+                apiUrl={
+                    import.meta.env.VITE_API_DOMAIN +
+                    `/api/channel_name?channel_id=${channelID}`
+                }
+                channelID={`${channelID}`}
+            />
+            <div className="max-w-screen-xl mx-auto px-4 mt-8">
+                <ChannelPageGrid
+                    isLoading={isLoading}
+                    videos={channelPageData}
+                />
+            </div>
+            <PageSwitcher currentPage={page} maxPage={numPages} />
+            <Footer />
         </>
     );
 }

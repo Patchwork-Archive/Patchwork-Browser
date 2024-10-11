@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const Divider = ({ className = "" }) => {
-  return <div className={`border-t w-1/2 mx-auto ${className}`}></div>;
+    return <div className={`border-t w-1/2 mx-auto ${className}`}></div>;
 };
 
 Divider.propTypes = {
-  className: PropTypes.string,
+    className: PropTypes.string,
 };
 
 export default Divider;

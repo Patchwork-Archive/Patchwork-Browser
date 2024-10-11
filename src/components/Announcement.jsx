@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 
 function Announcement({ signpostURL }) {
-
     const [content, setContent] = useState("");
 
     useEffect(() => {
@@ -23,9 +22,8 @@ function Announcement({ signpostURL }) {
                 <p>{content}</p>
             </div>
         );
-    }
-    else {
-        return null
+    } else {
+        return null;
     }
 }
 
