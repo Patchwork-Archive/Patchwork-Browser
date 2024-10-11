@@ -39,7 +39,7 @@ const SubtitleDropdown = ({ subtitles, onSelect }) => {
                     (key) =>
                         key !== "live_chat" && (
                             <option key={key} value={key}>
-                                {key}
+                                {subtitles[key][0].name}
                             </option>
                         ),
                 )}
