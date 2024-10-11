@@ -23,10 +23,6 @@ const SubtitleDropdown = ({ subtitles, onSelect }) => {
         onSelect(event.target.value);
     };
 
-    if (!subtitles || Object.keys(subtitles).length === 0) {
-        return null;
-    }
-
     return (
         <>
             <p className="text-white mt-1 mb-1 font-bold mr-2">Captions</p>

@@ -492,7 +492,7 @@ const VideoPlayer = ({ videoId }) => {
                                         onSelect={handleSubtitleSelect}
                                     />
                                     <button
-                                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 rounded"
+                                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-1 rounded mt-2"
                                         onClick={toggleCaptions}
                                     >
                                         {showCaptions
