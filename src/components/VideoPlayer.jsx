@@ -83,6 +83,19 @@ const VideoPlayer = ({ videoId }) => {
         setDownloadMenuSelection(option);
     };
 
+    const handleOpenWithVLC = () => {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (!isMobile) {
+            alert(
+                "Sorry, this feature is mainly for mobile devices. Please Download the video instead if you're having trouble playing it.",
+            );
+            return;
+        }
+        const a = document.createElement("a");
+        a.href = `vlc://${import.meta.env.VITE_CDN_DOMAIN + "/" + videoId + "." + videoData.file_ext}`; // Default to WebM for VLC
+        a.click();
+    };
+
     useHotkeys("alt+p", () => focusVideoControls());
 
     const focusVideoControls = () => {
@@ -495,6 +508,12 @@ const VideoPlayer = ({ videoId }) => {
                                 onClick={handleWatchOnYouTube}
                             >
                                 Watch on YouTube
+                            </button>
+                            <button
+                                className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-1 px-4 rounded"
+                                onClick={handleOpenWithVLC}
+                            >
+                                Open with VLC
                             </button>
                             <Popup
                                 trigger={
