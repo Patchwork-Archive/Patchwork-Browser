@@ -8,6 +8,8 @@ import VideoControls from "./VideoControls";
 import SubtitleDropdown from "./SubtitleDropdown";
 import Linkify from "react-linkify";
 import { useHotkeys } from "react-hotkeys-hook";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 import "../styles/player.css";
 
 const VideoPlayer = ({ videoId }) => {
@@ -29,7 +31,7 @@ const VideoPlayer = ({ videoId }) => {
     const videoRef = useRef(null);
     const vidControlRef = useRef(null);
     const [pfpUrl, setPfpUrl] = useState("");
-
+    const [downloadMenuSelection, setDownloadMenuSelection] = useState("video");
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [controlsVisible, setControlsVisible] = useState(false);
     const hideControlsTimeout = useRef(null);
@@ -76,6 +78,10 @@ const VideoPlayer = ({ videoId }) => {
     const handleSubtitleSelect = useCallback((subtitle) => {
         setSelectedSubtitle(subtitle);
     }, []);
+
+    const handleDownloadOptionSelect = (option) => {
+        setDownloadMenuSelection(option);
+    };
 
     useHotkeys("alt+p", () => focusVideoControls());
 
@@ -244,15 +250,48 @@ const VideoPlayer = ({ videoId }) => {
         }
     });
 
-    const downloadVideo = () => {
-        const a = document.createElement("a");
-        a.href =
-            import.meta.env.VITE_CDN_DOMAIN +
-            "/" +
-            videoId +
-            "." +
-            videoData.file_ext; // Default to WebM for download
-        a.click();
+    const handleDownloadButtonClick = () => {
+        switch (downloadMenuSelection) {
+            case "video":
+                const videoLink = document.createElement("a");
+                videoLink.href =
+                    import.meta.env.VITE_CDN_DOMAIN +
+                    "/" +
+                    videoId +
+                    "." +
+                    videoData.file_ext; // Default to WebM for download
+                videoLink.target = "_blank";
+                videoLink.click();
+                break;
+            case "thumbnail":
+                const thumbnailLink = document.createElement("a");
+                thumbnailLink.href =
+                    import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`;
+                thumbnailLink.target = "_blank";
+                thumbnailLink.click();
+                break;
+            case "subs":
+                const subtitlesLink = document.createElement("a");
+                subtitlesLink.href =
+                    import.meta.env.VITE_CAPTIONS_DOMAIN +
+                    `/${videoId}/${videoId}.${selectedSubtitle}.srv3`;
+                console.log(
+                    import.meta.env.VITE_CAPTIONS_DOMAIN +
+                        `/${videoId}/${videoId}.${selectedSubtitle}.srv3`,
+                );
+                subtitlesLink.target = "_blank";
+                subtitlesLink.click();
+                break;
+            case "info":
+                const jsonLink = document.createElement("a");
+                jsonLink.href =
+                    import.meta.env.VITE_API_DOMAIN +
+                    "/api/database/video_data/" +
+                    videoId;
+                jsonLink.target = "_blank";
+                jsonLink.click();
+                break;
+        }
     };
 
     const handleWatchOnYouTube = () => {
@@ -433,34 +472,71 @@ const VideoPlayer = ({ videoId }) => {
                             </p>
                         )}
                         {videoData.subtitles && (
-                            <div className="flex flex-col sm:flex-row items-left mt-2 space-y-2 sm:space-y-0 sm:space-x-2">
-                                <SubtitleDropdown
-                                    subtitles={videoData.subtitles}
-                                    onSelect={handleSubtitleSelect}
-                                />
-                            </div>
+                            <>
+                                <div className="flex flex-col sm:flex-row items-left mt-2 space-y-2 sm:space-y-0 sm:space-x-2">
+                                    <SubtitleDropdown
+                                        subtitles={videoData.subtitles}
+                                        onSelect={handleSubtitleSelect}
+                                    />
+                                    <button
+                                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 rounded"
+                                        onClick={toggleCaptions}
+                                    >
+                                        {showCaptions
+                                            ? "Hide Captions"
+                                            : "Show Captions"}
+                                    </button>
+                                </div>
+                            </>
                         )}
-                        <div className="flex flex-col sm:flex-row items-left mt-4 space-y-2 sm:space-y-0 sm:space-x-2">
+                        <div className="flex flex-col sm:flex-row items-left my-4 sm:space-y-0 sm:space-x-2">
                             <button
-                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
-                                onClick={toggleCaptions}
-                            >
-                                {showCaptions
-                                    ? "Hide Captions"
-                                    : "Show Captions"}
-                            </button>
-                            <button
-                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
-                                onClick={downloadVideo}
-                            >
-                                Download Video
-                            </button>
-                            <button
-                                className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-4 rounded"
+                                className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-6 rounded"
                                 onClick={handleWatchOnYouTube}
                             >
                                 Watch on YouTube
                             </button>
+                            <Popup
+                                trigger={
+                                    <button
+                                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-6 rounded"
+                                        onClick={handleDownloadButtonClick}
+                                    >
+                                        Download Options
+                                    </button>
+                                }
+                                position="right bottom"
+                            >
+                                <div className="flex flex-col sm:flex-row">
+                                    <select
+                                        className="text-black text-sm rounded p-2"
+                                        onChange={(e) =>
+                                            handleDownloadOptionSelect(
+                                                e.target.value,
+                                            )
+                                        }
+                                    >
+                                        <option value="video">Video</option>
+                                        <option value="thumbnail">
+                                            Thumbnail
+                                        </option>
+                                        {videoData._type && (
+                                            <option value="info">JSON</option>
+                                        )}
+                                        {videoData.subtitles && (
+                                            <option value="subs">
+                                                Subtitle
+                                            </option>
+                                        )}
+                                    </select>
+                                    <button
+                                        className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded"
+                                        onClick={handleDownloadButtonClick}
+                                    >
+                                        Download
+                                    </button>
+                                </div>
+                            </Popup>
                         </div>
                         <p className="text-white text-lg mt-2">
                             Published on: {formatDate(videoData.upload_date)}

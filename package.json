@@ -32,6 +32,7 @@
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.26.2",
     "react-srv3": "github:Patchwork-Archive/react-srv3",
+    "reactjs-popup": "^2.0.6",
     "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
