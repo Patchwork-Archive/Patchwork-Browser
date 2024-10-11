@@ -504,13 +504,13 @@ const VideoPlayer = ({ videoId }) => {
                         )}
                         <div className="flex flex-col sm:flex-row items-left my-4 sm:space-y-0 sm:space-x-2">
                             <button
-                                className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-6 rounded"
+                                className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-6  rounded"
                                 onClick={handleWatchOnYouTube}
                             >
                                 Watch on YouTube
                             </button>
                             <button
-                                className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-1 px-4 rounded"
+                                className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-1 px-4 mt-2 rounded"
                                 onClick={handleOpenWithVLC}
                             >
                                 Open with VLC
@@ -518,13 +518,13 @@ const VideoPlayer = ({ videoId }) => {
                             <Popup
                                 trigger={
                                     <button
-                                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-6 rounded"
+                                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-6 mt-2 rounded"
                                         onClick={handleDownloadButtonClick}
                                     >
                                         Download Options
                                     </button>
                                 }
-                                position="right bottom"
+                                position="bottom"
                             >
                                 <div className="flex flex-col sm:flex-row">
                                     <select
