@@ -257,7 +257,8 @@ const VideoPlayer = ({ videoId }) => {
         if (
             (isFullscreen && event.target.tagName === "svg") ||
             event.target.tagName === "path" ||
-            event.target.tagName === "BUTTON"
+            event.target.tagName === "BUTTON" ||
+            event.target.tagName === "INPUT"
         ) {
             return;
         }
