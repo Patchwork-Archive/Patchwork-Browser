@@ -106,6 +106,13 @@ const VideoPlayer = ({ videoId }) => {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
+            const activeElement = document.activeElement;
+            const isInputFocused =
+                activeElement &&
+                (activeElement.tagName.toLowerCase() === "input" ||
+                    activeElement.tagName.toLowerCase() === "textarea" ||
+                    activeElement.isContentEditable);
+            if (isInputFocused) return;
             if (videoRef.current) {
                 switch (event.key) {
                     case "ArrowRight":
