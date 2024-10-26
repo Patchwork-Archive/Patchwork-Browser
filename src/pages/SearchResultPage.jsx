@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
-import SearchResults from "../components/SearchResults";
+import SearchResultsVideo from "../components/SearchResultsVideo";
+import SearchResultsChannel from "../components/SearchResultsChannel";
 import PageSwitcher from "../components/PageSwitcher";
 import Footer from "../components/Footer";
 import HeadTags from "../components/HeadTags";
@@ -9,7 +10,8 @@ function SearchResultPage() {
     const { search } = useLocation();
     const query = new URLSearchParams(search).get("q");
     const page = new URLSearchParams(search).get("page") || 1;
-    const [searchResultData, setSearchResultData] = useState({});
+    const [videoSearchResultData, setVideoSearchResultData] = useState({});
+    const [channelSearchResultData, setChannelSearchResultData] = useState({});
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [numResults, setNumResults] = useState(0);
@@ -27,11 +29,29 @@ function SearchResultPage() {
                 return response.json();
             })
             .then((data) => {
-                setSearchResultData(data);
+                setVideoSearchResultData(data);
                 setNumResults(data.results.length);
             })
             .catch((error) => setError(error));
     }, [page, query]);
+
+    useEffect(() => {
+        if (page != 1) return;
+        fetch(
+            import.meta.env.VITE_API_DOMAIN + "/api/search/channel?q=" + query,
+        )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                setChannelSearchResultData(data);
+            })
+            .catch((error) => setError(error));
+    }, [page]);
 
     if (error) {
         return (
@@ -52,19 +72,24 @@ function SearchResultPage() {
                 Showing results for
             </h1>
             <i className="text-lg text-white flex justify-center">{query}</i>
+            {!isLoading && page == 1 ? (
+                <SearchResultsChannel
+                    results={channelSearchResultData.results}
+                />
+            ) : null}
             {isLoading ? (
                 <p className="text-white text-xl justify-center flex">
                     Loading...
                 </p>
             ) : (
-                <SearchResults results={searchResultData.results} />
+                <SearchResultsVideo results={videoSearchResultData.results} />
             )}
             {isLoading || numResults == 0 ? (
                 <></>
             ) : (
                 <PageSwitcher
                     currentPage={page}
-                    maxPage={searchResultData.pages}
+                    maxPage={videoSearchResultData.pages}
                 />
             )}
             <Footer />

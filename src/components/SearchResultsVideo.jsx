@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const thumbnailDomain = import.meta.env.VITE_THUMBNAIL_DOMAIN;
 
-const SearchResults = ({ results }) => {
+const SearchResultsVideo = ({ results }) => {
     return (
         <div className="py-4 px-2 mx-2">
             <div className="-m-2">
@@ -57,7 +57,7 @@ const SearchResults = ({ results }) => {
     );
 };
 
-SearchResults.propTypes = {
+SearchResultsVideo.propTypes = {
     results: PropTypes.arrayOf(
         PropTypes.shape({
             channel_id: PropTypes.string,
@@ -70,4 +70,4 @@ SearchResults.propTypes = {
     ),
 };
 
-export default SearchResults;
+export default SearchResultsVideo;
