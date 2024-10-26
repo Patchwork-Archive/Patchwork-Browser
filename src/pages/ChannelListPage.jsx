@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import HeadTags from "../components/HeadTags";
+import SearchResultsChannel from "../components/SearchResultsChannel";
 
 function ChannelListPage() {
     const [channels, setChannels] = useState([]);
@@ -82,32 +83,11 @@ function ChannelListPage() {
                     Showing results for {currentSearch}
                 </p>
             )}
-            <div className="grid grid-cols-4 gap-4 m-4 px-16">
-                {loading ? (
-                    <div>Loading...</div>
-                ) : (
-                    filteredChannels.map((channel) => (
-                        <Link
-                            key={channel.channel_id}
-                            to={`/channel/${channel.channel_id}`}
-                        >
-                            <div className="flex flex-col items-center bg-gray-200 text-black p-4 rounded hover:scale-105 transition-transform duration-300 ease-in-out">
-                                <img
-                                    src={
-                                        pfpDomain +
-                                        "/" +
-                                        channel.channel_id +
-                                        "_pfp.jpg"
-                                    }
-                                    alt={channel.channel_name}
-                                    className="w-24 h-24 rounded-full mb-2"
-                                />
-                                {channel.channel_name}
-                            </div>
-                        </Link>
-                    ))
-                )}
-            </div>
+            {loading ? (
+                <div>Loading...</div>
+            ) : (
+                <SearchResultsChannel results={filteredChannels} limit={100} />
+            )}
         </div>
     );
 }
