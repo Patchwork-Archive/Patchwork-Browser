@@ -38,7 +38,7 @@ function PageSwitcher({ currentPage, maxPage }) {
                     <></>
                 ) : (
                     <button
-                        className="bg-accent text-white font-bold py-2 px-4 rounded mx-2 w-24"
+                        className="bg-accent hover:scale-105 duration-200 text-white font-bold py-2 px-4 rounded mx-2 w-24"
                         onClick={goBack}
                     >
                         Back
@@ -49,7 +49,7 @@ function PageSwitcher({ currentPage, maxPage }) {
                     <></>
                 ) : (
                     <button
-                        className="bg-accent text-white font-bold py-2 px-4 rounded mx-2 w-24"
+                        className="bg-accent hover:scale-105 duration-200 text-white font-bold py-2 px-4 rounded mx-2 w-24"
                         onClick={goForward}
                     >
                         Forward
