@@ -1,20 +1,5 @@
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-
-function Announcement({ signpostURL }) {
-    const [content, setContent] = useState("");
-
-    useEffect(() => {
-        fetch(signpostURL)
-            .then((response) => response.json())
-            .then((data) => {
-                // If the announcement exists and its not empty
-                if (data && data.content !== "") {
-                    setContent(data.content);
-                }
-            })
-            .catch((error) => console.error(error));
-    }, []);
+function Announcement() {
+    const content = import.meta.env.VITE_ANNOUNCEMENT;
 
     if (content) {
         return (
@@ -26,9 +11,5 @@ function Announcement({ signpostURL }) {
         return null;
     }
 }
-
-Announcement.propTypes = {
-    signpostURL: PropTypes.string.isRequired,
-};
 
 export default Announcement;
