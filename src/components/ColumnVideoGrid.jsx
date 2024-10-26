@@ -52,7 +52,7 @@ const ColumnVideoGrid = ({ apiUrl, titleText, currentVideoId = "" }) => {
                       ))
                     : videos.map((video) => (
                           <div
-                              key={video.id}
+                              key={video.video_id}
                               className="video-row p-2 flex flex-col lg:flex-row hover:bg-gray-800 transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-1"
                           >
                               <div className="flex-shrink-0 mb-2 lg:mb-0">

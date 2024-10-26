@@ -13,7 +13,7 @@ const SearchResults = ({ results }) => {
                 ) : (
                     results.map((video) => (
                         <div
-                            key={video.id}
+                            key={video.video_id}
                             className="flex flex-col sm:flex-row p-2 mb-4 border-gray-400 hover:bg-gray-700 hover:rounded-lg transition-colors duration-200"
                             style={{ width: "calc(100% - 1rem)" }}
                         >
