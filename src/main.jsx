@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <BrowserRouter>
             <Navbar />
             {/* TODO: Make something here for Suspense API*/}
-            <Suspense fallback={<div class="loader text-center p-4" />}>
+            <Suspense fallback={<div className="loader text-center p-4" />}>
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/watch" element={<VideoPage />} />
