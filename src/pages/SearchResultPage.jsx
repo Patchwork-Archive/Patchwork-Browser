@@ -72,21 +72,11 @@ function SearchResultPage() {
                 Showing results for
             </h1>
             <i className="text-lg text-white flex justify-center">{query}</i>
-            {!isLoading && page == 1 ? (
+            {!isLoading && channelSearchResultData && page == 1 ? (
                 <>
                     <SearchResultsChannel
                         results={channelSearchResultData.results}
                     />
-                    {channelSearchResultData.results.length > 6 && (
-                        <div className="text-center">
-                            <a
-                                href={"/channels?q=" + query}
-                                className="text-white hover:scale-105 underline px-4 py-2 bg-accent rounded-md inline-block transition-transform duration-200"
-                            >
-                                Show more channels
-                            </a>
-                        </div>
-                    )}
                 </>
             ) : null}
             {isLoading ? (
