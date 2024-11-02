@@ -78,6 +78,12 @@ function LandingPage() {
                         titleText="Discover Music"
                     />
                     <Divider className="my-4" />
+                    <VideoGrid
+                        apiUrl={
+                            import.meta.env.VITE_API_DOMAIN + "/api/popular"
+                        }
+                        titleText="Popular Videos"
+                    />
                     <ChannelCardGridMini
                         apiUrl={
                             import.meta.env.VITE_API_DOMAIN +
