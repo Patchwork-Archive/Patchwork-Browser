@@ -86,7 +86,11 @@ function ChannelListPage() {
             {loading ? (
                 <div>Loading...</div>
             ) : (
-                <SearchResultsChannel results={filteredChannels} limit={100} />
+                <SearchResultsChannel
+                    results={filteredChannels}
+                    limit={100}
+                    hide_redirect={true}
+                />
             )}
         </div>
     );
