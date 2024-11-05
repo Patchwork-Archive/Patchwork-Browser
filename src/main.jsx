@@ -17,6 +17,7 @@ const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const RadioPage = lazy(() => import("./pages/RadioPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const ChannelListPage = lazy(() => import("./pages/ChannelListPage"));
+const AnnouncementPage = lazy(() => import("./pages/Announcements"));
 
 const helmetContext = {};
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -39,6 +40,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/channels" element={<ChannelListPage />} />
+                    <Route
+                        path="/announcements"
+                        element={<AnnouncementPage />}
+                    />
                 </Routes>
             </Suspense>
         </BrowserRouter>

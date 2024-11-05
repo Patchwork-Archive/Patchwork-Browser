@@ -10,6 +10,7 @@ import {
     faCircleExclamation,
     faPenToSquare,
     faUser,
+    faBullhorn,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Navbar() {
@@ -92,6 +93,17 @@ function Navbar() {
                         <h2 className="text-white text-xl font-light px-2 mb-1">
                             Information
                         </h2>
+                        <Link
+                            onClick={() => setMenuOpen(false)}
+                            to="/announcements"
+                            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                        >
+                            <FontAwesomeIcon
+                                icon={faBullhorn}
+                                className="mr-2"
+                            />{" "}
+                            Announcements
+                        </Link>
                         <Link
                             onClick={() => setMenuOpen(false)}
                             to="/status"
