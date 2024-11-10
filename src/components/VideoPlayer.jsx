@@ -468,9 +468,10 @@ const VideoPlayer = ({ videoId }) => {
                         <h1 className="text-xl md:text-2xl font-bold mt-4 text-white">
                             {videoData.title}
                         </h1>
-                        <span className="hover:underline mt-2 text-white flex items-center">
+                        <span className="mt-2 text-white flex items-center">
                             <Link
                                 to={`/channel/${videoData.channel_id || videoData.uploader_id}`}
+                                className="hover:underline"
                                 style={{
                                     display: "flex",
                                     alignItems: "center",
