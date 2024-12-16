@@ -11,6 +11,7 @@ function LandingPage() {
     const [storageUsed, setStorageUsed] = useState(0);
     const [numberOfVideos, setNumberOfVideos] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [lastArchivedDate, setLastArchivedDate] = useState("");
     const discoverAPIUrl =
         import.meta.env.VITE_QUERY_RANDOM_FROM_DB == "true"
             ? import.meta.env.VITE_API_DOMAIN + "/api/discover_videos"
@@ -31,6 +32,7 @@ function LandingPage() {
             .then((data) => {
                 setStorageUsed(data.storage_size);
                 setNumberOfVideos(data.number_of_files);
+                setLastArchivedDate(data.most_recent_archived_video_date);
                 if (data.units == "MB") {
                     setStorageUsed((data.storage_size / 1024).toFixed(2));
                 }
@@ -64,7 +66,14 @@ function LandingPage() {
                             space.
                         </h2>
                     )}
+                    {lastArchivedDate != "" ? (
+                        <h2 className="text-lg text-gray-400">
+                            Last archival round occured on {lastArchivedDate}{" "}
+                            PST
+                        </h2>
+                    ) : null}
                 </div>
+
                 <main tabIndex="-1" ref={mainRef}>
                     <VideoGrid
                         apiUrl={
@@ -98,6 +107,11 @@ function LandingPage() {
                         }
                         titleText="Recently Archived"
                     />
+                    <p className="text-gray-400 text-m mb-8">
+                        The dates of the videos shown here are not indicative of
+                        when archival last occured as videos may be processed
+                        non-chronologically
+                    </p>
                 </main>
             </div>
             <Footer />

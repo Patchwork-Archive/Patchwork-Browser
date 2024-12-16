@@ -1,3 +1,15 @@
+# 2024/12/15
+Archival continues...
+
+## Radio:
+- Holiday music rate increased!
+- 15934 songs now in cycle!
+
+## Archive:
+- Most recent archival round date now shown on homepage
+
+---
+
 # 2024/11/04
 Announcements and changes will now be posted here!
 
