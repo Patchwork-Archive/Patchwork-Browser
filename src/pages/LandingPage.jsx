@@ -10,6 +10,7 @@ import ChannelCardGridMini from "../components/ChannelCardGridMini";
 function LandingPage() {
     const [storageUsed, setStorageUsed] = useState(0);
     const [numberOfVideos, setNumberOfVideos] = useState(0);
+    const [numberOfChannels, setNumberOfChannels] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [lastArchivedDate, setLastArchivedDate] = useState("");
     const discoverAPIUrl =
@@ -32,6 +33,7 @@ function LandingPage() {
             .then((data) => {
                 setStorageUsed(data.storage_size);
                 setNumberOfVideos(data.number_of_files);
+                setNumberOfChannels(data.number_of_channels);
                 setLastArchivedDate(data.most_recent_archived_video_date);
                 if (data.units == "MB") {
                     setStorageUsed((data.storage_size / 1024).toFixed(2));
@@ -61,8 +63,9 @@ function LandingPage() {
                         </h2>
                     ) : (
                         <h2 className="text-xl text-gray-400">
-                            We have {numberOfVideos.toLocaleString()} videos
-                            archived taking up {storageUsed} GB of storage
+                            We've archived {numberOfVideos.toLocaleString()}{" "}
+                            videos across {numberOfChannels.toLocaleString()}{" "}
+                            channels taking up {storageUsed} GB of storage
                             space.
                         </h2>
                     )}
