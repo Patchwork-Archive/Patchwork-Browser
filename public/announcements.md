@@ -7,6 +7,8 @@ Archival continues...
 
 ## Archive:
 - Most recent archival round date now shown on homepage
+- Number of unique channels in DB shown on homepage
+- Project button added to homepage
 
 ---
 

@@ -76,7 +76,20 @@ function LandingPage() {
                         </h2>
                     ) : null}
                 </div>
-
+                <a href="https://github.com/Patchwork-Archive">
+                    <div class="flex justify-center">
+                        <div class="flex items-center justify-center bg-purple-700 text-white px-4 py-4 rounded-md shadow-md hover:bg-purple-800 w-full sm:w-3/4 md:w-1/2 max-w-md">
+                            <img
+                                src="logo.webp"
+                                alt="Patchwork Icon"
+                                class="w-10 h-10 sm:w-12 sm:h-12 mr-4 rounded-lg"
+                            />
+                            <span class="font-bold text-lg sm:text-2xl">
+                                Patchwork Archive
+                            </span>
+                        </div>
+                    </div>
+                </a>
                 <main tabIndex="-1" ref={mainRef}>
                     <VideoGrid
                         apiUrl={
