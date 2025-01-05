@@ -1,11 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const SearchResultsChannel = ({
-    results,
-    limit = 6,
-    hide_redirect = false,
-}) => {
+const SearchResultsChannel = ({ results, query = null, limit = 6 }) => {
     const pfpDomain = import.meta.env.VITE_PFP_DOMAIN;
 
     if (results == null || results.length === 0) return;
@@ -30,7 +26,7 @@ const SearchResultsChannel = ({
                     </Link>
                 ))}
             </div>
-            {!hide_redirect && results.length > 6 && (
+            {query && results.length > 6 && (
                 <div className="text-center">
                     <a
                         href={"/channels?q=" + query}

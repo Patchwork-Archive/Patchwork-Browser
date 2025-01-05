@@ -76,6 +76,7 @@ function SearchResultPage() {
                 <>
                     <SearchResultsChannel
                         results={channelSearchResultData.results}
+                        query={query}
                     />
                 </>
             ) : null}

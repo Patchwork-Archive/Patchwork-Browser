@@ -11,6 +11,7 @@ import {
     faPenToSquare,
     faUser,
     faBullhorn,
+    faMugSaucer
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Navbar() {
@@ -103,6 +104,17 @@ function Navbar() {
                                 className="mr-2"
                             />{" "}
                             Announcements
+                        </Link>
+                        <Link
+                            onClick={() => setMenuOpen(false)}
+                            to="https://ko-fi.com/pinapelz"
+                            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                        >
+                            <FontAwesomeIcon
+                                icon={faMugSaucer}
+                                className="mr-2"
+                            />{" "}
+                            Ko-Fi
                         </Link>
                         <Link
                             onClick={() => setMenuOpen(false)}
