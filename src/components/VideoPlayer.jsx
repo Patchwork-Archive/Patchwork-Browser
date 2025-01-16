@@ -468,14 +468,27 @@ const VideoPlayer = ({ videoId }) => {
               </Link>
             </span>
             {/* Aliases Section */}
-            {aliases.length > 0 && (
-              <div className="mt-4">
-                <h2 className="text-lg font-semibold text-white">
-                  Previously Known As:
-                </h2>
-                <p className="text-white">{aliases.join(", ")}</p>
-              </div>
-            )}
+            {aliases.length > 0 &&
+              videoData &&
+              aliases.filter(
+                (alias) =>
+                  alias !== videoData.channel && alias !== videoData.uploader,
+              ).length > 0 && (
+                <div className="mt-4">
+                  <h2 className="text-lg font-semibold text-white">
+                    Previously Known As:
+                  </h2>
+                  <p className="text-white">
+                    {aliases
+                      .filter(
+                        (alias) =>
+                          alias !== videoData.channel &&
+                          alias !== videoData.uploader,
+                      )
+                      .join(", ")}
+                  </p>
+                </div>
+              )}
             {videoData._type ? null : (
               <p className="text-gray-500 text-base mt-2">
                 This video is missing an info.json. The data you see is from the
