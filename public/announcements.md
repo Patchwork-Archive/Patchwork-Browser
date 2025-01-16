@@ -1,3 +1,9 @@
+# 2025/01/15
+Added new feature to channel and video pages to show previous names of channels if they are recorded
+- Other metadata such as profile pics, banners, and channel descriptions won't have this history
+
+---
+
 # 2024/12/15
 Archival continues...
 
