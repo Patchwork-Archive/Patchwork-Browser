@@ -28,7 +28,7 @@ Due to the nature of how some content was previously archived. Playback for cert
 # API
 We have a basic API at `https://archive.pinapelz.moe`
 
-[API Docs](https://knowledge.pinapelz.com/repos/patchwork-archive-api.html)
+[API Docs](https://github.com/Patchwork-Archive/Patchwork-Backend/wiki/API-DOCS)
 
 [Patchwork Archive is open-source on GitHub](https://github.com/Patchwork-Archive)
 
