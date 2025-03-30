@@ -476,7 +476,7 @@ const VideoPlayer = ({ videoId }) => {
               ).length > 0 && (
                 <div className="mt-4">
                   <h2 className="text-lg font-semibold text-white">
-                    Previously Known As:
+                    Also Known As:
                   </h2>
                   <p className="text-white">
                     {aliases

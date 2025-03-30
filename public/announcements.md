@@ -1,3 +1,15 @@
+# 2025/4/04
+It has been a while. Many graduations have happened since December...
+
+These past few months have most been changes on the backend. Ideally the new method for handling archival jobs should reduce the times the pipeline breaks.
+
+Additionally, we have switched from a self-hosted Umami analytics to GoatCounter instead.
+
+Radio has been updated: 17998 songs now in cycle!
+Archival Continues...
+
+---
+
 # 2025/01/15
 Added new feature to channel and video pages to show previous names of channels if they are recorded
 - Other metadata such as profile pics, banners, and channel descriptions won't have this history
