@@ -68,6 +68,9 @@ function SearchResultPage() {
                 description="Preserving rhythm, one video at a time"
                 image={import.meta.env.VITE_OG_IMAGE_DYNA}
             />
+            <a href="/channels" className="hover:underline text-xl text-white mb-2 mt-6 flex justify-center">
+              Looking for a channel? Try the dedicated Channel Searcher!
+            </a>
             <h1 className="text-2xl text-white font-bold mb-2 mt-6 flex justify-center">
                 Showing results for
             </h1>
