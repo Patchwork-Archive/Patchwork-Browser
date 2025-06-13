@@ -23,6 +23,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
     const [elapsedTimeStr, setElapsedTimeStr] = useState(" 00:00:00");
     const [isMuted, setIsMuted] = useState(false);
     const [listenerCount, setListenerCount] = useState(0);
+    const [listeningHistory, setListeningHistory] = useState([]);
     const audioRef = useRef(null);
 
     const resyncStream = () => {
@@ -93,6 +94,25 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
     }, [currentSongTitle, currentSongArtist, isPlaying]);
 
     useEffect(() => {
+        if(currentSongTitle === "Patchwork Archive - Radio"){
+            return;
+        }
+        setListeningHistory((prev) => {
+            if (
+                prev.length > 0 &&
+                prev[0].title === currentSongTitle &&
+                prev[0].artist === currentSongArtist
+            ) {
+                return prev;
+            }
+            return [
+                { title: currentSongTitle, artist: currentSongArtist, time: new Date().toLocaleTimeString() },
+                ...prev.slice(0, 9),
+            ];
+        });
+    }, [currentSongTitle, currentSongArtist]);
+
+    useEffect(() => {
         const fetchSongData = () => {
             fetch(import.meta.env.VITE_RADIO_API)
                 .then((res) => res.json())
@@ -129,12 +149,18 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
                     {() => (
                         <div className="flex flex-col items-center">
                             <div className="text-white text-center mt-4">
-                                <p className="text-2xl font-semibold mt-2">
+                                <p
+                                    className="text-2xl font-semibold mt-2 max-w-xs sm:max-w-md md:max-w-lg truncate"
+                                    title={currentSongTitle}
+                                >
                                     {currentSongTitle
                                         ? currentSongTitle
                                         : "Loading..."}
                                 </p>
-                                <p className="text-xl font-light mt-4 text-purple-200">
+                                <p
+                                    className="text-xl font-light mt-4 text-purple-200 max-w-xs sm:max-w-md md:max-w-lg truncate"
+                                    title={currentSongArtist}
+                                >
                                     {currentSongArtist
                                         ? currentSongArtist
                                         : "Loading..."}
@@ -214,6 +240,22 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
                         </button>
                     ) : null}
                 </div>
+            </div>
+            {/* Listening History */}
+            <div className="mt-8 w-full max-w-4xl bg-white bg-opacity-10 rounded-xl p-6 shadow-lg">
+                <h3 className="text-lg font-semibold text-white mb-4">Listening History</h3>
+                <ul className="divide-y divide-purple-200">
+                    {listeningHistory.length === 0 && (
+                        <li className="text-purple-200 text-sm">No history yet.</li>
+                    )}
+                    {listeningHistory.map((item, idx) => (
+                        <li key={idx} className="py-2 flex flex-col sm:flex-row sm:justify-between">
+                            <span className="text-white font-medium max-w-xs sm:max-w-md md:max-w-lg truncate" title={item.title}>{item.title}</span>
+                            <span className="text-purple-200 text-sm max-w-xs sm:max-w-md md:max-w-lg truncate" title={item.artist}>{item.artist}</span>
+                            <span className="text-purple-300 text-xs">{item.time}</span>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </>
     );
