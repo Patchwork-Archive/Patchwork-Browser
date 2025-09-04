@@ -11,7 +11,7 @@ const ChannelPageGrid = ({ isLoading, videos }) => {
                         ? Array.from({ length: 10 }).map((_, index) => (
                               <div
                                   key={index}
-                                  className="video-item p-2 w-full md:w-1/2 lg:w-1/3 flex-grow"
+                                  className="video-item p-2 w-full md:w-1/2 lg:w-1/3 grow"
                               >
                                   <div className="rounded overflow-hidden h-full">
                                       <div
@@ -36,7 +36,7 @@ const ChannelPageGrid = ({ isLoading, videos }) => {
                         : videos.map((video) => (
                               <div
                                   key={video.id}
-                                  className="video-item p-2 w-full md:w-1/2 lg:w-1/3 flex-grow transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
+                                  className="video-item p-2 w-full md:w-1/2 lg:w-1/3 grow transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
                               >
                                   <div className="rounded overflow-hidden h-full">
                                       <a href={"/watch?v=" + video.video_id}>

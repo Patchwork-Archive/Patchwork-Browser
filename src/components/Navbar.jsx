@@ -52,7 +52,7 @@ function Navbar() {
                         <Link
                             onClick={() => setMenuOpen(false)}
                             to="/"
-                            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                            className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                         >
                             <FontAwesomeIcon icon={faHome} className="mr-2" />{" "}
                             Home
@@ -60,7 +60,7 @@ function Navbar() {
                         <Link
                             onClick={() => setMenuOpen(false)}
                             to="/channels"
-                            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                            className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                         >
                             <FontAwesomeIcon icon={faUser} className="mr-2" />{" "}
                             Channels
@@ -68,7 +68,7 @@ function Navbar() {
                         <Link
                             onClick={() => setMenuOpen(false)}
                             to="/playlist"
-                            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                            className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                         >
                             <FontAwesomeIcon
                                 icon={faRecordVinyl}
@@ -80,7 +80,7 @@ function Navbar() {
                             <Link
                                 onClick={() => setMenuOpen(false)}
                                 to="/radio"
-                                className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                                className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                             >
                                 <FontAwesomeIcon
                                     icon={faRadio}
@@ -97,7 +97,7 @@ function Navbar() {
                         <Link
                             onClick={() => setMenuOpen(false)}
                             to="/announcements"
-                            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                            className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                         >
                             <FontAwesomeIcon
                                 icon={faBullhorn}
@@ -108,7 +108,7 @@ function Navbar() {
                         <Link
                             onClick={() => setMenuOpen(false)}
                             to="https://ko-fi.com/pinapelz"
-                            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                            className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                         >
                             <FontAwesomeIcon
                                 icon={faMugSaucer}
@@ -119,7 +119,7 @@ function Navbar() {
                         <Link
                             onClick={() => setMenuOpen(false)}
                             to="/status"
-                            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                            className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                         >
                             <FontAwesomeIcon
                                 icon={faCircleExclamation}
@@ -130,7 +130,7 @@ function Navbar() {
                         {import.meta.env.VITE_SUBMISSION_FORM ? (
                             <Link
                                 to={import.meta.env.VITE_SUBMISSION_FORM}
-                                className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                                className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                             >
                                 <FontAwesomeIcon
                                     icon={faPenToSquare}
@@ -142,7 +142,7 @@ function Navbar() {
                         <Link
                             onClick={() => setMenuOpen(false)}
                             to="/about"
-                            className="hover:bg-white hover:text-black py-2 px-4 rounded text-white my-1 md:my-0 text-lg text-left block"
+                            className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                         >
                             <FontAwesomeIcon
                                 icon={faCircleInfo}
@@ -162,24 +162,26 @@ function Navbar() {
                     aria-label="Toggle Sidebar Menu"
                     aria-haspopup="menu"
                     onClick={toggleMenu}
+                    className="hidden md:block"
                 >
                     <FontAwesomeIcon
                         icon={faBars}
-                        className="hidden md:flex text-white text-3xl mx-4"
+                        className="text-white text-3xl mx-4"
                     />
                 </button>
 
-                <div className="flex items-center justify-center w-full max-w-screen-lg px-4 mx-auto">
-                    <button
-                        aria-label="Toggle Sidebar Menu"
-                        aria-haspopup="menu"
-                        onClick={toggleMenu}
-                    >
-                        <FontAwesomeIcon
-                            icon={faBars}
-                            className="md:hidden text-white text-3xl mx-4"
-                        />
-                    </button>
+                <div className="flex items-center justify-center w-full max-w-(--breakpoint-lg) px-4 mx-auto">
+                  <button
+                      aria-label="Toggle Sidebar Menu"
+                      aria-haspopup="menu"
+                      onClick={toggleMenu}
+                      className="md:hidden"
+                  >
+                      <FontAwesomeIcon
+                          icon={faBars}
+                          className="text-white text-3xl mx-4"
+                      />
+                  </button>
                     <form
                         action="/results"
                         method="GET"
@@ -190,7 +192,7 @@ function Navbar() {
                             aria-label="Search Input"
                             name="q"
                             placeholder="Search"
-                            className="w-full py-2 px-4 bg-gray-800 rounded text-white"
+                            className="w-full py-2 px-4 bg-gray-800 rounded-sm text-white"
                         ></input>
                     </form>
                 </div>

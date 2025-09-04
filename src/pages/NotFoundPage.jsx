@@ -20,7 +20,7 @@ function NotFoundPage() {
             />
             <Link
                 to="/"
-                className="bg-accent text-white font-bold py-2 px-4 rounded"
+                className="bg-accent text-white font-bold py-2 px-4 rounded-sm"
             >
                 Go back to home page
             </Link>

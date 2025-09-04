@@ -184,13 +184,13 @@ function PlaylistPlayer({ playlistData }) {
                                     className={`mb-2 flex justify-between items-center ${index === currentVideoIndex ? "bg-blue-100" : ""}`}
                                 >
                                     <button
-                                        className="text-left text-accent hover:text-blue-700 focus:outline-none"
+                                        className="text-left text-accent hover:text-blue-700 focus:outline-hidden"
                                         onClick={() => handleVideoChange(index)}
                                     >
                                         {videoId}
                                     </button>
                                     <button
-                                        className="ml-4 text-red-500 hover:text-red-700 focus:outline-none"
+                                        className="ml-4 text-red-500 hover:text-red-700 focus:outline-hidden"
                                         onClick={() => handleRemoveVideo(index)}
                                     >
                                         Remove
@@ -205,10 +205,10 @@ function PlaylistPlayer({ playlistData }) {
                             value={newVideo}
                             onChange={(e) => setNewVideo(e.target.value)}
                             placeholder="Enter video URL or ID..."
-                            className="p-2 border rounded w-full"
+                            className="p-2 border rounded-sm w-full"
                         />
                         <button
-                            className="mt-2 w-full bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 rounded"
+                            className="mt-2 w-full bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 rounded-sm"
                             onClick={handleAddVideo}
                         >
                             Add Video
@@ -216,7 +216,7 @@ function PlaylistPlayer({ playlistData }) {
                     </div>
                     <div className="export-playlist mt-4">
                         <button
-                            className="w-full bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 rounded"
+                            className="w-full bg-accent hover:bg-accent-dark text-white font-bold py-2 px-4 rounded-sm"
                             onClick={exportPlaylistToUrl}
                         >
                             Export Playlist
@@ -238,7 +238,7 @@ function PlaylistPlayer({ playlistData }) {
                 </a>
                 <p className="text-white text-lg mb-4">Need some ideas?</p>
                 <button
-                    className="bg-accent hover:bg-accent-dark text-white font-bold p-4 rounded"
+                    className="bg-accent hover:bg-accent-dark text-white font-bold p-4 rounded-sm"
                     onClick={handleAddRandomSong}
                 >
                     <p className="text-white">Add a random song!</p>

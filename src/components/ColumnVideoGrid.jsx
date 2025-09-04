@@ -35,7 +35,7 @@ const ColumnVideoGrid = ({ apiUrl, titleText, currentVideoId = "" }) => {
                               key={index}
                               className="video-row p-2 flex flex-col lg:flex-row"
                           >
-                              <div className="flex-shrink-0 mb-2 lg:mb-0">
+                              <div className="shrink-0 mb-2 lg:mb-0">
                                   <div className="w-full lg:w-72 h-40 lg:h-44 bg-gray-300" />
                               </div>
                               <div className="ml-0 lg:ml-4">
@@ -55,7 +55,7 @@ const ColumnVideoGrid = ({ apiUrl, titleText, currentVideoId = "" }) => {
                               key={video.video_id}
                               className="video-row p-2 flex flex-col lg:flex-row hover:bg-gray-800 transition-all duration-300 ease-in-out hover:shadow-lg transform hover:-translate-y-1"
                           >
-                              <div className="flex-shrink-0 mb-2 lg:mb-0">
+                              <div className="shrink-0 mb-2 lg:mb-0">
                                   <a href={"/watch?v=" + video.video_id}>
                                       <img
                                           src={

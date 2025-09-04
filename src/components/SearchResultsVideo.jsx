@@ -17,7 +17,7 @@ const SearchResultsVideo = ({ results }) => {
                             className="flex flex-col sm:flex-row p-2 mb-4 border-gray-400 hover:bg-gray-700 hover:rounded-lg transition-colors duration-200"
                             style={{ width: "calc(100% - 1rem)" }}
                         >
-                            <div className="flex-shrink-0 py-2">
+                            <div className="shrink-0 py-2">
                                 <a href={"/watch?v=" + video.video_id}>
                                     <img
                                         src={
@@ -31,7 +31,7 @@ const SearchResultsVideo = ({ results }) => {
                                     />
                                 </a>
                             </div>
-                            <div className="ml-4 flex-grow">
+                            <div className="ml-4 grow">
                                 <a href={"/watch?v=" + video.video_id}>
                                     <h3 className="text-xl font-bold text-white hover:underline">
                                         {video.title}

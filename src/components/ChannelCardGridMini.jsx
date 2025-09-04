@@ -26,7 +26,7 @@ const ChannelCardGridMini = ({ apiUrl = "", titleText = "" }) => {
                         ? Array.from({ length: 6 }).map((_, index) => (
                               <div
                                   key={index}
-                                  className="channel-item p-2 w-full md:w-1/2 lg:w-1/6 flex-grow"
+                                  className="channel-item p-2 w-full md:w-1/2 lg:w-1/6 grow"
                               >
                                   <div className="rounded overflow-hidden h-full">
                                       <div
@@ -51,7 +51,7 @@ const ChannelCardGridMini = ({ apiUrl = "", titleText = "" }) => {
                         : channels.map((channel) => (
                               <div
                                   key={channel.id}
-                                  className="channel-item p-2 w-full md:w-1/2 lg:w-1/6 flex-grow transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
+                                  className="channel-item p-2 w-full md:w-1/2 lg:w-1/6 grow transform transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
                               >
                                   <div className="rounded overflow-hidden h-full ">
                                       <a

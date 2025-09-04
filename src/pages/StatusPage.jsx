@@ -61,15 +61,15 @@ function StatusPage() {
                 url="status"
                 image={import.meta.env.VITE_OG_IMAGE_DYNA}
             />
-            <div className="flex justify-center items-center w-50 py-8 px-2">
-                <div className="flex flex-col justify-center items-center w-50 py-4 px-2">
-                    <h1 className="text-white text-3xl font-bold mb-4">
-                        Patchwork Archive Server Status
-                    </h1>
+            <div className="flex justify-center items-center text-center py-8 px-2">
+              <div className="flex flex-col justify-center items-center w-50 py-4 px-2">
+                  <h1 className="text-white text-3xl font-bold mb-4 whitespace-nowrap">
+                      Patchwork Archive Server Status
+                  </h1>
                     <img
                         src={import.meta.env.VITE_DEFAULT_OG_IMAGE}
                         alt="Patchwork Archive Logo"
-                        className="w-1/4 h-1/4 rounded-full mt-2"
+                        className="w-1/2 h-1/2 rounded-full mt-2"
                     />
                 </div>
             </div>

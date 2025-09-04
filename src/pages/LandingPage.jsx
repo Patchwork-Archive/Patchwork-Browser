@@ -52,7 +52,7 @@ function LandingPage() {
                 image={import.meta.env.VITE_OG_IMAGE_DYNA}
             />
             <Announcement />
-            <div className="max-w-screen-xl mx-auto px-4 mt-8">
+            <div className="max-w-(--breakpoint-xl) mx-auto px-4 mt-8">
                 <div className="text-center mb-8">
                     <h1 className="text-4xl font-bold mb-4 mt-16 text-white">
                         Welcome to the VTuber Music Archives

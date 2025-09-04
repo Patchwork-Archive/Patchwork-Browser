@@ -503,7 +503,7 @@ const VideoPlayer = ({ videoId }) => {
                     onSelect={handleSubtitleSelect}
                   />
                   <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-1 rounded mt-2"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-1 rounded-sm mt-2"
                     onClick={toggleCaptions}
                   >
                     {showCaptions ? "Hide Captions" : "Show Captions"}
@@ -513,13 +513,13 @@ const VideoPlayer = ({ videoId }) => {
             )}
             <div className="flex flex-col sm:flex-row items-left my-4 sm:space-y-0 sm:space-x-2">
               <button
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-6  rounded"
+                className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-6  rounded-sm"
                 onClick={handleWatchOnYouTube}
               >
                 Watch on YouTube
               </button>
               <button
-                className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-1 px-4 mt-2 rounded"
+                className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-1 px-4 mt-2 rounded-sm"
                 onClick={handleOpenWithVLC}
               >
                 Open with VLC
@@ -527,7 +527,7 @@ const VideoPlayer = ({ videoId }) => {
               <Popup
                 trigger={
                   <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-6 mt-2 rounded"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-6 mt-2 rounded-sm"
                     onClick={handleDownloadButtonClick}
                   >
                     Download Options
@@ -537,7 +537,7 @@ const VideoPlayer = ({ videoId }) => {
               >
                 <div className="flex flex-col sm:flex-row">
                   <select
-                    className="text-black text-sm rounded p-2"
+                    className="text-black text-sm rounded-sm p-2"
                     onChange={(e) => handleDownloadOptionSelect(e.target.value)}
                   >
                     <option value="video">Video</option>
@@ -548,7 +548,7 @@ const VideoPlayer = ({ videoId }) => {
                     )}
                   </select>
                   <button
-                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded"
+                    className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-1 px-2 rounded-sm"
                     onClick={handleDownloadButtonClick}
                   >
                     Download
@@ -575,7 +575,7 @@ const VideoPlayer = ({ videoId }) => {
                   ))}
                   <button
                     onClick={toggleExpand}
-                    className="bg-gray-600 hover:underline text-white font-bold py-1 px-4 rounded mt-3"
+                    className="bg-gray-600 hover:underline text-white font-bold py-1 px-4 rounded-sm mt-3"
                   >
                     Collapse ↥
                   </button>
@@ -598,7 +598,7 @@ const VideoPlayer = ({ videoId }) => {
                   {videoData.description.split(/\n|\\n/).length > 4 && (
                     <button
                       onClick={toggleExpand}
-                      className="hover:underline bg-gray-600 text-white font-bold font-lg py-1 px-4 rounded mt-3"
+                      className="hover:underline bg-gray-600 text-white font-bold font-lg py-1 px-4 rounded-sm mt-3"
                     >
                       {isExpanded ? "Collapse ↥" : "Expand ↴"}
                     </button>

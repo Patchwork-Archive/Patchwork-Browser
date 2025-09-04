@@ -84,7 +84,7 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
     };
 
     return (
-        <div className="video-controls bg-gray-700 bg-opacity-75 p-1 rounded space-x-2 md:space-x-4 flex items-center">
+        <div className="video-controls bg-gray-700 bg-opacity-75 p-1 rounded-sm space-x-2 md:space-x-4 flex items-center">
             <button
                 onClick={handlePlayPause}
                 className="p-1 md:p-2 rounded-full hover:bg-gray-600 transition"
@@ -99,7 +99,7 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
                 {formatTime(currentTime)} /{" "}
                 {formatTime(videoRef.current?.duration || 0)}
             </div>
-            <div className="relative flex-grow mx-2 md:mx-4 flex items-center">
+            <div className="relative grow mx-2 md:mx-4 flex items-center">
                 <input
                     type="range"
                     value={progress}

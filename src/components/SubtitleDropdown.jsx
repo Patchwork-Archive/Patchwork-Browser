@@ -27,7 +27,7 @@ const SubtitleDropdown = ({ subtitles, onSelect }) => {
         <>
             <p className="text-white mt-1 mb-1 font-bold mr-2">Captions</p>
             <select
-                className="block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block py-2 px-3 border border-gray-300 bg-white rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={selectedSubtitle}
                 onChange={handleChange}
             >

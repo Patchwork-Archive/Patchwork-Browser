@@ -33,12 +33,12 @@ function PageSwitcher({ currentPage, maxPage }) {
                     Showing {currentPage} of {maxPage} pages
                 </span>
             )}
-            <div className="mx-2 px-4 py-2 rounded">
+            <div className="mx-2 px-4 py-2 rounded-sm">
                 {currentPage == 1 ? (
                     <></>
                 ) : (
                     <button
-                        className="bg-accent hover:scale-105 duration-200 text-white font-bold py-2 px-4 rounded mx-2 w-24"
+                        className="bg-accent hover:scale-105 duration-200 text-white font-bold py-2 px-4 rounded-sm mx-2 w-24"
                         onClick={goBack}
                     >
                         Back
@@ -49,7 +49,7 @@ function PageSwitcher({ currentPage, maxPage }) {
                     <></>
                 ) : (
                     <button
-                        className="bg-accent hover:scale-105 duration-200 text-white font-bold py-2 px-4 rounded mx-2 w-24"
+                        className="bg-accent hover:scale-105 duration-200 text-white font-bold py-2 px-4 rounded-sm mx-2 w-24"
                         onClick={goForward}
                     >
                         Forward

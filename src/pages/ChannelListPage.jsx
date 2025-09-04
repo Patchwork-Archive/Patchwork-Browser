@@ -66,7 +66,7 @@ function ChannelListPage() {
                     placeholder="Filter channels... Hit enter to create a new search query!"
                     value={search}
                     onChange={handleSearchChange}
-                    className="mb-4 p-2 mt-4 mx-4 rounded-md text-black"
+                    className="mb-4 p-2 mt-4 mx-4 rounded-md text-black bg-white"
                 />
                 {search && searchChanged && (
                     <button
@@ -83,7 +83,9 @@ function ChannelListPage() {
                 </p>
             )}
             {loading ? (
-                <div>Loading...</div>
+                <div className="flex justify-center items-center h-full">
+                    Loading...
+                </div>
             ) : (
                 <SearchResultsChannel
                     results={filteredChannels}

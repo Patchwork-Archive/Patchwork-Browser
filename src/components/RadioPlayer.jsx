@@ -129,7 +129,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
 
     return (
         <>
-            <div className="bg-gradient-to-tr animate-gradient-x from-indigo-500 via-purple-500 to-purple-500 p-8 rounded-2xl shadow-2xl flex flex-col items-center gap-6 transition-all duration-500 ease-in-out transform w-full max-w-4xl">
+            <div className="bg-linear-to-tr animate-gradient-x from-indigo-500 via-purple-500 to-purple-500 p-8 rounded-2xl shadow-2xl flex flex-col items-center gap-6 transition-all duration-500 ease-in-out transform w-full max-w-4xl">
                 <div className="flex items-center justify-center bg-white p-3 rounded-full shadow-lg hover:animate-spin">
                     <img
                         src={import.meta.env.VITE_DEFAULT_OG_IMAGE}
@@ -225,7 +225,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
                 <div className="text-white text-center">
                     {m3uAPIUrl ? (
                         <button
-                            className=" hover:underline text-white font-bold mx-2 rounded"
+                            className=" hover:underline text-white font-bold mx-2 rounded-sm"
                             onClick={() => (window.location.href = m3uAPIUrl)}
                         >
                             Download M3U
@@ -233,7 +233,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
                     ) : null}
                     {plsAPIUrl ? (
                         <button
-                            className="hover:underline text-white font-bold  mx-2 rounded"
+                            className="hover:underline text-white font-bold  mx-2 rounded-sm"
                             onClick={() => (window.location.href = plsAPIUrl)}
                         >
                             Download PLS
@@ -242,7 +242,7 @@ function RadioPlayer({ radioUrl, m3uAPIUrl, plsAPIUrl }) {
                 </div>
             </div>
             {/* Listening History */}
-            <div className="mt-8 w-full max-w-4xl bg-white bg-opacity-10 rounded-xl p-6 shadow-lg">
+            <div className="mt-8 w-full max-w-4xl bg-gray-800 bg-opacity-10 rounded-xl bg- p-6 shadow-lg">
                 <h3 className="text-lg font-semibold text-white mb-4">Listening History</h3>
                 <ul className="divide-y divide-purple-200">
                     {listeningHistory.length === 0 && (
