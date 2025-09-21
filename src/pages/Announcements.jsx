@@ -22,12 +22,11 @@ function AboutPage() {
                 image={import.meta.env.VITE_OG_IMAGE_DYNA}
             />
             <div className="flex justify-center items-center py-8 px-2">
-                <Markdown
-                    remarkPlugins={[remarkGfm]}
-                    className="prose dark:prose-invert text-white"
-                >
-                    {markdown}
-                </Markdown>
+                <div className="prose dark:prose-invert text-white">
+                    <Markdown remarkPlugins={[remarkGfm]}>
+                        {markdown}
+                    </Markdown>
+                </div>
             </div>
             <Footer />
         </>
