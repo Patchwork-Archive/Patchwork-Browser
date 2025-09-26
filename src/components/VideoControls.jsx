@@ -12,7 +12,8 @@ import { useEffect, useState } from "react";
 
 const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
     const [progress, setProgress] = useState(0);
-    const [volume, setVolume] = useState(1);
+    const savedVolume = localStorage.getItem("video-volume") || 1;
+    const [volume, setVolume] = useState(savedVolume);
     const [showVolumeSlider, setShowVolumeSlider] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
 
@@ -41,6 +42,7 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
         };
 
         const currentVideoRef = videoRef.current;
+        videoRef.current.volume = volume;
         currentVideoRef?.addEventListener("timeupdate", updateProgress);
         return () =>
             currentVideoRef?.removeEventListener("timeupdate", updateProgress);
@@ -66,6 +68,7 @@ const VideoControls = ({ videoRef, isPlaying, onPlayStateChange }) => {
         if (videoRef.current) {
             videoRef.current.volume = vol;
         }
+        localStorage.setItem("video-volume", vol);
         setVolume(vol);
     };
 
