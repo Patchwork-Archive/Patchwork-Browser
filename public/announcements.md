@@ -1,3 +1,8 @@
+# 2026/01/14
+Huge improvements have been made to the backend of things. For the past months, yt-dlp downloads wouldn't work without solving a JS challenge. This actually does put some strain on the tiny VPS which was handling both the archival as well as hosting the DB. So that's why Patchwork was down every now and then.
+
+I've taken the time to seperate the Worker and the DB into seperate VPS machines which basically resolves this issue! While I was at it, all the DB code has been migrated to Postgres. MySQL was originally chosen due to how Patchwork was being hosted in 2022/2023 (on PythonAnywhere). I've always preferred Postgres but just never took the time to make the change.
+
 # 2025/4/04
 It has been a while. Many graduations have happened since December...
 
