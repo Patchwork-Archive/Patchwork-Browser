@@ -14,7 +14,6 @@ const ChannelPage = lazy(() => import("./pages/ChannelPage"));
 const StatusPage = lazy(() => import("./pages/StatusPage"));
 const PlaylistPage = lazy(() => import("./pages/PlaylistPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
-const RadioPage = lazy(() => import("./pages/RadioPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const ChannelListPage = lazy(() => import("./pages/ChannelListPage"));
 const AnnouncementPage = lazy(() => import("./pages/Announcements"));
@@ -36,7 +35,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     />
                     <Route path="/status" element={<StatusPage />} />
                     <Route path="/playlist" element={<PlaylistPage />} />
-                    <Route path="/radio" element={<RadioPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/channels" element={<ChannelListPage />} />

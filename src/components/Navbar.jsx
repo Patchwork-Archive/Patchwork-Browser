@@ -79,7 +79,7 @@ function Navbar() {
                         {import.meta.env.VITE_RADIO_URL_MP3 ? (
                             <Link
                                 onClick={() => setMenuOpen(false)}
-                                to="/radio"
+                                to="https://radio.moekyun.me"
                                 className="hover:bg-white hover:text-black py-2 px-4 rounded-sm text-white my-1 md:my-0 text-lg text-left block"
                             >
                                 <FontAwesomeIcon
