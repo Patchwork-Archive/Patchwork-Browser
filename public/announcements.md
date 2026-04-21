@@ -1,3 +1,11 @@
+# 2026/03/21
+As of today, I've decided to put a freeze on archival for the time being. Everything will be kept as is and everything will run as normal, however the crawler as well as the worker which handles archival automatically will be shutdown. 
+
+Why?
+2 main reasons I suppose. First, Much of the infrastructure was built on credits provided by student programs and that will soon run out. But mainly its because my interest in VTubers hasn't been as strong as it has been when I started this thing 4 years ago, and I'd like to allocate these resources elsewhere.
+
+Again, all existing content will continue to be accessible as is. Thank you.
+
 # 2026/01/14
 Huge improvements have been made to the backend of things. For the past months, yt-dlp downloads wouldn't work without solving a JS challenge. This actually does put some strain on the tiny VPS which was handling both the archival as well as hosting the DB. So that's why Patchwork was down every now and then.
 
