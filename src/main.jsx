@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
+import EndOfArchivalModal from "./components/EndOfArchivalModal";
 import { HelmetProvider } from "react-helmet-async";
 import "./styles/index.css";
 import "./styles/loading.css";
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <HelmetProvider context={helmetContext}>
         <BrowserRouter>
             <Navbar />
+            <EndOfArchivalModal />
             {/* TODO: Make something here for Suspense API*/}
             <Suspense fallback={<div className="loader text-center p-4" />}>
                 <Routes>
