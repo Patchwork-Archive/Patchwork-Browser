@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const thumbnailDomain = import.meta.env.VITE_THUMBNAIL_DOMAIN;
+const thumbnailPath = "/video-placeholder.png";
 
 const SearchResultsVideo = ({ results }) => {
     return (
@@ -20,12 +20,7 @@ const SearchResultsVideo = ({ results }) => {
                             <div className="shrink-0 py-2">
                                 <a href={"/watch?v=" + video.video_id}>
                                     <img
-                                        src={
-                                            thumbnailDomain +
-                                            "/" +
-                                            video.video_id +
-                                            ".jpg"
-                                        }
+                                        src={thumbnailPath}
                                         alt={video.title}
                                         className="w-full sm:w-96 object-cover rounded-md"
                                     />

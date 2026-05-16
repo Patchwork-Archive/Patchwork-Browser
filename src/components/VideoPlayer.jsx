@@ -16,6 +16,7 @@ const VideoPlayer = ({ videoId }) => {
   const videoWebMUrl =
     import.meta.env.VITE_CDN_DOMAIN + `/${videoId ?? ""}.webm`;
   const videoMP4Url = import.meta.env.VITE_CDN_DOMAIN + `/${videoId ?? ""}.mp4`;
+  const thumbnailPath = "/video-placeholder.png";
   const [videoData, setVideoData] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [aliases, setAliases] = useState([]);
@@ -175,7 +176,7 @@ const VideoPlayer = ({ videoId }) => {
         artist: videoData.channel,
         artwork: [
           {
-            src: import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`,
+            src: thumbnailPath,
             sizes: "512x512",
             type: "image/png",
           },
@@ -288,8 +289,7 @@ const VideoPlayer = ({ videoId }) => {
         break;
       case "thumbnail":
         const thumbnailLink = document.createElement("a");
-        thumbnailLink.href =
-          import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`;
+        thumbnailLink.href = thumbnailPath;
         thumbnailLink.target = "_blank";
         thumbnailLink.click();
         break;
@@ -330,7 +330,7 @@ const VideoPlayer = ({ videoId }) => {
         <HeadTags
           title="Video not found"
           description="Video not found"
-          image={import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`}
+          image={thumbnailPath}
           url={`/watch?v=${videoId}`}
         />
         <h1 className="text-white text-lg font-bold py-4">Video not found</h1>
@@ -367,7 +367,7 @@ const VideoPlayer = ({ videoId }) => {
             <HeadTags
               title={videoData.title}
               description={videoData.channel}
-              image={import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`}
+              image={thumbnailPath}
               url={`/watch?v=${videoId}`}
             />
             <div className="video-container w-full relative">
@@ -379,9 +379,7 @@ const VideoPlayer = ({ videoId }) => {
                 <video
                   ref={videoRef}
                   className="absolute top-0 left-0 w-full h-full object-contain"
-                  poster={
-                    import.meta.env.VITE_THUMBNAIL_DOMAIN + `/${videoId}.jpg`
-                  }
+                  poster={thumbnailPath}
                   onTimeUpdate={(e) => setCurrentTime(e.target.currentTime)}
                   onWaiting={() => setIsBuffering(true)}
                   onPlaying={() => setIsBuffering(false)}

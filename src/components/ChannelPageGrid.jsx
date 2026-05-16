@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const thumbnailDomain = import.meta.env.VITE_THUMBNAIL_DOMAIN;
+const thumbnailPath = "/video-placeholder.png";
 
 const ChannelPageGrid = ({ isLoading, videos }) => {
     return (
@@ -41,19 +41,9 @@ const ChannelPageGrid = ({ isLoading, videos }) => {
                                   <div className="rounded overflow-hidden h-full">
                                       <a href={"/watch?v=" + video.video_id}>
                                           <img
-                                              src={
-                                                  thumbnailDomain +
-                                                  "/" +
-                                                  video.video_id +
-                                                  ".jpg"
-                                              }
+                                              src={thumbnailPath}
                                               alt={video.title}
                                               className="w-full object-cover rounded-t-lg transition-brightness duration-300 hover:brightness-90"
-                                              onError={(e) => {
-                                                  e.target.onerror = null;
-                                                  e.target.src =
-                                                      import.meta.env.VITE_THUMBNAIL_PLACEHOLDER;
-                                              }}
                                           />
                                       </a>
                                       <div className="p-3">

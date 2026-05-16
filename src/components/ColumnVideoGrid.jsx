@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const thumbnailDomain = import.meta.env.VITE_THUMBNAIL_DOMAIN;
+const thumbnailPath = "/video-placeholder.png";
 
 const ColumnVideoGrid = ({ apiUrl, titleText, currentVideoId = "" }) => {
     const [videos, setVideos] = useState([]);
@@ -58,12 +58,7 @@ const ColumnVideoGrid = ({ apiUrl, titleText, currentVideoId = "" }) => {
                               <div className="shrink-0 mb-2 lg:mb-0">
                                   <a href={"/watch?v=" + video.video_id}>
                                       <img
-                                          src={
-                                              thumbnailDomain +
-                                              "/" +
-                                              video.video_id +
-                                              ".jpg"
-                                          }
+                                          src={thumbnailPath}
                                           alt={video.title}
                                           className="w-full lg:w-72 object-cover rounded-md"
                                       />
